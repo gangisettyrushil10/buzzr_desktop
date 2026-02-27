@@ -41,7 +41,27 @@ const config: Config = {
         sans: ['var(--font-acworth)', 'system-ui', 'sans-serif']
       },
       boxShadow: {
-        soft: '0 18px 40px rgba(0,0,0,0.56)'
+        soft: '0 18px 40px rgba(0,0,0,0.56)',
+        glow: '0 0 40px rgba(148, 210, 225, 0.15)'
+      },
+      animation: {
+        'marquee': 'marquee 25s linear infinite',
+        'fade-in-up': 'fade-in-up 0.6s ease-out forwards',
+        'float': 'float 3s ease-in-out infinite'
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' }
+        },
+        'fade-in-up': {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-6px)' }
+        }
       }
     }
   },

@@ -5,11 +5,15 @@ import Image from 'next/image';
 import { ReactNode } from 'react';
 import {
   BASE_URL,
+  BETA_TALLY_URL,
   BUZZR_TV_DISCLAIMER,
+  INSTAGRAM_URL,
   SITE_DESCRIPTION,
-  SITE_NAME
+  SITE_NAME,
+  TWITTER_URL
 } from '@/src/lib/constants';
 import { acworth, inter } from './fonts';
+import { SiteBackground } from '@/components/SiteBackground';
 
 export const metadata: Metadata = {
   title: `${SITE_NAME} — Rate sports games by entertainment.`,
@@ -28,9 +32,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${acworth.variable} ${inter.variable}`}>
       <body className="bg-background text-foreground">
-        <div className="flex min-h-screen flex-col bg-gradient-to-b from-[#253237] via-[#111827] to-black">
+        <div className="relative flex min-h-screen flex-col bg-gradient-to-b from-[#253237] via-[#111827] to-black">
+          <SiteBackground />
+          <div className="relative z-10 flex min-h-screen flex-col">
           <header className="flex items-center justify-between border-b border-border/70 px-6 py-4 backdrop-blur-sm">
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-90">
               <div className="relative h-9 w-9 overflow-hidden rounded-[0.4rem] border border-buzzr-accent/70 bg-[#020617] pixelated pixel-border">
                 <Image
                   src="/buzzr-stadium-dark.png"
@@ -48,17 +54,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <nav aria-label="Primary">
               <ul className="flex gap-5 text-xs text-mutedForeground">
                 <li>
-                  <Link href="/support" className="hover:text-foreground">
+                  <Link href="/support" className="transition-colors hover:text-foreground">
                     Support
                   </Link>
                 </li>
                 <li>
-                  <Link href="/privacy" className="hover:text-foreground">
+                  <Link href="/privacy" className="transition-colors hover:text-foreground">
                     Privacy
                   </Link>
                 </li>
                 <li>
-                  <Link href="/terms" className="hover:text-foreground">
+                  <Link href="/terms" className="transition-colors hover:text-foreground">
                     Terms
                   </Link>
                 </li>
@@ -67,6 +73,32 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </header>
           <main className="flex-1">{children}</main>
           <footer className="border-t border-border/70 px-6 py-5 text-xs text-mutedForeground">
+            <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+              <a
+                href={BETA_TALLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-buzzr-accent underline-offset-2 hover:underline"
+              >
+                Get notified when we launch
+              </a>
+              <a
+                href={TWITTER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-buzzr-accent underline-offset-2 hover:underline"
+              >
+                X
+              </a>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-buzzr-accent underline-offset-2 hover:underline"
+              >
+                Instagram
+              </a>
+            </div>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <span>© {new Date().getFullYear()} Humyn LLC</span>
               <div className="flex gap-3">
@@ -85,6 +117,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               {BUZZR_TV_DISCLAIMER}
             </p>
           </footer>
+          </div>
         </div>
       </body>
     </html>
