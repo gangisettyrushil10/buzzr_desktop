@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/rushilgangisetty/Desktop/Projects/buzzr_legal-support/buzzr_legal-support/app/layout\":[\"static/media/e4af272ccee01ff0-s.p.woff2\",\"static/media/eeeb4e54a6580eb4-s.p.otf\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"
