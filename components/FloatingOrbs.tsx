@@ -13,11 +13,11 @@ export function FloatingOrbs({ className }: { className?: string }) {
         style={{ animationDelay: '0s' }}
       />
       <div
-        className="absolute -right-[5%] top-[40%] h-[200px] w-[200px] rounded-full bg-cyan-400/10 blur-[60px] animate-float-orb-2"
+        className="absolute -right-[5%] top-[40%] h-[200px] w-[200px] rounded-full bg-buzzr-accent2/16 blur-[60px] animate-float-orb-2"
         style={{ animationDelay: '-5s' }}
       />
       <div
-        className="absolute left-[30%] top-[70%] h-[240px] w-[240px] rounded-full bg-buzzr-accent/12 blur-[70px] animate-float-orb-3"
+        className="absolute left-[30%] top-[70%] h-[240px] w-[240px] rounded-full bg-buzzr-accent4/14 blur-[70px] animate-float-orb-3"
         style={{ animationDelay: '-10s' }}
       />
     </div>

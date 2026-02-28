@@ -6,117 +6,67 @@ import {
   HERO_EMOTIONAL_LINE,
   HERO_STAT,
   SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TAGLINE,
   SUPPORT_EMAIL,
   TRUST_STRIP
 } from '@/src/lib/constants';
+import {
+  APP_SCREENSHOTS,
+  FAQS,
+  FEATURES,
+  HOW_IT_WORKS,
+  PERSONAS,
+  REVIEWS
+} from '@/src/lib/homeContent';
 import { Button } from '@/components/ui/button';
 import { FloatingOrbs } from '@/components/FloatingOrbs';
 import { Marquee } from '@/components/Marquee';
+import { RotatingReviews } from '@/components/RotatingReviews';
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { TrendingPulse } from '@/components/TrendingPulse';
+import { Parallax } from '@/components/Parallax';
+import { ScrollAudioTrigger } from '@/components/ScrollAudioTrigger';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faApple, faGooglePlay } from '@fortawesome/free-brands-svg-icons';
+
+import Image from 'next/image';
+
+function MockupContent({ slug }: { slug: string }) {
+  return (
+    <div className="relative h-full w-full">
+      <Image
+        src={`/screenshot-${slug}.png`}
+        alt={`Mockup showing ${slug} feature`}
+        fill
+        className="object-cover"
+        sizes="(max-width: 768px) 100vw, 240px"
+        priority
+      />
+    </div>
+  );
+}
 
 export const metadata: Metadata = {
-  title: 'Buzzr Sports — Rate sports games by entertainment.',
+  title: `${SITE_NAME} — ${SITE_TAGLINE}`,
   description: SITE_DESCRIPTION,
   openGraph: {
-    title: 'Buzzr Sports — Rate sports games by entertainment.',
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION
   }
 };
 
-const APP_SCREENSHOTS = [
-  { label: 'Rate by entertainment', slug: 'rate' },
-  { label: 'Watch parties & lists', slug: 'watch-parties' },
-  { label: 'Your game diary', slug: 'diary' }
-];
-
-const FEATURES = [
-  {
-    title: 'Entertainment ratings',
-    description: 'Rate games on chaos, crowd energy, and drama — not just the box score. See what fans actually thought was worth watching.'
-  },
-  {
-    title: 'Watch parties',
-    description: 'Create watch parties, invite friends, and see when others are watching. Plan viewing together and compare ratings after.'
-  },
-  {
-    title: 'Lists & rewatch queue',
-    description: 'Build lists of classics, hidden gems, or “skip it” games. Share lists with friends and never forget that insane finish.'
-  },
-  {
-    title: 'Game diary',
-    description: 'Log every game you watch. Look back by season or league and remember which nights actually delivered.'
-  }
-];
-
-const REVIEWS = [
-  {
-    quote: 'I couldn’t breathe the last five minutes. We were all just screaming. Still get chills thinking about it 🫠',
-    game: 'NFL · Chiefs vs Bills, 2022 Divisional',
-    rating: 'Chaos 10/10'
-  },
-  {
-    quote: 'Cried. Actually cried. That game took years off my life 😭',
-    game: 'FIFA World Cup 2022 · Argentina vs France',
-    rating: 'Entertainment 10/10'
-  },
-  {
-    quote: 'That shot. I still don’t believe it. My jaw was on the floor 😮',
-    game: 'NCAAB · San Diego State vs FAU, 2023 Final Four',
-    rating: 'Chaos 10/10'
-  }
-];
-
-const PERSONAS = [
-  {
-    title: 'Die-hard sickos',
-    description: 'You watched the random Tuesday night MAC game and the full West Coast slate. Buzzr keeps score on which nights were actually worth it.'
-  },
-  {
-    title: 'Watch party hosts',
-    description: 'You’re the friend with League Pass and the extra screen. Create parties, sync what you’re watching, and rate the chaos together.'
-  },
-  {
-    title: 'Highlight hunters',
-    description: 'You don’t have time for every game. See which matchups fans said were truly rewatchable before you commit your night.'
-  }
-];
-
-const FAQS = [
-  {
-    q: 'Is Buzzr a betting app?',
-    a: 'No. Buzzr is about entertainment and vibes, not betting lines or sportsbooks.'
-  },
-  {
-    q: 'Which sports and leagues does Buzzr support?',
-    a: 'We’re starting with the major leagues fans obsess over most — NBA, NFL, NCAAB, NCAAF, IPL, F1, NHL, MLB, MLS, plus big moments like March Madness and the World Cup.'
-  },
-  {
-    q: 'Is Buzzr free to use?',
-    a: 'Yes. During beta, Buzzr is free. We’ll share any future pricing changes well in advance.'
-  },
-  {
-    q: 'How do I get access?',
-    a: 'Join the beta waitlist from this page. We’re inviting fans in waves so we can keep the experience fast and focused.'
-  },
-  {
-    q: 'Is Buzzr affiliated with BUZZR TV (Fremantle)?',
-    a: 'No. Buzzr Sports is not affiliated with BUZZR TV (Fremantle).'
-  },
-  {
-    q: 'What happens to my data?',
-    a: 'We use your ratings and game logs to power your experience in the app. We don’t sell your personal data.'
-  }
-];
-
 export default function HomePage() {
   return (
     <div className="relative">
+      <ScrollAudioTrigger />
       <FloatingOrbs className="-z-10" />
 
       {/* Hero */}
       <section
+        data-buzz-section="true"
         aria-labelledby="hero-title"
-        className="relative mx-auto flex max-w-5xl flex-col gap-10 px-6 pb-12 pt-10 md:pt-16"
+        className="relative mx-auto flex max-w-5xl flex-col gap-10 px-6 pb-20 pt-24 md:pt-32"
       >
         <header className="space-y-6">
           <p
@@ -128,9 +78,8 @@ export default function HomePage() {
           <h1
             id="hero-title"
             className="font-heading text-4xl leading-tight text-foreground md:text-5xl max-w-3xl opacity-0 animate-fade-in-up"
-            style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}
           >
-            Buzzr Sports — Rate sports games by entertainment.
+            Buzzr — Rate sports games by entertainment.
           </h1>
           <p
             className="max-w-xl text-sm text-mutedForeground md:text-base opacity-0 animate-fade-in-up"
@@ -161,7 +110,10 @@ export default function HomePage() {
               Support
             </Link>
             <span className="text-mutedForeground/60">·</span>
-            <span>{HERO_STAT} Coming soon to iOS and Android.</span>
+            <span className="flex items-center gap-1.5 opacity-80 filter grayscale">
+              <FontAwesomeIcon icon={faApple} className="h-3 w-3" />
+              <FontAwesomeIcon icon={faGooglePlay} className="h-2.5 w-2.5" />
+            </span>
           </p>
         </div>
 
@@ -177,11 +129,13 @@ export default function HomePage() {
       </p>
 
       <Marquee />
+      <TrendingPulse />
 
       {/* App screenshots */}
       <section
+        data-buzz-section="true"
         aria-label="App preview"
-        className="mx-auto max-w-5xl px-6 py-16"
+        className="mx-auto max-w-5xl px-6 py-24 md:py-32"
       >
         <ScrollReveal delay={0}>
           <h2 className="mb-2 text-center text-xs uppercase tracking-[0.3em] text-buzzr-accent/80">
@@ -191,18 +145,14 @@ export default function HomePage() {
             Rate games, start watch parties, and build your rewatch list — all in one place.
           </p>
         </ScrollReveal>
-        <div className="grid gap-6 sm:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
           {APP_SCREENSHOTS.map((shot, i) => (
-            <ScrollReveal key={shot.slug} delay={i as 0 | 1 | 2}>
-              <div className="group overflow-hidden rounded-2xl border border-border/80 bg-buzzr-surface/40 shadow-soft transition-all duration-300 hover:scale-[1.02] hover:border-buzzr-accent/40 hover:shadow-glow">
-                <div className="aspect-[9/19] w-full max-w-[280px] mx-auto bg-gradient-to-b from-[#0f172a] to-[#1e293b] flex items-center justify-center p-4">
-                  <span className="text-center text-xs text-mutedForeground/70">
-                    {shot.label}
-                    <br />
-                    <span className="text-[10px]">Screenshot</span>
-                  </span>
+            <ScrollReveal key={shot.slug} delay={(i % 4) as 0 | 1 | 2 | 3}>
+              <div className="overflow-hidden rounded-[2rem] border border-border/60 bg-buzzr-surface/20 shadow-soft pb-4">
+                <div className="aspect-[9/19] w-full max-w-[240px] mx-auto relative bg-background border-[6px] border-border/30 rounded-[2.5rem] mt-8 overflow-hidden shadow-2xl flex flex-col items-center">
+                  <MockupContent slug={shot.slug} />
                 </div>
-                <p className="p-3 text-center text-xs font-medium text-foreground">
+                <p className="mt-6 text-center text-sm font-semibold tracking-wide text-foreground">
                   {shot.label}
                 </p>
               </div>
@@ -214,7 +164,7 @@ export default function HomePage() {
       {/* Features: including watch parties */}
       <section
         aria-label="Features"
-        className="mx-auto max-w-5xl px-6 py-16"
+        className="relative mx-auto max-w-5xl px-6 py-24 md:py-32 overflow-hidden"
       >
         <ScrollReveal delay={0}>
           <h2 className="mb-2 text-center text-xs uppercase tracking-[0.3em] text-buzzr-accent/80">
@@ -245,8 +195,9 @@ export default function HomePage() {
 
       {/* What fans are saying – hero quote + two smaller */}
       <section
+        data-buzz-section="true"
         aria-label="What fans are saying"
-        className="mx-auto max-w-5xl px-6 py-16"
+        className="mx-auto max-w-5xl px-6 py-24 md:py-32"
       >
         <ScrollReveal delay={0}>
           <h2 className="mb-2 text-center text-xs uppercase tracking-[0.3em] text-buzzr-accent/80">
@@ -256,38 +207,16 @@ export default function HomePage() {
             Real reactions from people who care more about the show than the score.
           </p>
         </ScrollReveal>
-        <div className="mx-auto max-w-3xl">
-          <ScrollReveal delay={0}>
-            <blockquote className="text-center">
-              <p className="text-lg md:text-xl leading-relaxed text-foreground">
-                &ldquo;{REVIEWS[0].quote}&rdquo;
-              </p>
-              <footer className="mt-3 text-xs text-mutedForeground">
-                {REVIEWS[0].game} · {REVIEWS[0].rating}
-              </footer>
-            </blockquote>
-          </ScrollReveal>
-          <div className="mt-10 grid gap-8 sm:grid-cols-2">
-            {REVIEWS.slice(1, 3).map((review, i) => (
-              <ScrollReveal key={i} delay={(i + 1) as 0 | 1 | 2}>
-                <blockquote className="border-l-2 border-buzzr-accent/40 pl-4">
-                  <p className="text-sm leading-relaxed text-foreground">
-                    &ldquo;{review.quote}&rdquo;
-                  </p>
-                  <footer className="mt-2 text-[11px] text-mutedForeground">
-                    {review.game} — {review.rating}
-                  </footer>
-                </blockquote>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
+        <ScrollReveal delay={0}>
+          <RotatingReviews reviews={REVIEWS} />
+        </ScrollReveal>
       </section>
 
       {/* Who Buzzr is for – full-width alternating rows */}
       <section
+        data-buzz-section="true"
         aria-label="Who Buzzr is for"
-        className="mx-auto max-w-5xl px-6 py-16"
+        className="relative mx-auto max-w-5xl px-6 py-24 md:py-32 overflow-hidden"
       >
         <ScrollReveal delay={0}>
           <h2 className="mb-2 text-center text-xs uppercase tracking-[0.3em] text-buzzr-accent/80">
@@ -317,8 +246,9 @@ export default function HomePage() {
 
       {/* How it works – numbered steps */}
       <section
+        data-buzz-section="true"
         aria-label="How Buzzr works"
-        className="mx-auto max-w-5xl px-6 py-16"
+        className="mx-auto max-w-5xl px-6 py-24 md:py-32"
       >
         <ScrollReveal delay={0}>
           <h2 className="mb-2 text-center text-xs uppercase tracking-[0.3em] text-buzzr-accent/80">
@@ -329,27 +259,11 @@ export default function HomePage() {
           </p>
         </ScrollReveal>
         <div className="mx-auto mt-10 max-w-2xl space-y-0">
-          {[
-            {
-              step: 1,
-              title: 'Track every game',
-              body: 'Log the games you watch across leagues and seasons so you can look back at what was actually worth your time.'
-            },
-            {
-              step: 2,
-              title: 'Rate by entertainment',
-              body: 'Chaos factor, crowd energy, drama — rate on vibes, not just the box score.'
-            },
-            {
-              step: 3,
-              title: 'Never miss a classic',
-              body: "See what other fans thought was rewatchable and build your list of must-watch games."
-            }
-          ].map((item, i) => (
+          {HOW_IT_WORKS.map((item, i) => (
             <ScrollReveal key={item.step} delay={(i % 3) as 0 | 1 | 2}>
-              <div className="group flex gap-6 border-l-2 border-border/60 py-6 pl-8 pr-0 last:pb-0 first:pt-0 transition-colors hover:border-buzzr-accent/50">
+              <div className="flex gap-6 border-l-2 border-border/60 py-6 pl-8 pr-0 last:pb-0 first:pt-0">
                 <span
-                  className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-buzzr-accent/20 text-sm font-bold text-buzzr-accent ring-2 ring-buzzr-accent/30 transition-colors group-hover:bg-buzzr-accent/30 group-hover:ring-buzzr-accent/50"
+                  className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-buzzr-accent/20 text-sm font-bold text-buzzr-accent ring-2 ring-buzzr-accent/30"
                   aria-hidden
                 >
                   {item.step}
@@ -370,22 +284,23 @@ export default function HomePage() {
 
       {/* FAQ */}
       <section
+        data-buzz-section="true"
         aria-label="Frequently asked questions"
-        className="mx-auto max-w-5xl px-6 pb-8 pt-4"
+        className="mx-auto max-w-5xl px-6 py-24 md:py-32"
       >
         <ScrollReveal delay={0}>
           <h2 className="mb-3 text-center text-xs uppercase tracking-[0.3em] text-buzzr-accent/80">
             FAQ
           </h2>
         </ScrollReveal>
-        <dl className="mx-auto max-w-2xl divide-y divide-border/50">
+        <dl className="mx-auto max-w-2xl px-2">
           {FAQS.map((item, i) => (
-            <ScrollReveal key={item.q} delay={(i % 3) as 0 | 1 | 2}>
-              <div className="py-4 first:pt-0">
-                <dt className="text-xs font-semibold uppercase tracking-wide text-foreground">
+            <ScrollReveal key={item.q} delay={(i % 3) as 0 | 1 | 2} className="border-b border-border/50 last:border-0">
+              <div className="py-8">
+                <dt className="text-sm font-bold uppercase tracking-widest text-foreground">
                   {item.q}
                 </dt>
-                <dd className="mt-1.5 text-xs leading-relaxed text-mutedForeground">
+                <dd className="mt-3 text-sm leading-relaxed text-mutedForeground">
                   {item.a}
                 </dd>
               </div>
@@ -397,8 +312,9 @@ export default function HomePage() {
       {/* CTA */}
       <ScrollReveal delay={0}>
         <section
+          data-buzz-section="true"
           aria-label="Get early access"
-          className="mx-auto max-w-2xl px-6 py-16 text-center"
+          className="mx-auto max-w-2xl px-6 py-24 md:py-32 text-center"
         >
           <p className="mb-2 text-xs uppercase tracking-[0.2em] text-buzzr-accent/80">
             {HERO_STAT}
@@ -414,9 +330,10 @@ export default function HomePage() {
               Get early access
             </Button>
           </Link>
-          <p className="mt-3 text-xs text-mutedForeground/80">
-            Coming soon on iOS and Android.
-          </p>
+          <div className="mt-4 flex items-center justify-center gap-3 text-mutedForeground/60">
+            <FontAwesomeIcon icon={faApple} className="h-5 w-5 hover:text-foreground transition-colors" />
+            <FontAwesomeIcon icon={faGooglePlay} className="h-4 w-4 hover:text-foreground transition-colors" />
+          </div>
         </section>
       </ScrollReveal>
 

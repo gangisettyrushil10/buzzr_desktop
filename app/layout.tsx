@@ -14,6 +14,8 @@ import {
 } from '@/src/lib/constants';
 import { acworth, inter } from './fonts';
 import { SiteBackground } from '@/components/SiteBackground';
+import { PremiumGridBackground } from '@/components/PremiumGridBackground';
+import { FloatingIconsBackground } from '@/components/FloatingIconsBackground';
 
 export const metadata: Metadata = {
   title: `${SITE_NAME} — Rate sports games by entertainment.`,
@@ -30,25 +32,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${acworth.variable} ${inter.variable}`}>
+    <html lang="en" className={`dark ${acworth.variable} ${inter.variable}`}>
       <body className="bg-background text-foreground">
-        <div className="relative flex min-h-screen flex-col bg-gradient-to-b from-[#253237] via-[#111827] to-black">
+        <div className="relative flex min-h-screen flex-col bg-gradient-to-b from-[rgb(var(--bg-gradient-start))] via-[rgb(var(--bg-gradient-mid))] to-[rgb(var(--bg-gradient-end))]">
+          <div className="pointer-events-none fixed inset-0 opacity-[0.05] bg-noise z-50 mix-blend-overlay" aria-hidden="true" />
           <SiteBackground />
+          <PremiumGridBackground />
+          <FloatingIconsBackground />
           <div className="relative z-10 flex min-h-screen flex-col">
           <header className="flex items-center justify-between border-b border-border/70 px-6 py-4 backdrop-blur-sm">
-            <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-90">
-              <div className="relative h-9 w-9 overflow-hidden rounded-[0.4rem] border border-buzzr-accent/70 bg-[#020617] pixelated pixel-border">
-                <Image
-                  src="/buzzr-stadium-dark.png"
-                  alt="Buzzr Sports stadium logo"
-                  fill
-                  sizes="36px"
-                  className="object-contain"
-                  priority
-                />
-              </div>
+            <Link href="/" className="flex items-center transition-opacity hover:opacity-90">
               <span className="font-heading text-sm uppercase tracking-[0.24em] text-buzzr-accent">
-                Buzzr Sports
+                Buzzr
               </span>
             </Link>
             <nav aria-label="Primary">

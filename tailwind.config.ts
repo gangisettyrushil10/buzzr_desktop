@@ -11,24 +11,28 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Buzzr main palette (dark mode by default)
+        // Palette is driven by CSS variables to support system light/dark mode.
         buzzr: {
-          background: '#253237',
-          surface: '#5c6b73',
-          surfaceElevated: 'rgba(157, 180, 192, 0.32)',
-          text: '#e0fbfc',
-          textMuted: '#c2dfe3',
-          border: 'rgba(157, 180, 192, 0.9)',
-          accent: '#c2dfe3'
+          background: 'rgb(var(--background) / <alpha-value>)',
+          surface: 'rgb(var(--surface) / <alpha-value>)',
+          surfaceElevated: 'rgb(var(--surface-elevated) / <alpha-value>)',
+          text: 'rgb(var(--foreground) / <alpha-value>)',
+          textMuted: 'rgb(var(--muted-foreground) / <alpha-value>)',
+          border: 'rgb(var(--border) / <alpha-value>)',
+          accent: 'rgb(var(--accent) / <alpha-value>)',
+          accent2: 'rgb(var(--accent-2) / <alpha-value>)',
+          accent3: 'rgb(var(--accent-3) / <alpha-value>)',
+          accent4: 'rgb(var(--accent-4) / <alpha-value>)',
+          accent5: 'rgb(var(--accent-5) / <alpha-value>)'
         },
-        background: '#253237',
-        foreground: '#e0fbfc',
-        muted: '#5c6b73',
-        mutedForeground: '#c2dfe3',
-        border: 'rgba(157, 180, 192, 0.9)',
-        accent: '#c2dfe3',
-        input: 'rgba(92, 107, 115, 0.94)',
-        ring: '#c2dfe3'
+        background: 'rgb(var(--background) / <alpha-value>)',
+        foreground: 'rgb(var(--foreground) / <alpha-value>)',
+        muted: 'rgb(var(--muted) / <alpha-value>)',
+        mutedForeground: 'rgb(var(--muted-foreground) / <alpha-value>)',
+        border: 'rgb(var(--border) / <alpha-value>)',
+        accent: 'rgb(var(--accent) / <alpha-value>)',
+        input: 'rgb(var(--input) / <alpha-value>)',
+        ring: 'rgb(var(--ring) / <alpha-value>)'
       },
       borderRadius: {
         lg: '0.75rem',
@@ -69,4 +73,3 @@ const config: Config = {
 };
 
 export default config;
-

@@ -1,39 +1,43 @@
 'use client';
 
+import { Activity, Trophy, Snowflake, Flag, Swords, FlagTriangleRight, Target, Flame } from 'lucide-react';
 import { cn } from '@/components/utils';
 
 const DEFAULT_ITEMS = [
-  'IPL',
-  'F1',
-  'NHL',
-  'MLB',
-  'NBA',
-  'NFL',
-  'NCAAB',
-  'NCAAF',
-  'MLS',
-  'World Cup',
-  'March Madness',
-  'UFC',
-  'Golf',
+  { label: 'NBA', icon: Activity },
+  { label: 'NFL', icon: Trophy },
+  { label: 'MLB', icon: Target },
+  { label: 'NHL', icon: Snowflake },
+  { label: 'F1', icon: Flag },
+  { label: 'NCAAB', icon: Flame },
+  { label: 'NCAAF', icon: Trophy },
+  { label: 'MLS', icon: Target },
+  { label: 'World Cup', icon: FlagTriangleRight },
+  { label: 'March Madness', icon: Flame },
+  { label: 'UFC', icon: Swords },
+  { label: 'Golf', icon: FlagTriangleRight },
 ];
 
 type MarqueeProps = {
-  items?: string[];
+  items?: typeof DEFAULT_ITEMS;
   className?: string;
 };
 
-function MarqueeContent({ items }: { items: string[] }) {
+function MarqueeContent({ items }: { items: typeof DEFAULT_ITEMS }) {
   return (
-    <div className="flex shrink-0 items-center gap-10 whitespace-nowrap pr-10">
-      {items.map((label, i) => (
-        <span
-          key={i}
-          className="text-sm font-medium uppercase tracking-widest text-mutedForeground/80"
-        >
-          {label}
-        </span>
-      ))}
+    <div className="flex shrink-0 items-center gap-12 whitespace-nowrap pr-12">
+      {items.map((item, i) => {
+        const Icon = item.icon;
+        return (
+          <span
+            key={i}
+            className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-widest text-mutedForeground/80"
+          >
+            <Icon className="h-4 w-4 text-buzzr-accent/70" strokeWidth={2.5} />
+            {item.label}
+          </span>
+        );
+      })}
     </div>
   );
 }

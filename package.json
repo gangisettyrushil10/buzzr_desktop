@@ -1,5 +1,5 @@
 {
-  "name": "buzzr-legal-support",
+  "name": "buzzr-sports-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,14 @@
     "test": "jest"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-brands-svg-icons": "^7.2.0",
+    "@fortawesome/react-fontawesome": "^3.2.0",
     "@upstash/ratelimit": "^2.0.0",
     "@upstash/redis": "^1.31.0",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.34.3",
+    "lucide-react": "^0.575.0",
     "next": "14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

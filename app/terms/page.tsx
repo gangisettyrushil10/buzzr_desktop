@@ -2,14 +2,15 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   COMPANY_NAME,
+  SITE_NAME,
   SUPPORT_EMAIL,
   SUPPORT_URL
 } from '@/src/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use — Buzzr Sports',
+  title: `Terms of Use — ${SITE_NAME}`,
   description:
-    'Terms of Use for Buzzr Sports, operated by Humyn LLC. Understand your rights and responsibilities when using the service.'
+    `Terms of Use for ${SITE_NAME}, operated by ${COMPANY_NAME}. Understand your rights and responsibilities when using the service.`
 };
 
 export default function TermsPage() {

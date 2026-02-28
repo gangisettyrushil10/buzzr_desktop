@@ -2,14 +2,15 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   COMPANY_NAME,
+  SITE_NAME,
   SUPPORT_EMAIL,
   SUPPORT_URL
 } from '@/src/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Buzzr Sports',
+  title: `Privacy Policy — ${SITE_NAME}`,
   description:
-    'Privacy policy for Buzzr Sports, operated by Humyn LLC. Learn how we handle your data and your rights as a user.'
+    `Privacy policy for ${SITE_NAME}, operated by ${COMPANY_NAME}. Learn how we handle your data and your rights as a user.`
 };
 
 export default function PrivacyPage() {

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { SUPPORT_EMAIL } from '@/src/lib/constants';
+import { SITE_NAME, SUPPORT_EMAIL } from '@/src/lib/constants';
 import {
   SupportRequestInput,
   supportRequestSchema
@@ -65,7 +65,7 @@ export async function POST(request: Request) {
     await resend.emails.send({
       from: process.env.SUPPORT_FROM_EMAIL ?? 'support@buzzr.app',
       to: SUPPORT_EMAIL,
-      subject: `[Buzzr Sports] Support request from ${body.name}`,
+      subject: `[${SITE_NAME}] Support request from ${body.name}`,
       reply_to: body.email,
       text: [
         `Name: ${body.name}`,
@@ -87,4 +87,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ ok: true }, { status: 200 });
 }
-

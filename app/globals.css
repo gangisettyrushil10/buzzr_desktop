@@ -2,8 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+:root,
+.light {
+  color-scheme: light;
+
+  /* Accent palette */
+  --accent: 7 190 184;     /* #07beb8 - primary important color */
+  --accent-2: 61 204 199;  /* #3dccc7 */
+  --accent-3: 104 216 214; /* #68d8d6 */
+  --accent-4: 156 234 239; /* #9ceaef */
+  --accent-5: 196 255 249; /* #c4fff9 */
+
+  /* Main palette - light mode */
+  --background: 248 248 246;      /* lightNeutralBackground: #f8f8f6 */
+  --surface: 255 255 255;         /* lightNeutralSurface: #ffffff */
+  --surface-elevated: 241 242 243;/* lightNeutralElevated: #f1f2f3 */
+  
+  --foreground: 37 50 55;         /* darkest token */
+  --muted-foreground: 92 107 115; /* dark token */
+  --border: 157 180 192;          /* medium token */
+  --muted: 241 242 243;
+  --input: 255 255 255;
+  --ring: 7 190 184;
+
+  --bg-gradient-start: 248 248 246;
+  --bg-gradient-mid: 255 255 255;
+  --bg-gradient-end: 241 242 243;
+  --preview-start: 241 242 243;
+  --preview-end: 157 180 192;
+  --logo-surface: 255 255 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    /* Main palette - dark mode */
+    --background: 31 35 40;         /* darkNeutralBackground: #1f2328 */
+    --surface: 39 44 51;            /* darkNeutralSurface: #272c33 */
+    --surface-elevated: 50 56 64;   /* darkNeutralElevated: #323840 */
+    
+    --foreground: 224 251 252;      /* lightest token */
+    --muted-foreground: 194 223 227;/* light token */
+    --border: 157 180 192;          /* medium token */
+    --muted: 39 44 51;              /* surface */
+    --input: 39 44 51;
+    --ring: 7 190 184;
+
+    --bg-gradient-start: 31 35 40;
+    --bg-gradient-mid: 39 44 51;
+    --bg-gradient-end: 31 35 40;
+    --preview-start: 31 35 40;
+    --preview-end: 50 56 64;
+    --logo-surface: 31 35 40;
+  }
+}
+
+.dark {
   color-scheme: dark;
+  --background: 31 35 40;
+  --surface: 39 44 51;
+  --surface-elevated: 50 56 64;
+  
+  --foreground: 224 251 252;
+  --muted-foreground: 194 223 227;
+  --border: 157 180 192;
+  --muted: 39 44 51;
+  --input: 39 44 51;
+  --ring: 7 190 184;
+
+  --bg-gradient-start: 31 35 40;
+  --bg-gradient-mid: 39 44 51;
+  --bg-gradient-end: 31 35 40;
+  --preview-start: 31 35 40;
+  --preview-end: 50 56 64;
+  --logo-surface: 31 35 40;
 }
 
 body {
@@ -128,8 +200,8 @@ h3 {
 
   .pixel-border {
     box-shadow:
-      0 0 0 1px rgba(6, 182, 212, 0.7),
-      0 6px 0 0 rgba(15, 23, 42, 1);
+      0 0 0 1px rgba(var(--accent), 0.7),
+      0 6px 0 0 rgba(var(--background), 1);
   }
 
   .animate-fade-in-up {
@@ -185,11 +257,11 @@ h3 {
   .text-gradient-shimmer {
     background: linear-gradient(
       90deg,
-      var(--tw-gradient-from, rgba(148, 210, 225, 0.9)) 0%,
-      #fff 25%,
-      rgba(148, 210, 225, 0.95) 50%,
-      #fff 75%,
-      var(--tw-gradient-to, rgba(148, 210, 225, 0.9)) 100%
+      var(--tw-gradient-from, rgba(var(--accent-2), 0.9)) 0%,
+      rgba(var(--accent-5), 1) 25%,
+      rgba(var(--accent-3), 0.95) 50%,
+      rgba(var(--accent-5), 1) 75%,
+      var(--tw-gradient-to, rgba(var(--accent-2), 0.9)) 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;

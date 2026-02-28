@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { SupportForm } from '@/src/components/SupportForm';
-import { COMPANY_NAME, SUPPORT_EMAIL } from '@/src/lib/constants';
+import { COMPANY_NAME, SITE_NAME, SUPPORT_EMAIL } from '@/src/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Support — Buzzr Sports',
+  title: `Support — ${SITE_NAME}`,
   description:
-    'Get help with Buzzr Sports. Contact support or submit a request to Humyn LLC.'
+    `Get help with ${SITE_NAME}. Contact support or submit a request to ${COMPANY_NAME}.`
 };
 
 export default function SupportPage() {
@@ -16,7 +16,7 @@ export default function SupportPage() {
     >
       <header className="space-y-3">
         <p className="text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/80">
-          Need a ruling?
+          Need support?
         </p>
         <h1
           id="support-title"
@@ -46,7 +46,13 @@ export default function SupportPage() {
             Buzzr Sports is operated by {COMPANY_NAME}.
           </p>
         </div>
-        <div className="h-px bg-[repeating-linear-gradient(to_right,_rgba(148,210,225,0.6)_0,_rgba(148,210,225,0.6)_4px,transparent_4px,transparent_8px)]" />
+        <div
+          className="h-px"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(to right, rgba(var(--accent-3), 0.6) 0, rgba(var(--accent-3), 0.6) 4px, transparent 4px, transparent 8px)'
+          }}
+        />
         <section aria-label="Support contact form">
           <h2 className="mb-3 text-sm font-semibold text-foreground">
             Send us a message
