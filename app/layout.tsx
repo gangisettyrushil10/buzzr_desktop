@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <SiteBackground />
           <PremiumGridBackground />
           <FloatingIconsBackground />
-          <div className="relative z-10 flex min-h-screen flex-col">
+          <div className="relative z-10 flex min-h-screen flex-col mx-auto w-full max-w-[1400px]">
           <header className="flex items-center justify-between border-b border-border/70 px-6 py-4 backdrop-blur-sm">
             <Link href="/" className="flex items-center transition-opacity hover:opacity-90">
               <span className="font-heading text-sm uppercase tracking-[0.24em] text-buzzr-accent">
