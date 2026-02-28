@@ -24,7 +24,6 @@ import { FloatingOrbs } from '@/components/FloatingOrbs';
 import { Marquee } from '@/components/Marquee';
 import { RotatingReviews } from '@/components/RotatingReviews';
 import { ScrollReveal } from '@/components/ScrollReveal';
-import { TrendingPulse } from '@/components/TrendingPulse';
 import { Parallax } from '@/components/Parallax';
 import { ScrollAudioTrigger } from '@/components/ScrollAudioTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -129,7 +128,6 @@ export default function HomePage() {
       </p>
 
       <Marquee />
-      <TrendingPulse />
 
       {/* App screenshots */}
       <section
