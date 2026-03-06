@@ -54,6 +54,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/delete-account" className="transition-colors hover:text-foreground">
+                    Delete Account
+                  </Link>
+                </li>
+                <li>
                   <Link href="/privacy" className="transition-colors hover:text-foreground">
                     Privacy
                   </Link>
@@ -102,6 +107,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 </Link>
                 <Link href="/terms" className="hover:text-foreground">
                   Terms
+                </Link>
+                <Link href="/delete-account" className="hover:text-foreground">
+                  Delete Account
                 </Link>
                 <Link href="/support" className="hover:text-foreground">
                   Support

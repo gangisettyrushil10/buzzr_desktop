@@ -20,6 +20,9 @@ export const TERMS_URL =
 export const SUPPORT_URL =
   process.env.SUPPORT_URL ?? `${BASE_URL}/support`;
 
+export const DELETE_ACCOUNT_URL =
+  process.env.DELETE_ACCOUNT_URL ?? `${BASE_URL}/delete-account`;
+
 export const BETA_TALLY_URL =
   process.env.BETA_TALLY_URL ?? 'https://tally.so/r/aQB6Ev';
 

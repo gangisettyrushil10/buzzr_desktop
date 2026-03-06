@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { SupportForm } from '@/src/components/SupportForm';
 import { COMPANY_NAME, SITE_NAME, SUPPORT_EMAIL } from '@/src/lib/constants';
 
@@ -40,6 +41,13 @@ export default function SupportPage() {
             <a className="underline" href={`mailto:${SUPPORT_EMAIL}`}>
               {SUPPORT_EMAIL}
             </a>
+            .
+          </p>
+          <p className="mt-2">
+            Need account removal details? Visit our{' '}
+            <Link className="underline" href="/delete-account">
+              delete account page
+            </Link>
             .
           </p>
           <p className="mt-2 text-[13px] text-mutedForeground">
