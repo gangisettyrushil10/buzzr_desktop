@@ -48,7 +48,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
             {/* ── Header ── */}
             <header className="sticky top-0 z-40 border-b border-border/50 backdrop-blur-xl bg-background/70">
-              <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-3.5">
+              <div className="mx-auto flex w-[90%] max-w-[1400px] items-center justify-between py-3.5">
               <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-85" aria-label="Buzzr home">
                 {/* Logo wordmark */}
                 <span className="font-heading text-base uppercase tracking-[0.22em] text-gradient">
@@ -93,11 +93,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </div>
             </header>
 
-            <main className="mx-auto w-full max-w-[1400px] flex-1">{children}</main>
+            <main className="w-full flex-1">{children}</main>
 
             {/* ── Footer ── */}
             <footer className="border-t border-border/40 text-xs text-mutedForeground">
-              <div className="mx-auto max-w-6xl px-6 py-8">
+              <div className="mx-auto w-[90%] max-w-[1400px] py-8">
                 {/* Top row: brand + links */}
                 <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="space-y-1.5">
