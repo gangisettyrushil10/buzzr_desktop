@@ -1,7 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
 import { ReactNode } from 'react';
 import {
   BASE_URL,
@@ -35,91 +34,145 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" className={`dark ${acworth.variable} ${inter.variable}`}>
       <body className="bg-background text-foreground">
         <div className="relative flex min-h-screen flex-col bg-gradient-to-b from-[rgb(var(--bg-gradient-start))] via-[rgb(var(--bg-gradient-mid))] to-[rgb(var(--bg-gradient-end))]">
-          <div className="pointer-events-none fixed inset-0 opacity-[0.05] bg-noise z-50 mix-blend-overlay" aria-hidden="true" />
+          {/* Noise texture overlay */}
+          <div
+            className="pointer-events-none fixed inset-0 opacity-[0.04] z-50 mix-blend-overlay"
+            style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")', backgroundSize: '128px 128px' }}
+            aria-hidden="true"
+          />
           <SiteBackground />
           <PremiumGridBackground />
           <FloatingIconsBackground />
+
           <div className="relative z-10 flex min-h-screen flex-col mx-auto w-full max-w-[1400px]">
-          <header className="flex items-center justify-between border-b border-border/70 px-6 py-4 backdrop-blur-sm">
-            <Link href="/" className="flex items-center transition-opacity hover:opacity-90">
-              <span className="font-heading text-sm uppercase tracking-[0.24em] text-buzzr-accent">
-                Buzzr
-              </span>
-            </Link>
-            <nav aria-label="Primary">
-              <ul className="flex gap-5 text-xs text-mutedForeground">
-                <li>
-                  <Link href="/support" className="transition-colors hover:text-foreground">
-                    Support
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/delete-account" className="transition-colors hover:text-foreground">
-                    Delete Account
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="transition-colors hover:text-foreground">
-                    Privacy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms" className="transition-colors hover:text-foreground">
-                    Terms
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </header>
-          <main className="flex-1">{children}</main>
-          <footer className="border-t border-border/70 px-6 py-5 text-xs text-mutedForeground">
-            <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1">
-              <a
-                href={BETA_TALLY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-buzzr-accent underline-offset-2 hover:underline"
-              >
-                Get notified when we launch
-              </a>
-              <a
-                href={TWITTER_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-buzzr-accent underline-offset-2 hover:underline"
-              >
-                X
-              </a>
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-buzzr-accent underline-offset-2 hover:underline"
-              >
-                Instagram
-              </a>
-            </div>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <span>© {new Date().getFullYear()} Humyn LLC</span>
-              <div className="flex gap-3">
-                <Link href="/privacy" className="hover:text-foreground">
-                  Privacy
-                </Link>
-                <Link href="/terms" className="hover:text-foreground">
-                  Terms
-                </Link>
-                <Link href="/delete-account" className="hover:text-foreground">
-                  Delete Account
-                </Link>
-                <Link href="/support" className="hover:text-foreground">
-                  Support
-                </Link>
+
+            {/* ── Header ── */}
+            <header className="sticky top-0 z-40 flex items-center justify-between border-b border-border/50 px-6 py-3.5 backdrop-blur-xl bg-background/70">
+              <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-85" aria-label="Buzzr home">
+                {/* Logo wordmark */}
+                <span className="font-heading text-base uppercase tracking-[0.22em] text-gradient">
+                  Buzzr
+                </span>
+                {/* Beta badge */}
+                <span className="badge-live hidden sm:inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium tracking-wide uppercase">
+                  Beta
+                </span>
+              </Link>
+
+              <nav aria-label="Primary">
+                <ul className="flex items-center gap-1 text-[11px] text-mutedForeground">
+                  <li>
+                    <Link
+                      href="/support"
+                      className="rounded-md px-3 py-1.5 transition-colors hover:text-foreground hover:bg-buzzr-surface/60"
+                    >
+                      Support
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/privacy"
+                      className="rounded-md px-3 py-1.5 transition-colors hover:text-foreground hover:bg-buzzr-surface/60"
+                    >
+                      Privacy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={BETA_TALLY_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-2 inline-flex items-center rounded-full border border-buzzr-accent/40 bg-buzzr-accent/10 px-3.5 py-1.5 text-buzzr-accent transition-all hover:bg-buzzr-accent/20 hover:border-buzzr-accent/60"
+                    >
+                      Join Beta
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </header>
+
+            <main className="flex-1">{children}</main>
+
+            {/* ── Footer ── */}
+            <footer className="border-t border-border/40 px-6 py-8 text-xs text-mutedForeground">
+              <div className="mx-auto max-w-5xl">
+                {/* Top row: brand + links */}
+                <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="space-y-1.5">
+                    <span className="font-heading text-sm uppercase tracking-[0.22em] text-gradient">
+                      Buzzr
+                    </span>
+                    <p className="text-[11px] text-mutedForeground/70 max-w-[220px]">
+                      Rate sports games by entertainment, not just the score.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-x-8 gap-y-4 text-[11px]">
+                    <div className="space-y-2">
+                      <p className="uppercase tracking-widest text-[10px] text-mutedForeground/50">Product</p>
+                      <ul className="space-y-1.5">
+                        <li>
+                          <a href={BETA_TALLY_URL} target="_blank" rel="noopener noreferrer"
+                             className="transition-colors hover:text-foreground">
+                            Join Beta
+                          </a>
+                        </li>
+                        <li>
+                          <Link href="/support" className="transition-colors hover:text-foreground">
+                            Support
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="uppercase tracking-widest text-[10px] text-mutedForeground/50">Legal</p>
+                      <ul className="space-y-1.5">
+                        <li>
+                          <Link href="/privacy" className="transition-colors hover:text-foreground">
+                            Privacy Policy
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/terms" className="transition-colors hover:text-foreground">
+                            Terms of Use
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/delete-account" className="transition-colors hover:text-foreground">
+                            Delete Account
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="uppercase tracking-widest text-[10px] text-mutedForeground/50">Social</p>
+                      <ul className="space-y-1.5">
+                        <li>
+                          <a href={TWITTER_URL} target="_blank" rel="noopener noreferrer"
+                             className="transition-colors hover:text-foreground">
+                            X / Twitter
+                          </a>
+                        </li>
+                        <li>
+                          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
+                             className="transition-colors hover:text-foreground">
+                            Instagram
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom row */}
+                <div className="divider-gradient mb-4" aria-hidden />
+                <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] text-mutedForeground/60">
+                  <span>© {new Date().getFullYear()} Humyn LLC. All rights reserved.</span>
+                  <p className="max-w-sm text-right">{BUZZR_TV_DISCLAIMER}</p>
+                </div>
               </div>
-            </div>
-            <p className="mt-2 max-w-xl text-[0.7rem] text-mutedForeground">
-              {BUZZR_TV_DISCLAIMER}
-            </p>
-          </footer>
+            </footer>
+
           </div>
         </div>
       </body>
