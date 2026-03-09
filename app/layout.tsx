@@ -44,10 +44,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <PremiumGridBackground />
           <FloatingIconsBackground />
 
-          <div className="relative z-10 flex min-h-screen flex-col mx-auto w-full max-w-[1400px]">
+          <div className="relative z-10 flex min-h-screen flex-col w-full">
 
             {/* ── Header ── */}
-            <header className="sticky top-0 z-40 flex items-center justify-between border-b border-border/50 px-6 py-3.5 backdrop-blur-xl bg-background/70">
+            <header className="sticky top-0 z-40 border-b border-border/50 backdrop-blur-xl bg-background/70">
+              <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-3.5">
               <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-85" aria-label="Buzzr home">
                 {/* Logo wordmark */}
                 <span className="font-heading text-base uppercase tracking-[0.22em] text-gradient">
@@ -89,13 +90,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   </li>
                 </ul>
               </nav>
+              </div>
             </header>
 
-            <main className="flex-1">{children}</main>
+            <main className="mx-auto w-full max-w-[1400px] flex-1">{children}</main>
 
             {/* ── Footer ── */}
-            <footer className="border-t border-border/40 px-6 py-8 text-xs text-mutedForeground">
-              <div className="mx-auto max-w-5xl">
+            <footer className="border-t border-border/40 text-xs text-mutedForeground">
+              <div className="mx-auto max-w-[1400px] px-6 py-8">
                 {/* Top row: brand + links */}
                 <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="space-y-1.5">
