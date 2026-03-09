@@ -75,7 +75,7 @@ export default function HomePage() {
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
       <section
         aria-labelledby="hero-title"
-        className="relative mx-auto flex max-w-5xl flex-col gap-10 px-6 pb-20 pt-20 md:pt-28"
+        className="relative mx-auto flex w-[90%] max-w-[1400px] flex-col gap-10 pb-20 pt-20 md:pt-28"
       >
         {/* Pre-heading badge */}
         <div
