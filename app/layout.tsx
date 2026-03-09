@@ -97,7 +97,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
             {/* ── Footer ── */}
             <footer className="border-t border-border/40 text-xs text-mutedForeground">
-              <div className="mx-auto max-w-[1400px] px-6 py-8">
+              <div className="mx-auto max-w-6xl px-6 py-8">
                 {/* Top row: brand + links */}
                 <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="space-y-1.5">

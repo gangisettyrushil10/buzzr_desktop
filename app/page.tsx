@@ -58,7 +58,7 @@ function MockupContent({ slug }: { slug: string }) {
 /** Subtle section divider */
 function Divider() {
   return (
-    <div className="mx-auto max-w-5xl px-6">
+    <div className="mx-auto max-w-6xl px-6">
       <div className="divider-gradient" aria-hidden />
     </div>
   );
@@ -161,7 +161,7 @@ export default function HomePage() {
       <Marquee />
 
       {/* ── SOCIAL PROOF ─────────────────────────────────────────────────────── */}
-      <section aria-label="Community stats" className="mx-auto max-w-3xl px-6 py-12 md:py-16">
+      <section aria-label="Community stats" className="mx-auto max-w-4xl px-6 py-12 md:py-16">
         <ScrollReveal delay={0}>
           <SocialProofStrip />
         </ScrollReveal>
@@ -170,7 +170,7 @@ export default function HomePage() {
       {/* ── SCORE METER DEMO ──────────────────────────────────────────────────── */}
       <section
         aria-label="Buzzr score demo"
-        className="mx-auto max-w-5xl px-6 py-10 md:py-14"
+        className="mx-auto max-w-6xl px-6 py-10 md:py-14"
       >
         <ScrollReveal delay={0}>
           <p className="mb-1 text-center text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/70">
@@ -228,7 +228,7 @@ export default function HomePage() {
       {/* ── APP SCREENSHOTS ───────────────────────────────────────────────────── */}
       <section
         aria-label="App preview"
-        className="mx-auto max-w-5xl px-6 py-20 md:py-24"
+        className="mx-auto max-w-6xl px-6 py-20 md:py-24"
       >
         <ScrollReveal delay={0}>
           <p className="mb-2 text-center text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/80">
@@ -260,7 +260,7 @@ export default function HomePage() {
       {/* ── FEATURES ──────────────────────────────────────────────────────────── */}
       <section
         aria-label="Features"
-        className="mx-auto max-w-5xl px-6 py-20 md:py-24"
+        className="mx-auto max-w-6xl px-6 py-20 md:py-24"
       >
         <ScrollReveal delay={0}>
           <p className="mb-2 text-center text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/80">
@@ -298,7 +298,7 @@ export default function HomePage() {
       {/* ── REVIEWS ───────────────────────────────────────────────────────────── */}
       <section
         aria-label="What fans are saying"
-        className="mx-auto max-w-5xl px-6 py-20 md:py-24"
+        className="mx-auto max-w-6xl px-6 py-20 md:py-24"
       >
         <ScrollReveal delay={0}>
           <p className="mb-2 text-center text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/80">
@@ -318,7 +318,7 @@ export default function HomePage() {
       {/* ── WHO BUZZR IS FOR ──────────────────────────────────────────────────── */}
       <section
         aria-label="Who Buzzr is for"
-        className="mx-auto max-w-5xl px-6 py-20 md:py-24"
+        className="mx-auto max-w-6xl px-6 py-20 md:py-24"
       >
         <ScrollReveal delay={0}>
           <p className="mb-2 text-center text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/80">
@@ -358,7 +358,7 @@ export default function HomePage() {
       {/* ── HOW IT WORKS ──────────────────────────────────────────────────────── */}
       <section
         aria-label="How Buzzr works"
-        className="mx-auto max-w-5xl px-6 py-20 md:py-24"
+        className="mx-auto max-w-6xl px-6 py-20 md:py-24"
       >
         <ScrollReveal delay={0}>
           <p className="mb-2 text-center text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/80">
@@ -413,7 +413,7 @@ export default function HomePage() {
       {/* ── FAQ ───────────────────────────────────────────────────────────────── */}
       <section
         aria-label="Frequently asked questions"
-        className="mx-auto max-w-5xl px-6 py-20 md:py-24"
+        className="mx-auto max-w-6xl px-6 py-20 md:py-24"
       >
         <ScrollReveal delay={0}>
           <p className="mb-2 text-center text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/80">
@@ -463,7 +463,7 @@ export default function HomePage() {
       <ScrollReveal delay={0}>
         <section
           aria-label="Contact information"
-          className="mx-auto max-w-5xl px-6 pb-20 pt-4"
+          className="mx-auto max-w-6xl px-6 pb-20 pt-4"
         >
           <p className="text-center text-xs text-mutedForeground/60">
             For legal or support questions, contact{' '}
