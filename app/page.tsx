@@ -26,6 +26,8 @@ import { Marquee } from '@/components/Marquee';
 import { RotatingReviews } from '@/components/RotatingReviews';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { BuzzrScoreMeter } from '@/components/BuzzrScoreMeter';
+import { FaqAccordion } from '@/components/FaqAccordion';
+import { SocialProofStrip } from '@/components/SocialProofStrip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faApple, faGooglePlay } from '@fortawesome/free-brands-svg-icons';
 
@@ -158,47 +160,66 @@ export default function HomePage() {
       {/* ── LEAGUE MARQUEE ────────────────────────────────────────────────────── */}
       <Marquee />
 
+      {/* ── SOCIAL PROOF ─────────────────────────────────────────────────────── */}
+      <section aria-label="Community stats" className="mx-auto max-w-3xl px-6 py-12 md:py-16">
+        <ScrollReveal delay={0}>
+          <SocialProofStrip />
+        </ScrollReveal>
+      </section>
+
       {/* ── SCORE METER DEMO ──────────────────────────────────────────────────── */}
       <section
         aria-label="Buzzr score demo"
-        className="mx-auto max-w-5xl px-6 py-20 md:py-24"
+        className="mx-auto max-w-5xl px-6 py-10 md:py-14"
       >
         <ScrollReveal delay={0}>
-          <p className="mb-2 text-center text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/80">
-            The entertainment score
+          <p className="mb-1 text-center text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/70">
+            Entertainment Scores
           </p>
-          <h2 className="mx-auto mb-10 max-w-lg text-center font-heading text-2xl text-foreground md:text-3xl">
-            Rate games on what <span className="text-gradient">actually delivered.</span>
-          </h2>
+          <p className="mx-auto mb-8 max-w-xs text-center text-xs text-mutedForeground/60">
+            Rated by fans on chaos, energy, and drama.
+          </p>
         </ScrollReveal>
-
-        <div className="grid gap-4 md:grid-cols-3">
-          <ScrollReveal delay={0} className="md:col-span-2">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <ScrollReveal delay={0} className="flex">
             <BuzzrScoreMeter
               score={9.4}
-              game="Chiefs vs Bills · Divisional '22"
+              game="Chiefs vs Bills · Divisional"
               sport="NFL"
-              label="Entertainment Score"
+              date="Jan 2022"
+              breakdown={[
+                { label: 'Chaos',  value: 9.8 },
+                { label: 'Energy', value: 9.2 },
+                { label: 'Drama',  value: 9.4 },
+              ]}
             />
           </ScrollReveal>
-          <div className="flex flex-col gap-4">
-            <ScrollReveal delay={1}>
-              <BuzzrScoreMeter
-                score={10}
-                game="Argentina vs France · World Cup Final"
-                sport="FIFA"
-                label="Entertainment Score"
-              />
-            </ScrollReveal>
-            <ScrollReveal delay={2}>
-              <BuzzrScoreMeter
-                score={8.7}
-                game="SD State vs FAU · Final Four"
-                sport="NCAAB"
-                label="Entertainment Score"
-              />
-            </ScrollReveal>
-          </div>
+          <ScrollReveal delay={1} className="flex">
+            <BuzzrScoreMeter
+              score={10}
+              game="Argentina vs France · WC Final"
+              sport="FIFA"
+              date="Dec 2022"
+              breakdown={[
+                { label: 'Chaos',  value: 10  },
+                { label: 'Energy', value: 9.8 },
+                { label: 'Drama',  value: 10  },
+              ]}
+            />
+          </ScrollReveal>
+          <ScrollReveal delay={2} className="flex">
+            <BuzzrScoreMeter
+              score={8.7}
+              game="SD State vs FAU · Final Four"
+              sport="NCAAB"
+              date="Apr 2023"
+              breakdown={[
+                { label: 'Chaos',  value: 8.4 },
+                { label: 'Energy', value: 8.6 },
+                { label: 'Drama',  value: 9.2 },
+              ]}
+            />
+          </ScrollReveal>
         </div>
       </section>
 
@@ -403,20 +424,7 @@ export default function HomePage() {
           </h2>
         </ScrollReveal>
 
-        <dl className="mx-auto max-w-2xl divide-y divide-border/40">
-          {FAQS.map((item, i) => (
-            <ScrollReveal key={item.q} delay={(i % 3) as 0 | 1 | 2}>
-              <div className="group py-6 transition-colors hover:bg-transparent">
-                <dt className="mb-2.5 text-sm font-semibold text-foreground group-hover:text-buzzr-accent2 transition-colors">
-                  {item.q}
-                </dt>
-                <dd className="text-sm leading-relaxed text-mutedForeground">
-                  {item.a}
-                </dd>
-              </div>
-            </ScrollReveal>
-          ))}
-        </dl>
+        <FaqAccordion items={FAQS} />
       </section>
 
       <Divider />

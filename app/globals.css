@@ -43,22 +43,22 @@
     --accent-4:  34 211 238;
     --accent-5: 103 232 249;
 
-    --background:         6   9  14;   /* #06090e near-black */
-    --surface:           11  16  22;   /* #0b1016 */
-    --surface-elevated:  19  26  36;   /* #131a24 */
-    --foreground:       232 244 248;   /* #e8f4f8 */
-    --muted-foreground: 110 145 162;   /* #6e91a2 */
-    --border:            26  38  52;   /* #1a2634 */
-    --muted:             11  16  22;
-    --input:             11  16  22;
+    --background:         0   0   0;   /* #000000 pure black */
+    --surface:            8   8   8;   /* #080808 */
+    --surface-elevated:  18  18  18;   /* #121212 */
+    --foreground:       245 245 247;   /* #f5f5f7 Apple-style near-white */
+    --muted-foreground: 134 134 139;   /* #86868b Apple muted */
+    --border:            38  38  40;   /* #262628 */
+    --muted:              8   8   8;
+    --input:              8   8   8;
     --ring:              16 185 129;
 
-    --bg-gradient-start:  6   9  14;
-    --bg-gradient-mid:    9  13  20;
-    --bg-gradient-end:    6   9  14;
-    --preview-start:     11  16  22;
-    --preview-end:       19  26  36;
-    --logo-surface:       6   9  14;
+    --bg-gradient-start:  0   0   0;
+    --bg-gradient-mid:    4   4   4;
+    --bg-gradient-end:    0   0   0;
+    --preview-start:      8   8   8;
+    --preview-end:       18  18  18;
+    --logo-surface:       0   0   0;
   }
 }
 
@@ -71,22 +71,22 @@
   --accent-4:  34 211 238;
   --accent-5: 103 232 249;
 
-  --background:         6   9  14;
-  --surface:           11  16  22;
-  --surface-elevated:  19  26  36;
-  --foreground:       232 244 248;
-  --muted-foreground: 110 145 162;
-  --border:            26  38  52;
-  --muted:             11  16  22;
-  --input:             11  16  22;
+  --background:         0   0   0;
+  --surface:            8   8   8;
+  --surface-elevated:  18  18  18;
+  --foreground:       245 245 247;
+  --muted-foreground: 134 134 139;
+  --border:            38  38  40;
+  --muted:              8   8   8;
+  --input:              8   8   8;
   --ring:              16 185 129;
 
-  --bg-gradient-start:  6   9  14;
-  --bg-gradient-mid:    9  13  20;
-  --bg-gradient-end:    6   9  14;
-  --preview-start:     11  16  22;
-  --preview-end:       19  26  36;
-  --logo-surface:       6   9  14;
+  --bg-gradient-start:  0   0   0;
+  --bg-gradient-mid:    4   4   4;
+  --bg-gradient-end:    0   0   0;
+  --preview-start:      8   8   8;
+  --preview-end:       18  18  18;
+  --logo-surface:       0   0   0;
 }
 
 /* ─── Base ──────────────────────────────────────────────────────────────────── */
