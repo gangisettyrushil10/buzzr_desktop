@@ -69,7 +69,7 @@ export function BuzzrScoreMeter({ score, game, sport, date, breakdown }: BuzzrSc
   return (
     <div
       ref={ref}
-      className="pixel-frame flex h-full flex-col bg-black p-5 transition-shadow hover:shadow-glow-emerald relative overflow-hidden"
+      className="flex h-full flex-col border border-border/40 bg-buzzr-surface/30 p-5 transition-shadow hover:border-buzzr-accent/30 hover:shadow-glow relative overflow-hidden"
       aria-label={`Entertainment score ${score}/10 — ${game}`}
     >
       {/* Corner pixel icon decoration */}

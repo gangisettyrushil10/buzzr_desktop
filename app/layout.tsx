@@ -104,9 +104,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     <span className="font-heading text-lg lowercase leading-none text-foreground">
                       buzzr<span className="text-buzzr-accent">.</span>
                     </span>
-                    <p className="text-[11px] font-sans text-mutedForeground/70 max-w-[240px] leading-relaxed">
+                    <p className="text-[10px] font-sans uppercase tracking-widest text-mutedForeground/40">
+                      Rate the game.
+                    </p>
+                    <p className="text-[11px] font-sans text-mutedForeground/60 max-w-[220px] leading-relaxed">
                       Rate sports games by entertainment, not just the score.
                       Built by Humyn LLC.
+                    </p>
+                    <p className="text-[10px] font-sans text-mutedForeground/35">
+                      @the_real_buzzr
                     </p>
                   </div>
 

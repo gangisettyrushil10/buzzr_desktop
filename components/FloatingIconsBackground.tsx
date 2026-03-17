@@ -30,7 +30,7 @@ export function FloatingIconsBackground() {
       speedX: (Math.random() - 0.5) * 0.1,
       speedY: (Math.random() - 0.5) * 0.1,
       rotSpeed: (Math.random() - 0.5) * 0.5,
-      opacity: 0.04 + Math.random() * 0.08,
+      opacity: 0.02 + Math.random() * 0.04,
     }));
 
     setIcons(initialIcons);
