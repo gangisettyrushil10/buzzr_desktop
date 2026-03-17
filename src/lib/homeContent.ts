@@ -6,6 +6,8 @@ export type AppScreenshot = {
 export type FeatureItem = {
   title: string;
   description: string;
+  /** Sample metric value 0–10 for the segmented bar */
+  value: number;
 };
 
 export type ReviewItem = {
@@ -30,6 +32,15 @@ export type HowItWorksItem = {
   body: string;
 };
 
+export type BadgeItem = {
+  name: string;
+  description: string;
+  /** Icon key: 'fire' | 'bolt' | 'star' | 'orb' */
+  icon: 'fire' | 'bolt' | 'star' | 'orb';
+  /** Progress 0–10 toward next level */
+  level: number;
+};
+
 export const APP_SCREENSHOTS: AppScreenshot[] = [
   { label: 'Follow the action', slug: 'home' },
   { label: 'Find games to watch', slug: 'games' },
@@ -39,24 +50,28 @@ export const APP_SCREENSHOTS: AppScreenshot[] = [
 
 export const FEATURES: FeatureItem[] = [
   {
-    title: 'Entertainment ratings',
+    title: 'CHAOS',
     description:
-      'Rate games on chaos, crowd energy, and drama - not just the box score. See what fans actually thought was worth watching.'
+      'Rate how unpredictable and wild a game was. The stuff that makes you stand up and scream.',
+    value: 9.4
   },
   {
-    title: 'Watch parties',
+    title: 'ENERGY',
     description:
-      'Create watch parties, invite friends, and see when others are watching. Plan viewing together and compare ratings after.'
+      'Crowd atmosphere, momentum swings, pace. How much was the arena absolutely buzzing?',
+    value: 8.7
   },
   {
-    title: 'Lists & rewatch queue',
+    title: 'DRAMA',
     description:
-      'Build lists of classics, hidden gems, or "skip it" games. Share lists with friends and never forget that insane finish.'
+      'Comebacks, overtime, buzzer beaters. The moments you replay in your head for days.',
+    value: 9.8
   },
   {
-    title: 'Game diary',
+    title: 'CLUTCH',
     description:
-      'Log every game you watch. Look back by season or league and remember which nights actually delivered.'
+      'When it mattered most, who delivered? Log and discover the games defined by the moment.',
+    value: 7.5
   }
 ];
 
@@ -100,19 +115,23 @@ export const PERSONAS: PersonaItem[] = [
 export const FAQS: FaqItem[] = [
   {
     q: 'Is Buzzr a betting app?',
-    a: 'No. Buzzr is about entertainment and vibes, not betting lines or sportsbooks.'
+    a: 'No. Buzzr is about entertainment and vibes — chaos, energy, drama. Zero connection to betting lines or sportsbooks.'
   },
   {
     q: 'Which sports and leagues does Buzzr support?',
-    a: 'We are starting with the major leagues fans obsess over most - NBA, NFL, NCAAB, NCAAF, IPL, F1, NHL, MLB, MLS, plus big moments like March Madness and the World Cup.'
+    a: 'We are starting with the majors: NBA, NFL, NCAAB, NCAAF, IPL, F1, NHL, MLB, MLS — plus March Madness, the World Cup, and the games that define generations.'
   },
   {
     q: 'Is Buzzr free to use?',
-    a: 'Yes. During beta, Buzzr is free. We will share any future pricing changes well in advance.'
+    a: 'Yes. During beta, Buzzr is completely free. We will give you plenty of notice before anything changes.'
   },
   {
     q: 'How do I get access?',
-    a: 'Join the beta waitlist from this page. We are inviting fans in waves so we can keep the experience fast and focused.'
+    a: 'Join the beta waitlist from this page. We are rolling invites out in waves to keep the experience tight and focused.'
+  },
+  {
+    q: 'How is this different from just checking the score?',
+    a: 'The score tells you who won. Buzzr tells you whether the game was actually worth watching — the swings, the tension, the moments. A 40-point blowout gets a 3. A double-overtime comeback gets a 10.'
   },
   {
     q: 'Is Buzzr affiliated with BUZZR TV (Fremantle)?',
@@ -120,7 +139,7 @@ export const FAQS: FaqItem[] = [
   },
   {
     q: 'What happens to my data?',
-    a: 'We use your ratings and game logs to power your experience in the app. We do not sell your personal data.'
+    a: 'Your ratings and game logs power your personal experience. We do not sell your personal data.'
   }
 ];
 
@@ -133,11 +152,32 @@ export const HOW_IT_WORKS: HowItWorksItem[] = [
   {
     step: 2,
     title: 'Rate by entertainment',
-    body: 'Chaos factor, crowd energy, drama - rate on vibes, not just the box score.'
+    body: 'Chaos factor, crowd energy, drama — rate on vibes, not just the box score.'
   },
   {
     step: 3,
     title: 'Never miss a classic',
-    body: 'See what other fans thought was rewatchable and build your list of must-watch games.'
+    body: 'See what other fans thought was rewatchable and build your list of must-watch games before you commit your night.'
+  }
+];
+
+export const BADGES: BadgeItem[] = [
+  {
+    name: 'BALL KNOWER',
+    description: 'Rate 10 games across 3 different leagues',
+    icon: 'orb',
+    level: 7
+  },
+  {
+    name: 'RIDE OR DIE',
+    description: 'Log 5 games from the same team in a season',
+    icon: 'fire',
+    level: 5
+  },
+  {
+    name: 'DRAMA QUEEN',
+    description: 'Rate 3 games with Drama score above 9.5',
+    icon: 'star',
+    level: 9
   }
 ];

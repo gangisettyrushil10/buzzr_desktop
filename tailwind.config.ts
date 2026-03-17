@@ -40,7 +40,7 @@ const config: Config = {
       },
       fontFamily: {
         heading: ['var(--font-acworth)', 'system-ui', 'sans-serif'],
-        sans:    ['var(--font-acworth)', 'system-ui', 'sans-serif']
+        sans:    ['var(--font-inter)', 'system-ui', 'sans-serif']
       },
       boxShadow: {
         soft:         '0 18px 40px rgba(0,0,0,0.65)',

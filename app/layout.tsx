@@ -49,13 +49,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             {/* ── Header ── */}
             <header className="sticky top-0 z-40 border-b border-border/50 backdrop-blur-xl bg-background/70">
               <div className="mx-auto flex w-[90%] max-w-[1400px] items-center justify-between py-3.5">
-              <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-85" aria-label="Buzzr home">
-                {/* Logo wordmark */}
-                <span className="font-heading text-base uppercase tracking-[0.22em] text-gradient">
-                  Buzzr
+              <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-85" aria-label="Buzzr home">
+                {/* Logo wordmark — "buzzr." lowercase with green dot */}
+                <span className="font-heading text-[1.15rem] lowercase leading-none text-foreground">
+                  buzzr<span className="text-buzzr-accent">.</span>
                 </span>
                 {/* Beta badge */}
-                <span className="badge-live hidden sm:inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium tracking-wide uppercase">
+                <span className="badge-live hidden sm:inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-sans font-medium tracking-wide uppercase">
                   Beta
                 </span>
               </Link>
@@ -100,16 +100,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <div className="mx-auto w-[90%] max-w-[1400px] py-8">
                 {/* Top row: brand + links */}
                 <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="space-y-1.5">
-                    <span className="font-heading text-sm uppercase tracking-[0.22em] text-gradient">
-                      Buzzr
+                  <div className="space-y-2">
+                    <span className="font-heading text-lg lowercase leading-none text-foreground">
+                      buzzr<span className="text-buzzr-accent">.</span>
                     </span>
-                    <p className="text-[11px] text-mutedForeground/70 max-w-[220px]">
+                    <p className="text-[11px] font-sans text-mutedForeground/70 max-w-[240px] leading-relaxed">
                       Rate sports games by entertainment, not just the score.
+                      Built by Humyn LLC.
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap gap-x-8 gap-y-4 text-[11px]">
+                  <div className="flex flex-wrap gap-x-8 gap-y-4 text-[11px] font-sans">
                     <div className="space-y-2">
                       <p className="uppercase tracking-widest text-[10px] text-mutedForeground/50">Product</p>
                       <ul className="space-y-1.5">
@@ -160,6 +161,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                              className="transition-colors hover:text-foreground">
                             Instagram
                           </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="uppercase tracking-widest text-[10px] text-mutedForeground/50">About</p>
+                      <ul className="space-y-1.5 max-w-[160px]">
+                        <li className="text-mutedForeground/60 leading-relaxed">
+                          Buzzr is built by Humyn LLC — a small studio making software for sports culture.
                         </li>
                       </ul>
                     </div>

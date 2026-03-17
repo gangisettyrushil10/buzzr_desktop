@@ -210,6 +210,24 @@ h1, h2, h3 {
   50%       { box-shadow: 0 0 0 5px rgba(16,185,129,0);   }
 }
 
+@keyframes badge-reveal {
+  from { opacity: 0; transform: scale(0.82) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);   }
+}
+
+@keyframes pixel-flash {
+  0%   { opacity: 0;   }
+  15%  { opacity: 1;   }
+  30%  { opacity: 0.6; }
+  50%  { opacity: 1;   }
+  100% { opacity: 0.6; }
+}
+
+@keyframes segment-in {
+  from { transform: scaleY(0); opacity: 0; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+
 /* ─── Reduced motion ────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -296,6 +314,67 @@ h1, h2, h3 {
   .animate-grid-pulse        { animation: grid-pulse 4s ease-in-out infinite; }
   .animate-score-fill        { animation: score-fill 1.5s cubic-bezier(0.22,1,0.36,1) forwards; transform-origin: left; }
   .animate-meter-glow        { animation: meter-glow 2.5s ease-in-out infinite; }
+  .animate-badge-reveal      { animation: badge-reveal 0.55s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .animate-pixel-flash       { animation: pixel-flash 0.8s ease-out forwards; }
+
+  /* ─── Pixel border frame ─────────────────────────────────────────────────
+     Usage: add class "pixel-frame" to any wrapper. Renders a dashed emerald
+     border with small square corner accents via box-shadow.
+  ──────────────────────────────────────────────────────────────────────── */
+  .pixel-frame {
+    position: relative;
+    border: 2px dashed rgba(16,185,129,0.55);
+  }
+  .pixel-frame::before,
+  .pixel-frame::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgb(16,185,129);
+  }
+  .pixel-frame::before { top: -5px; left: -5px; }
+  .pixel-frame::after  { bottom: -5px; right: -5px; }
+
+  /* Pixel frame with all 4 corners — use inner + outer pseudo on child */
+  .pixel-frame-full {
+    position: relative;
+    border: 2px dashed rgba(16,185,129,0.55);
+    box-shadow:
+      inset 0 0 0 0 transparent,
+      -5px -5px 0 -3px rgb(16,185,129),
+       5px  5px 0 -3px rgb(16,185,129),
+       5px -5px 0 -3px rgb(16,185,129),
+      -5px  5px 0 -3px rgb(16,185,129);
+  }
+
+  /* ─── Score hero number ──────────────────────────────────────────────── */
+  .score-hero-num {
+    font-family: var(--font-acworth), system-ui, sans-serif;
+    font-size: clamp(5rem, 14vw, 9rem);
+    line-height: 0.9;
+    font-weight: 700;
+    tabular-nums: true;
+  }
+
+  /* ─── Segmented bar container ───────────────────────────────────────── */
+  .segment-bar-wrap {
+    display: flex;
+    gap: 3px;
+  }
+  .segment-bar-wrap .seg {
+    flex: 1;
+    height: 6px;
+    background: rgba(38,38,40,0.9);
+    transform-origin: bottom;
+  }
+  .segment-bar-wrap .seg.filled {
+    background: rgb(16,185,129);
+  }
+  .segment-bar-wrap .seg.filled.animate-segment {
+    animation: segment-in 0.25s ease-out forwards;
+    opacity: 0;
+  }
 
   /* Stagger delays */
   .stagger-1 { animation-delay: 0.10s; }

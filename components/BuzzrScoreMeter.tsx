@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { SegmentedBar } from './SegmentedBar';
+import { PixelStar, PixelFire, PixelOrb } from './PixelIcons';
 
 export interface BuzzrScoreMeterProps {
   score: number;         // overall 0–10
@@ -28,21 +30,17 @@ function useCountUp(target: number, started: boolean, duration = 1400) {
   return displayed;
 }
 
-function AnimatedBar({ value, started, delay = 0 }: { value: number; started: boolean; delay?: number }) {
-  const pct = `${(value / 10) * 100}%`;
-  return (
-    <div className="h-1 w-full overflow-hidden rounded-full" style={{ background: 'rgba(38,38,40,0.9)' }}>
-      <div
-        className={started ? 'h-full rounded-full' : 'h-full rounded-full w-0'}
-        style={{
-          width: started ? pct : '0%',
-          background: 'linear-gradient(90deg, rgb(16,185,129), rgb(6,182,212))',
-          transition: started ? `width 1.2s cubic-bezier(0.22,1,0.36,1) ${delay}ms` : 'none',
-        }}
-      />
-    </div>
-  );
+function getClassification(score: number): string {
+  if (score >= 9.5) return 'AN ABSOLUTE CLASSIC';
+  if (score >= 9.0) return 'ABSOLUTE BANGER';
+  if (score >= 8.5) return 'MUST WATCH';
+  if (score >= 7.5) return 'WORTH YOUR TIME';
+  if (score >= 6.0) return 'DECENT GAME';
+  return 'SKIP IT';
 }
+
+// Alternating pixel icon decorations per card index
+const CORNER_ICONS = [PixelStar, PixelFire, PixelOrb];
 
 export function BuzzrScoreMeter({ score, game, sport, date, breakdown }: BuzzrScoreMeterProps) {
   const [started, setStarted] = useState(false);
@@ -60,65 +58,71 @@ export function BuzzrScoreMeter({ score, game, sport, date, breakdown }: BuzzrSc
     return () => observer.disconnect();
   }, []);
 
-  const fillPct = `${(score / 10) * 100}%`;
+  // Pick a pixel icon based on score classification
+  const iconIndex = score >= 9.5 ? 0 : score >= 9.0 ? 1 : 2;
+  const CornerIcon = CORNER_ICONS[iconIndex];
+
+  // The decimal separator is a styled green dot — split number at decimal point
+  const scoreStr = displayed.toFixed(1);
+  const [intPart, decPart] = scoreStr.split('.');
 
   return (
     <div
       ref={ref}
-      className="flex h-full flex-col rounded-2xl border border-border/60 bg-buzzr-surface/60 p-5 backdrop-blur-sm"
-      style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.5)' }}
+      className="pixel-frame flex h-full flex-col bg-black p-5 transition-shadow hover:shadow-glow-emerald relative overflow-hidden"
       aria-label={`Entertainment score ${score}/10 — ${game}`}
     >
-      {/* Sport + date */}
-      <div className="mb-4 flex items-center justify-between">
-        <span
-          className="rounded-full border border-buzzr-accent3/35 bg-buzzr-accent3/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-buzzr-accent4"
-        >
-          {sport}
+      {/* Corner pixel icon decoration */}
+      <div className="absolute top-3 right-3 opacity-20 pointer-events-none" aria-hidden>
+        <CornerIcon size={36} />
+      </div>
+
+      {/* Score number — massive centrepiece */}
+      <div className="mb-4 flex items-start leading-none" aria-live="polite">
+        <span className="score-hero-num tabular-nums text-white">
+          {intPart}
         </span>
-        {date && <span className="text-[10px] text-mutedForeground/50">{date}</span>}
-      </div>
-
-      {/* Game name */}
-      <p className="mb-5 text-sm font-medium leading-snug text-foreground">{game}</p>
-
-      {/* Overall score */}
-      <div className="mb-1.5 flex items-end justify-between">
-        <span className="text-[10px] uppercase tracking-[0.2em] text-mutedForeground/60">Overall</span>
-        <span className="text-[11px] text-mutedForeground/50" aria-hidden>{displayed.toFixed(1)}/10</span>
-      </div>
-      {/* Main bar */}
-      <div className="mb-5 h-2 w-full overflow-hidden rounded-full" style={{ background: 'rgba(38,38,40,0.9)' }}>
-        <div
-          className="h-full rounded-full"
-          style={{
-            width: started ? fillPct : '0%',
-            background: 'linear-gradient(90deg, rgb(16,185,129), rgb(6,182,212), rgb(103,232,249))',
-            transition: started ? 'width 1.4s cubic-bezier(0.22,1,0.36,1) 0ms' : 'none',
-            boxShadow: started ? '0 0 10px rgba(16,185,129,0.5)' : 'none',
-          }}
-        />
-      </div>
-
-      {/* Score number — big centrepiece */}
-      <div className="mb-5 flex items-baseline gap-1.5">
-        <span className="font-heading text-[3.25rem] leading-none text-gradient tabular-nums" aria-live="polite">
-          {displayed.toFixed(1)}
+        {/* Green dot as decimal separator */}
+        <span className="mt-4 mx-1 text-[2.5rem] leading-none font-heading" style={{ color: 'rgb(16,185,129)' }}>
+          •
         </span>
-        <span className="text-base text-mutedForeground/40">/10</span>
+        <span className="score-hero-num tabular-nums text-white">
+          {decPart}
+        </span>
       </div>
 
-      {/* Breakdown dimensions */}
+      {/* Classification label */}
+      <div className="mb-5 flex items-center gap-2">
+        <PixelOrb size={14} />
+        <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-buzzr-accent2">
+          {getClassification(score)}
+        </span>
+      </div>
+
+      {/* Breakdown — segmented bars */}
       <div className="mt-auto space-y-3">
-        {breakdown.map((dim, i) => (
+        {breakdown.map((dim) => (
           <div key={dim.label}>
-            <div className="mb-1 flex items-center justify-between">
-              <span className="text-[10px] text-mutedForeground/70">{dim.label}</span>
+            <div className="mb-1.5 flex items-center justify-between">
+              <span className="text-[10px] font-sans uppercase tracking-widest text-mutedForeground/70">
+                {dim.label}
+              </span>
               <span className="text-[10px] tabular-nums text-mutedForeground/50">{dim.value.toFixed(1)}</span>
             </div>
-            <AnimatedBar value={dim.value} started={started} delay={200 + i * 80} />
+            <SegmentedBar value={dim.value} segments={10} segmentHeight={5} animate={started} />
           </div>
         ))}
+      </div>
+
+      {/* Game name + sport tag — anchored to bottom */}
+      <div className="mt-5 pt-4 border-t border-border/30">
+        <p className="text-[11px] font-sans font-medium leading-snug text-foreground/80 mb-1">{game}</p>
+        <div className="flex items-center gap-2">
+          <span className="text-[9px] font-sans uppercase tracking-[0.2em] text-buzzr-accent/70 border border-buzzr-accent/30 px-1.5 py-0.5">
+            {sport}
+          </span>
+          {date && <span className="text-[9px] text-mutedForeground/40">{date}</span>}
+        </div>
       </div>
     </div>
   );

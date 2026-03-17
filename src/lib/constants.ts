@@ -5,7 +5,7 @@ export const SITE_NAME = 'Buzzr';
 export const SITE_TAGLINE = 'Rate sports games by entertainment.';
 
 export const SITE_DESCRIPTION =
-  'Buzzr is the Letterboxd for sports games. See which games were actually worth watching.';
+  'Buzzr is the Letterboxd for sports games. Rate games by chaos, energy, and drama — not the final score. Track everything you watch.';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buzzr.app';
 
@@ -32,14 +32,22 @@ export const FEEDBACK_TALLY_URL =
 export const BUZZR_TV_DISCLAIMER =
   'Buzzr is not affiliated with BUZZR TV (Fremantle).';
 
-/** Hero / positioning */
+/** Hero headline — split into segments for mixed-color rendering */
+export const HERO_LINE1 = 'THIS IS WHY';
+export const HERO_LINE2_PLAIN = 'WE';
+export const HERO_LINE2_ACCENT = 'WATCH.';
+
+export const HERO_SUBHEAD =
+  'Rate the chaos. Track the drama. Every game gets a score.';
+
+/** Legacy/compat */
 export const HERO_EMOTIONAL_LINE =
   "For when the box score wasn't the best part.";
 
 export const HERO_STAT = "We're inviting fans in waves.";
 
 export const TRUST_STRIP =
-  'For fans who watch NBA, NFL, IPL, F1, and the games that actually deliver.';
+  'NBA · NFL · IPL · F1 · FIFA · March Madness · and every game that actually delivers.';
 
 /** Social – overridable via env */
 export const TWITTER_URL =
