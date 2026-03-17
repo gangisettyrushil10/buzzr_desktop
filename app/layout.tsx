@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <div className="mx-auto flex w-[90%] max-w-[1400px] items-center justify-between py-4">
                 <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-75" aria-label="Buzzr home">
                   <img
-                    src="/buzzr-logo.svg"
+                    src="/BuzzrLogo.PNG"
                     alt="Buzzr"
                     width="32"
                     height="32"
@@ -101,7 +101,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <div className="mb-8 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2.5">
-                      <img src="/buzzr-logo.svg" alt="Buzzr" width="24" height="24" className="shrink-0 opacity-80" />
+                      <img src="/BuzzrLogo.PNG" alt="Buzzr" width="24" height="24" className="shrink-0 opacity-80" />
                       <span className="font-heading text-base lowercase leading-none text-foreground">
                         buzzr<span className="text-buzzr-accent">.</span>
                       </span>

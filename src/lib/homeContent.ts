@@ -41,6 +41,40 @@ export type BadgeItem = {
   level: number;
 };
 
+export type DebateItem = {
+  tag: string;
+  title: string;
+  body: string;
+};
+
+export type DifferentiatorItem = {
+  number: string;
+  title: string;
+  description: string;
+  contrast: string;
+};
+
+export type UpcomingEventItem = {
+  name: string;
+  subtitle: string;
+  date: string;
+  dateShort: string;
+  league: string;
+  venue?: string;
+  fans: string;
+  highlight?: boolean;
+};
+
+export type TrendingGameItem = {
+  score: number;
+  game: string;
+  sport: string;
+  date: string;
+  label: string;
+  breakdown: { label: string; value: number }[];
+  context: string;
+};
+
 export const APP_SCREENSHOTS: AppScreenshot[] = [
   { label: 'Follow the action', slug: 'home' },
   { label: 'Find games to watch', slug: 'games' },
@@ -91,6 +125,16 @@ export const REVIEWS: ReviewItem[] = [
     quote: 'That shot. I still do not believe it. My jaw was on the floor.',
     game: 'NCAAB - San Diego State vs FAU, 2023 Final Four',
     rating: 'Chaos 10/10'
+  },
+  {
+    quote: 'Found myself checking Buzzr between quarters to see if other fans were as shocked as I was.',
+    game: 'NBA Playoffs 2023 - Heat vs Celtics, Game 7',
+    rating: 'Drama 9.8/10'
+  },
+  {
+    quote: 'My whole group chat was rating in real time. Never watched a game the same way since.',
+    game: 'NCAAB - Florida vs Houston, 2025 National Championship',
+    rating: 'Clutch 9.5/10'
   }
 ];
 
@@ -134,6 +178,14 @@ export const FAQS: FaqItem[] = [
     a: 'The score tells you who won. Buzzr tells you whether the game was actually worth watching — the swings, the tension, the moments. A 40-point blowout gets a 3. A double-overtime comeback gets a 10.'
   },
   {
+    q: 'Can I rate games from the past?',
+    a: "Absolutely. From last night's comeback to a 2022 World Cup Final you still think about — log it, rate it, add it to your history."
+  },
+  {
+    q: 'What are Watch Parties?',
+    a: 'Invite friends into a shared session, sync up on the same game, and rate in real-time together. The crowd in your living room gets a score too.'
+  },
+  {
     q: 'Is Buzzr affiliated with BUZZR TV (Fremantle)?',
     a: 'No. Buzzr Sports is not affiliated with BUZZR TV (Fremantle).'
   },
@@ -146,37 +198,31 @@ export const FAQS: FaqItem[] = [
 export const HOW_IT_WORKS: HowItWorksItem[] = [
   {
     step: 1,
-    title: 'Track every game',
-    body: 'Log the games you watch across leagues and seasons so you can look back at what was actually worth your time.'
+    title: 'Follow the games that matter',
+    body: 'Track upcoming events — FIFA World Cup, NBA Playoffs, March Madness — and never lose the thread of what you watched.'
   },
   {
     step: 2,
-    title: 'Rate by entertainment',
-    body: 'Chaos factor, crowd energy, drama — rate on vibes, not just the box score.'
+    title: 'Rate by what you felt',
+    body: 'Chaos, Energy, Drama, Clutch. Four dimensions that actually capture whether a game was worth your night. Not just the score.'
   },
   {
     step: 3,
-    title: 'Never miss a classic',
-    body: 'See what other fans thought was rewatchable and build your list of must-watch games before you commit your night.'
+    title: 'Watch, debate, and discover together',
+    body: 'Host live watch parties. See what the community rated. Find the games fans say are rewatchable before you commit your evening.'
   }
 ];
-
-export type DebateItem = {
-  tag: string;
-  title: string;
-  body: string;
-};
 
 export const DEBATES: DebateItem[] = [
   {
     tag: 'Buzzr Debates',
     title: 'Was that a 10?',
-    body: 'Drop your rating. Back it up. Argue with strangers who watched the same game and felt completely different about it.',
+    body: "Drop your rating. Back it up. Argue with strangers who watched the same game and felt completely different about it.",
   },
   {
     tag: 'Hot Take',
     title: 'The comeback > the trophy.',
-    body: 'The final score is just a number. What you felt in the last two minutes — that\'s the real story. Rate it. Fight for it.',
+    body: "The final score is just a number. What you felt in the last two minutes — that's the real story. Rate it. Fight for it.",
   },
   {
     tag: 'Buzzr Debates',
@@ -185,34 +231,27 @@ export const DEBATES: DebateItem[] = [
   },
 ];
 
-export type DifferentiatorItem = {
-  number: string;
-  title: string;
-  description: string;
-  contrast: string;
-};
-
 export const DIFFERENTIATORS: DifferentiatorItem[] = [
   {
     number: '01',
     title: 'Not a number. A feeling.',
     description:
-      'Rate Chaos, Energy, and Drama separately — because one number can\'t capture why that game was unforgettable.',
+      "Rate Chaos, Energy, and Drama separately — because one number can't capture why that game was unforgettable.",
     contrast: 'Basic apps give you a single star rating.',
   },
   {
     number: '02',
     title: 'Watch it together.',
     description:
-      'Host live watch parties. Rate in real-time with your friends, not alone scrolling a recap the next morning.',
+      "Host live watch parties. Rate in real-time with your friends, not alone scrolling a recap the next morning.",
     contrast: 'Basic apps are a solo experience.',
   },
   {
     number: '03',
     title: 'Find your next classic.',
     description:
-      'See which games fans actually rewatched. Build a must-see list and never waste a night on a 40-point blowout.',
-    contrast: 'Basic apps tell you what happened. Buzzr tells you what\'s worth watching.',
+      "See which games fans actually rewatched. Build a must-see list and never waste a night on a 40-point blowout.",
+    contrast: "Basic apps tell you what happened. Buzzr tells you what's worth watching.",
   },
   {
     number: '04',
@@ -222,6 +261,58 @@ export const DIFFERENTIATORS: DifferentiatorItem[] = [
     contrast: 'Basic apps blur the line with sports gambling.',
   },
 ];
+
+export const UPCOMING_EVENTS: UpcomingEventItem[] = [
+  {
+    name: 'FIFA World Cup 2026',
+    subtitle: '48 teams. 104 matches. The biggest sporting event on earth.',
+    date: 'June 11 – July 19, 2026',
+    dateShort: 'Jun 2026',
+    league: 'FIFA',
+    venue: 'Final · MetLife Stadium, NJ',
+    fans: '12.4K fans watching',
+    highlight: true,
+  },
+  {
+    name: 'NBA Playoffs 2026',
+    subtitle: 'Every possession. Every buzzer. Every comeback.',
+    date: 'April – June 2026',
+    dateShort: 'Apr 2026',
+    league: 'NBA',
+    fans: '8.1K fans watching',
+  },
+  {
+    name: 'NFL Season Opener',
+    subtitle: 'The wait is over. Rate Week 1 in real-time.',
+    date: 'September 2026',
+    dateShort: 'Sep 2026',
+    league: 'NFL',
+    fans: '5.7K fans watching',
+  },
+  {
+    name: 'March Madness 2025',
+    subtitle: 'Florida beat Houston 65–63. Did you rate that final?',
+    date: 'Champion: Florida · Apr 7, 2025',
+    dateShort: 'Apr 2025',
+    league: 'NCAAB',
+    fans: 'Rate the games now',
+  },
+];
+
+export const TRENDING_GAME: TrendingGameItem = {
+  score: 9.8,
+  game: 'Argentina vs France · FIFA World Cup Final',
+  sport: 'FIFA',
+  date: 'Dec 18, 2022',
+  label: 'All-Time Classic',
+  breakdown: [
+    { label: 'Chaos',  value: 10  },
+    { label: 'Energy', value: 9.8 },
+    { label: 'Drama',  value: 10  },
+    { label: 'Clutch', value: 9.6 },
+  ],
+  context: 'Three penalties. Two Mbappé comebacks. Extra time. The greatest World Cup Final in history.',
+};
 
 export const BADGES: BadgeItem[] = [
   {

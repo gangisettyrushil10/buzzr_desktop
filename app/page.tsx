@@ -24,7 +24,9 @@ import {
   FEATURES,
   HOW_IT_WORKS,
   PERSONAS,
-  REVIEWS
+  REVIEWS,
+  UPCOMING_EVENTS,
+  TRENDING_GAME,
 } from '@/src/lib/homeContent';
 import { Button } from '@/components/ui/button';
 import { Marquee } from '@/components/Marquee';
@@ -193,14 +195,14 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* ── STATEMENT — basketball texture photo, editorial ───────────────── */}
+      {/* ── STATEMENT — soccer night photo, editorial ─────────────────────── */}
       <section
         aria-label="Buzzr manifesto"
         className="relative w-full overflow-hidden"
         style={{ minHeight: 'clamp(480px, 65vh, 780px)' }}
       >
         <Image
-          src="/sports/basketball-macro.jpg"
+          src="/sports/soccer-night.jpg"
           alt=""
           fill
           className="object-cover object-center"
@@ -231,145 +233,127 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* ── GAME NIGHT — soccer photo ─────────────────────────────────────── */}
+      {/* ── LEAGUE MARQUEE ────────────────────────────────────────────────── */}
+      <Marquee />
+
+      {/* ── UPCOMING EVENTS ───────────────────────────────────────────────── */}
       <section
-        aria-label="Game night"
-        className="relative w-full overflow-hidden"
-        style={{ height: 'clamp(320px, 55vh, 600px)' }}
+        aria-label="Upcoming events"
+        className="mx-auto w-[90%] max-w-[1400px] py-20 md:py-24"
       >
-        <Image
-          src="/sports/soccer-night.jpg"
-          alt="Football field lit up at night"
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-transparent to-transparent" />
-
-        {/* BUZZR stamp top-left */}
-        <div className="absolute top-6 left-8">
-          <span className="font-heading text-[10px] uppercase tracking-[0.45em] text-buzzr-accent">
-            BUZZR
-          </span>
-        </div>
-
-        {/* Content bottom-left */}
-        <div className="absolute bottom-0 left-0 p-8 md:p-12">
-          <div className="flex gap-3 mb-3 opacity-65" aria-hidden>
-            <PixelFire size={18} />
-            <PixelBolt size={18} />
-            <PixelStar size={18} />
-          </div>
-          <h2
-            className="font-heading uppercase text-white leading-none"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}
-          >
-            GAME NIGHT.
-          </h2>
-          <p className="mt-2 text-[11px] font-sans uppercase tracking-widest text-white/38">
-            Every game. Rated. Remembered.
+        <ScrollReveal delay={0}>
+          <p className="mb-2 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
+            On the radar
           </p>
+          <h2 className="mx-auto mb-12 max-w-lg text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
+            Big games are{' '}
+            <em className="not-italic text-gradient">coming.</em>
+          </h2>
+        </ScrollReveal>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {UPCOMING_EVENTS.map((event, i) => (
+            <ScrollReveal key={event.name} delay={(i % 4) as 0 | 1 | 2 | 3}>
+              <div className={`flex h-full flex-col gap-3 border p-6 transition-colors hover:border-buzzr-accent/40 ${
+                event.highlight
+                  ? 'border-buzzr-accent/50 bg-buzzr-surface/50'
+                  : 'border-border/40 bg-buzzr-surface/20'
+              }`}>
+                <span className="inline-flex w-fit border border-buzzr-accent/30 px-1.5 py-0.5 text-[9px] font-sans uppercase tracking-[0.25em] text-buzzr-accent">
+                  {event.league}
+                </span>
+                <p className="text-[10px] font-sans uppercase tracking-widest text-mutedForeground/55">
+                  {event.dateShort}
+                </p>
+                <h3 className="font-heading text-lg uppercase leading-tight text-foreground">
+                  {event.name}
+                </h3>
+                <p className="flex-1 text-xs font-sans leading-relaxed text-mutedForeground">
+                  {event.subtitle}
+                </p>
+                {event.venue && (
+                  <p className="text-[10px] font-sans uppercase tracking-wide text-white/25">
+                    {event.venue}
+                  </p>
+                )}
+                <div className="flex items-center gap-2 border-t border-border/30 pt-3">
+                  <span className="h-1.5 w-1.5 rounded-full bg-buzzr-accent animate-breathe" aria-hidden />
+                  <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-mutedForeground/60">
+                    {event.fans}
+                  </span>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
       </section>
 
-      {/* ── LEAGUE MARQUEE ────────────────────────────────────────────────── */}
-      <Marquee />
+      <Divider />
+
+      {/* ── TRENDING NOW — featured game, dark card ────────────────────────── */}
+      <section
+        aria-label="Trending game"
+        className="mx-auto w-[90%] max-w-[1400px] py-4 md:py-6"
+      >
+        <ScrollReveal delay={0}>
+          <p className="mb-5 text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
+            Community pick · {TRENDING_GAME.label}
+          </p>
+
+          <div className="pixel-filmstrip border border-buzzr-accent/25 bg-buzzr-surface/30 p-8 md:p-12">
+            <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+
+              {/* Left — score + meta */}
+              <div>
+                {(() => {
+                  const [trendInt, trendDec] = TRENDING_GAME.score.toFixed(1).split('.');
+                  return (
+                    <div className="mb-4 flex items-baseline leading-none">
+                      <span className="font-heading text-white" style={{ fontSize: 'clamp(4rem, 12vw, 8rem)', lineHeight: 0.85 }}>
+                        {trendInt}
+                      </span>
+                      <span className="font-heading text-buzzr-accent" style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', lineHeight: 0.85 }}>
+                        •
+                      </span>
+                      <span className="font-heading text-white" style={{ fontSize: 'clamp(4rem, 12vw, 8rem)', lineHeight: 0.85 }}>
+                        {trendDec}
+                      </span>
+                    </div>
+                  );
+                })()}
+                <p className="mb-2 text-xs font-sans tracking-wide text-white/38">{TRENDING_GAME.game}</p>
+                <div className="mb-4 flex items-center gap-2">
+                  <span className="border border-buzzr-accent/30 px-1.5 py-0.5 text-[9px] font-sans uppercase tracking-[0.2em] text-buzzr-accent/70">
+                    {TRENDING_GAME.sport}
+                  </span>
+                  <span className="text-[9px] text-mutedForeground/40">{TRENDING_GAME.date}</span>
+                </div>
+                <p className="max-w-xs text-xs font-sans italic leading-relaxed text-white/45">
+                  &ldquo;{TRENDING_GAME.context}&rdquo;
+                </p>
+              </div>
+
+              {/* Right — breakdown */}
+              <div className="flex flex-wrap gap-6 md:gap-10">
+                {TRENDING_GAME.breakdown.map(({ label, value }) => (
+                  <div key={label} className="flex flex-col gap-2">
+                    <span className="text-[9px] font-sans uppercase tracking-[0.3em] text-white/35">{label}</span>
+                    <span className="font-heading text-xl leading-none text-white">{value}</span>
+                    <SegmentedBar value={value} segments={10} segmentHeight={5} />
+                  </div>
+                ))}
+              </div>
+
+            </div>
+          </div>
+        </ScrollReveal>
+      </section>
 
       {/* ── SOCIAL PROOF ──────────────────────────────────────────────────── */}
       <section aria-label="Community stats" className="mx-auto w-[90%] max-w-[1000px] py-12 md:py-16">
         <ScrollReveal delay={0}>
           <SocialProofStrip />
         </ScrollReveal>
-      </section>
-
-      <Divider />
-
-      {/* ── SCORE SHOWCASE — full-bleed hero score, brand image 3 style ─────── */}
-      <section
-        aria-label="Buzzr score showcase"
-        className="pixel-filmstrip relative w-full overflow-hidden"
-        style={{ minHeight: 'clamp(480px, 58vh, 680px)' }}
-      >
-        <Image
-          src="/sports/basketball-dark.jpg"
-          alt=""
-          fill
-          className="object-cover object-center scale-105"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
-
-        {/* BUZZR stamp */}
-        <div className="absolute top-6 left-8 z-10">
-          <span className="font-heading text-[10px] uppercase tracking-[0.45em] text-buzzr-accent">
-            BUZZR
-          </span>
-        </div>
-
-        {/* Floating pixel accents */}
-        <div className="absolute top-16 right-[12%] z-10 opacity-35" aria-hidden>
-          <PixelStar size={20} />
-        </div>
-        <div className="absolute top-32 right-[8%] z-10 opacity-25" aria-hidden>
-          <PixelOrb size={14} />
-        </div>
-        <div className="absolute bottom-28 right-[15%] z-10 opacity-20" aria-hidden>
-          <PixelOrb size={10} />
-        </div>
-
-        {/* Score content — bottom-left */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 px-[5%] pb-14 md:pb-20">
-          <ScrollReveal delay={0}>
-            {/* The big score number */}
-            <div className="flex items-baseline gap-0 mb-4 leading-none">
-              <span
-                className="font-heading text-white"
-                style={{ fontSize: 'clamp(5rem, 16vw, 11rem)', lineHeight: 0.85 }}
-              >
-                9
-              </span>
-              <span
-                className="font-heading text-buzzr-accent inline-block rounded-full mb-1"
-                style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)', lineHeight: 0.85 }}
-              >
-                •
-              </span>
-              <span
-                className="font-heading text-white"
-                style={{ fontSize: 'clamp(5rem, 16vw, 11rem)', lineHeight: 0.85 }}
-              >
-                8
-              </span>
-            </div>
-
-            {/* Badge */}
-            <div className="flex items-center gap-2 mb-2">
-              <PixelOrb size={14} />
-              <span className="text-[11px] font-sans uppercase tracking-[0.35em] text-buzzr-accent font-medium">
-                An Absolute Classic
-              </span>
-            </div>
-            <p className="text-xs font-sans text-white/38 tracking-wide">
-              Argentina vs France · FIFA World Cup Final · Dec 2022
-            </p>
-
-            {/* Breakdown bars */}
-            <div className="mt-6 flex gap-6">
-              {[
-                { label: 'Chaos',  value: 10   },
-                { label: 'Energy', value: 9.8  },
-                { label: 'Drama',  value: 10   },
-              ].map(({ label, value }) => (
-                <div key={label} className="flex flex-col gap-1.5">
-                  <span className="text-[9px] font-sans uppercase tracking-[0.3em] text-white/35">{label}</span>
-                  <span className="font-heading text-lg text-white leading-none">{value}</span>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
       </section>
 
       {/* ── SCORE CARDS — 3 classic games ─────────────────────────────────── */}
@@ -475,7 +459,7 @@ export default function HomePage() {
         {/* Full-width 2×2 photo poster grid */}
         <div className="grid sm:grid-cols-2">
           {FEATURES.map((feature, i) => {
-            const photo = FEATURE_PHOTOS[feature.title] ?? { src: '/sports/basketball-dark.jpg' };
+            const photo = FEATURE_PHOTOS[feature.title] ?? { src: '/sports/basketball-macro.jpg' };
             return (
               <ScrollReveal key={feature.title} delay={(i % 4) as 0 | 1 | 2 | 3}>
                 <div
@@ -784,23 +768,11 @@ export default function HomePage() {
 
       <Divider />
 
-      {/* ── BADGE SHOWCASE — dark sports bg, filmstrip, floating cards ─────── */}
+      {/* ── BADGE SHOWCASE — pure dark bg, filmstrip, floating cards ─────── */}
       <section
         aria-label="Earn badges"
-        className="pixel-filmstrip relative w-full overflow-hidden py-24 md:py-32"
+        className="pixel-filmstrip relative w-full overflow-hidden py-24 md:py-32 bg-black"
       >
-        {/* Background */}
-        <div className="absolute inset-0">
-          <Image
-            src="/sports/basketball-dark.jpg"
-            alt=""
-            fill
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-black/88" />
-        </div>
-
         {/* BUZZR stamp */}
         <div className="absolute top-6 left-8 z-10">
           <span className="font-heading text-[10px] uppercase tracking-[0.45em] text-buzzr-accent">

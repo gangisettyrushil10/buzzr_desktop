@@ -5,7 +5,7 @@ export const SITE_NAME = 'Buzzr';
 export const SITE_TAGLINE = 'Rate sports games by entertainment.';
 
 export const SITE_DESCRIPTION =
-  'Buzzr is the Letterboxd for sports games. Rate games by chaos, energy, and drama — not the final score. Track everything you watch.';
+  'Buzzr is the Letterboxd for sports games. Track upcoming events, rate games by chaos, energy, and drama — not the final score. March Madness, FIFA World Cup 2026, NBA Playoffs.';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buzzr.app';
 
@@ -38,16 +38,16 @@ export const HERO_LINE2_PLAIN = 'WE';
 export const HERO_LINE2_ACCENT = 'WATCH.';
 
 export const HERO_SUBHEAD =
-  'Rate the chaos. Track the drama. Every game gets a score.';
+  'Track upcoming events. Rate by entertainment. Discover classics. Every game gets a Buzzr score.';
 
 /** Legacy/compat */
 export const HERO_EMOTIONAL_LINE =
   "For when the box score wasn't the best part.";
 
-export const HERO_STAT = "We're inviting fans in waves.";
+export const HERO_STAT = "Join 500+ fans already in beta.";
 
 export const TRUST_STRIP =
-  'NBA · NFL · IPL · F1 · FIFA · March Madness · and every game that actually delivers.';
+  'NBA Playoffs · NFL · FIFA World Cup 2026 · March Madness · IPL · F1 · and every game that actually delivers.';
 
 /** Social – overridable via env */
 export const TWITTER_URL =
