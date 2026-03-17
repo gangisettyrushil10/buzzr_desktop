@@ -341,6 +341,33 @@ h1, h2, h3 {
     border: 1px solid rgba(16,185,129,0.35);
   }
 
+  /* ─── Pixel filmstrip border (top + bottom green square strip) ─────────
+     Inspired by brand image posts — product/showcase sections.
+     Parent must have position: relative. Works with overflow: hidden.
+  ──────────────────────────────────────────────────────────────────────── */
+  .pixel-filmstrip {
+    position: relative;
+  }
+  .pixel-filmstrip::before,
+  .pixel-filmstrip::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 13px;
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgb(16,185,129) 0px,
+      rgb(16,185,129) 9px,
+      transparent 9px,
+      transparent 14px
+    );
+    z-index: 30;
+    pointer-events: none;
+  }
+  .pixel-filmstrip::before { top: 0; }
+  .pixel-filmstrip::after  { bottom: 0; }
+
   /* ─── Score hero number ──────────────────────────────────────────────── */
   .score-hero-num {
     font-family: var(--font-acworth), system-ui, sans-serif;

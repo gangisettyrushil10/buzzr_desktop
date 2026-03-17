@@ -18,6 +18,8 @@ import {
 import {
   APP_SCREENSHOTS,
   BADGES,
+  DEBATES,
+  DIFFERENTIATORS,
   FAQS,
   FEATURES,
   HOW_IT_WORKS,
@@ -25,7 +27,6 @@ import {
   REVIEWS
 } from '@/src/lib/homeContent';
 import { Button } from '@/components/ui/button';
-import { FloatingOrbs } from '@/components/FloatingOrbs';
 import { Marquee } from '@/components/Marquee';
 import { RotatingReviews } from '@/components/RotatingReviews';
 import { ScrollReveal } from '@/components/ScrollReveal';
@@ -44,6 +45,14 @@ export const metadata: Metadata = {
     title: `${SITE_NAME} — Rate sports games by entertainment.`,
     description: SITE_DESCRIPTION
   }
+};
+
+/** Photo assigned to each feature card */
+const FEATURE_PHOTOS: Record<string, { src: string; position?: string }> = {
+  CHAOS:  { src: '/sports/basketball-dark.jpg',  position: 'object-center' },
+  ENERGY: { src: '/sports/soccer-action.jpg',    position: 'object-center' },
+  DRAMA:  { src: '/sports/boxing-ring.jpg',       position: 'object-center' },
+  CLUTCH: { src: '/sports/stadium-crowd.jpg',    position: 'object-center' },
 };
 
 function MockupContent({ slug }: { slug: string }) {
@@ -79,9 +88,8 @@ function BadgeIcon({ icon, size = 24 }: { icon: string; size?: number }) {
 export default function HomePage() {
   return (
     <div className="relative">
-      <FloatingOrbs className="-z-10" />
 
-      {/* ── HERO — full viewport, sports photo bg ─────────────────────────── */}
+      {/* ── HERO — dark sports photo, poster headline ─────────────────────── */}
       <section
         aria-labelledby="hero-title"
         className="relative flex min-h-[92vh] flex-col justify-end overflow-hidden"
@@ -89,35 +97,38 @@ export default function HomePage() {
         {/* Photo background */}
         <div className="absolute inset-0 -z-10">
           <Image
-            src="/stadium-dark.png"
+            src="/sports/basketball-dark.jpg"
             alt=""
             fill
             className="object-cover object-center"
             priority
           />
-          {/* Dark scrim — lighter in center so photo is visible, heavy at edges/bottom for readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/90" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/30 to-black/92" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-transparent to-black/20" />
         </div>
 
-        {/* Live badge — top left, matching brand image layout */}
-        <div className="absolute top-6 left-[5%] md:left-[5%]">
-          <span
-            className="badge-live inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-sans font-medium tracking-wide opacity-0 animate-fade-in"
-            style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-buzzr-accent2" aria-hidden />
+        {/* BUZZR wordmark — top-left brand stamp */}
+        <div className="absolute top-6 left-[5%] z-10">
+          <span className="font-heading text-[11px] uppercase tracking-[0.45em] text-buzzr-accent">
+            BUZZR
+          </span>
+        </div>
+
+        {/* GAME NIGHT badge — top-right */}
+        <div className="absolute top-6 right-[5%] z-10">
+          <span className="inline-flex items-center gap-2 text-[11px] font-sans tracking-[0.2em] text-white/55 uppercase">
+            <span className="h-2 w-2 rounded-full bg-red-500" aria-hidden />
             GAME NIGHT
           </span>
         </div>
 
-        {/* Content — anchored bottom-left, poster style */}
+        {/* Hero content — bottom-left poster */}
         <div className="relative mx-auto w-[90%] max-w-[1400px] pb-16 pt-32">
-          <header className="max-w-4xl space-y-4">
+          <header className="max-w-4xl">
             <h1
               id="hero-title"
-              className="font-heading uppercase leading-[0.92] tracking-tight text-white"
-              style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }}
+              className="font-heading uppercase leading-[0.9] tracking-tight text-white"
+              style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)' }}
             >
               <span
                 className="block opacity-0 animate-fade-in-up"
@@ -135,14 +146,14 @@ export default function HomePage() {
             </h1>
 
             <p
-              className="max-w-sm text-sm font-sans text-white/70 leading-relaxed opacity-0 animate-fade-in-up"
+              className="mt-5 text-sm font-sans text-white/55 leading-relaxed opacity-0 animate-fade-in-up max-w-xs"
               style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}
             >
               {HERO_SUBHEAD}
             </p>
           </header>
 
-          {/* CTA row */}
+          {/* CTA */}
           <div
             className="mt-8 flex flex-wrap items-center gap-4 opacity-0 animate-fade-in-up"
             style={{ animationDelay: '0.48s', animationFillMode: 'forwards' }}
@@ -152,59 +163,80 @@ export default function HomePage() {
                 Join Beta — Free
               </Button>
             </Link>
-            <div className="flex items-center gap-4 text-xs font-sans text-white/50">
-              <Link href={FEEDBACK_TALLY_URL} target="_blank" rel="noopener noreferrer"
-                    className="underline underline-offset-3 transition-colors hover:text-white/80">
+            <div className="flex items-center gap-4 text-xs font-sans text-white/45">
+              <Link
+                href={FEEDBACK_TALLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-3 transition-colors hover:text-white/80"
+              >
                 Leave feedback
               </Link>
               <span aria-hidden>·</span>
               <Link href="/support" className="underline underline-offset-3 transition-colors hover:text-white/80">
                 Support
               </Link>
-              <span aria-hidden>·</span>
-              <span className="flex items-center gap-1.5 opacity-60">
-                <FontAwesomeIcon icon={faApple} className="h-3.5 w-3.5" aria-label="iOS" />
-                <FontAwesomeIcon icon={faGooglePlay} className="h-3 w-3" aria-label="Android" />
-              </span>
             </div>
           </div>
 
-          {/* Trust strip */}
           <p
-            className="mt-5 text-xs font-sans text-white/35 opacity-0 animate-fade-in-up"
+            className="mt-5 text-[11px] font-sans text-white/28 opacity-0 animate-fade-in-up"
             style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}
           >
             {TRUST_STRIP}
           </p>
         </div>
 
-        {/* Bottom-right social handle */}
-        <p className="absolute bottom-6 right-[5%] text-[10px] font-sans tracking-widest text-white/30">
+        {/* @handle — bottom-right */}
+        <p className="absolute bottom-6 right-[5%] text-[10px] font-sans tracking-widest text-white/28">
           @the_real_buzzr
         </p>
       </section>
 
-      {/* ── STATEMENT / MANIFESTO ─────────────────────────────────────────── */}
-      <section aria-label="Buzzr manifesto" className="w-full bg-black py-24 md:py-32 text-center">
-        <ScrollReveal delay={0}>
-          <p className="mb-6 text-[11px] font-sans uppercase tracking-[0.35em] text-mutedForeground/60">
-            Letterboxd for Sports
-          </p>
-          <h2
-            className="font-heading uppercase leading-[0.9] text-foreground mx-auto max-w-4xl px-6"
-            style={{ fontSize: 'clamp(2.5rem, 7vw, 5rem)' }}
-          >
-            Chaos. Energy.<br />
-            <em className="not-italic text-gradient">Drama.</em>
-          </h2>
-          <p className="mt-8 text-sm font-sans text-mutedForeground max-w-sm mx-auto leading-relaxed px-6">
-            Rate games by what actually matters.<br />Not the final score.
-          </p>
-        </ScrollReveal>
+      {/* ── STATEMENT — basketball texture photo, editorial ───────────────── */}
+      <section
+        aria-label="Buzzr manifesto"
+        className="relative w-full overflow-hidden"
+        style={{ minHeight: 'clamp(480px, 65vh, 780px)' }}
+      >
+        <Image
+          src="/sports/basketball-macro.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-black/85" />
+
+        <div className="relative flex h-full items-center justify-center py-28 px-6 text-center">
+          <ScrollReveal delay={0}>
+            <p className="mb-6 text-[11px] font-sans uppercase tracking-[0.45em] text-buzzr-accent/70">
+              Letterboxd for Sports
+            </p>
+            <h2
+              className="font-heading leading-[0.9] text-white mx-auto"
+              style={{ fontSize: 'clamp(3rem, 8vw, 6.5rem)' }}
+            >
+              Chaos. Energy.<br />
+              <em className="not-italic text-gradient">Drama.</em>
+            </h2>
+            <p className="mt-8 text-sm font-sans text-white/45 max-w-[280px] mx-auto leading-relaxed">
+              Rate games by what actually matters.<br />Not the final score.
+            </p>
+          </ScrollReveal>
+        </div>
+
+        <p className="absolute bottom-6 right-8 text-[10px] font-sans tracking-widest text-white/22">
+          @the_real_buzzr
+        </p>
       </section>
 
-      {/* ── GAME NIGHT — photo section ────────────────────────────────────── */}
-      <section aria-label="Game night" className="relative w-full overflow-hidden" style={{ height: 'clamp(320px, 55vh, 600px)' }}>
+      {/* ── GAME NIGHT — soccer photo ─────────────────────────────────────── */}
+      <section
+        aria-label="Game night"
+        className="relative w-full overflow-hidden"
+        style={{ height: 'clamp(320px, 55vh, 600px)' }}
+      >
         <Image
           src="/sports/soccer-night.jpg"
           alt="Football field lit up at night"
@@ -212,21 +244,19 @@ export default function HomePage() {
           className="object-cover object-center"
           sizes="100vw"
         />
-        {/* Gradient scrim — heavy at bottom so text reads */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-transparent to-transparent" />
 
-        {/* BUZZR wordmark top-left — matches brand image style */}
+        {/* BUZZR stamp top-left */}
         <div className="absolute top-6 left-8">
-          <span className="font-heading text-[10px] uppercase tracking-[0.4em] text-buzzr-accent">
+          <span className="font-heading text-[10px] uppercase tracking-[0.45em] text-buzzr-accent">
             BUZZR
           </span>
         </div>
 
-        {/* Content — bottom-left anchored */}
+        {/* Content bottom-left */}
         <div className="absolute bottom-0 left-0 p-8 md:p-12">
-          {/* Pixel icons row */}
-          <div className="flex gap-3 mb-3 opacity-70" aria-hidden>
+          <div className="flex gap-3 mb-3 opacity-65" aria-hidden>
             <PixelFire size={18} />
             <PixelBolt size={18} />
             <PixelStar size={18} />
@@ -237,7 +267,7 @@ export default function HomePage() {
           >
             GAME NIGHT.
           </h2>
-          <p className="mt-2 text-[11px] font-sans uppercase tracking-widest text-white/40">
+          <p className="mt-2 text-[11px] font-sans uppercase tracking-widest text-white/38">
             Every game. Rated. Remembered.
           </p>
         </div>
@@ -255,19 +285,98 @@ export default function HomePage() {
 
       <Divider />
 
-      {/* ── SCORE METER DEMO ──────────────────────────────────────────────── */}
+      {/* ── SCORE SHOWCASE — full-bleed hero score, brand image 3 style ─────── */}
       <section
-        aria-label="Buzzr score demo"
-        className="mx-auto w-[90%] max-w-[1400px] py-16 md:py-20"
+        aria-label="Buzzr score showcase"
+        className="pixel-filmstrip relative w-full overflow-hidden"
+        style={{ minHeight: 'clamp(480px, 58vh, 680px)' }}
       >
-        <ScrollReveal delay={0}>
-          <p className="mb-1 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/70">
-            Entertainment Scores
-          </p>
-          <p className="mx-auto mb-10 max-w-xs text-center text-xs font-sans text-mutedForeground/60">
-            Rated by fans on chaos, energy, and drama.
-          </p>
-        </ScrollReveal>
+        <Image
+          src="/sports/basketball-dark.jpg"
+          alt=""
+          fill
+          className="object-cover object-center scale-105"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+
+        {/* BUZZR stamp */}
+        <div className="absolute top-6 left-8 z-10">
+          <span className="font-heading text-[10px] uppercase tracking-[0.45em] text-buzzr-accent">
+            BUZZR
+          </span>
+        </div>
+
+        {/* Floating pixel accents */}
+        <div className="absolute top-16 right-[12%] z-10 opacity-35" aria-hidden>
+          <PixelStar size={20} />
+        </div>
+        <div className="absolute top-32 right-[8%] z-10 opacity-25" aria-hidden>
+          <PixelOrb size={14} />
+        </div>
+        <div className="absolute bottom-28 right-[15%] z-10 opacity-20" aria-hidden>
+          <PixelOrb size={10} />
+        </div>
+
+        {/* Score content — bottom-left */}
+        <div className="absolute bottom-0 left-0 right-0 z-10 px-[5%] pb-14 md:pb-20">
+          <ScrollReveal delay={0}>
+            {/* The big score number */}
+            <div className="flex items-baseline gap-0 mb-4 leading-none">
+              <span
+                className="font-heading text-white"
+                style={{ fontSize: 'clamp(5rem, 16vw, 11rem)', lineHeight: 0.85 }}
+              >
+                9
+              </span>
+              <span
+                className="font-heading text-buzzr-accent inline-block rounded-full mb-1"
+                style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)', lineHeight: 0.85 }}
+              >
+                •
+              </span>
+              <span
+                className="font-heading text-white"
+                style={{ fontSize: 'clamp(5rem, 16vw, 11rem)', lineHeight: 0.85 }}
+              >
+                8
+              </span>
+            </div>
+
+            {/* Badge */}
+            <div className="flex items-center gap-2 mb-2">
+              <PixelOrb size={14} />
+              <span className="text-[11px] font-sans uppercase tracking-[0.35em] text-buzzr-accent font-medium">
+                An Absolute Classic
+              </span>
+            </div>
+            <p className="text-xs font-sans text-white/38 tracking-wide">
+              Argentina vs France · FIFA World Cup Final · Dec 2022
+            </p>
+
+            {/* Breakdown bars */}
+            <div className="mt-6 flex gap-6">
+              {[
+                { label: 'Chaos',  value: 10   },
+                { label: 'Energy', value: 9.8  },
+                { label: 'Drama',  value: 10   },
+              ].map(({ label, value }) => (
+                <div key={label} className="flex flex-col gap-1.5">
+                  <span className="text-[9px] font-sans uppercase tracking-[0.3em] text-white/35">{label}</span>
+                  <span className="font-heading text-lg text-white leading-none">{value}</span>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── SCORE CARDS — 3 classic games ─────────────────────────────────── */}
+      <section
+        aria-label="Classic game scores"
+        className="mx-auto w-[90%] max-w-[1400px] py-14 md:py-16"
+      >
         <div className="grid gap-4 sm:grid-cols-3">
           <ScrollReveal delay={0} className="flex">
             <BuzzrScoreMeter
@@ -313,38 +422,97 @@ export default function HomePage() {
 
       <Divider />
 
-      {/* ── FEATURE CARDS — metric style ──────────────────────────────────── */}
+      {/* ── DIFFERENTIATORS — what makes Buzzr different ──────────────────── */}
       <section
-        aria-label="Features"
+        aria-label="What makes Buzzr different"
         className="mx-auto w-[90%] max-w-[1400px] py-20 md:py-24"
       >
         <ScrollReveal delay={0}>
           <p className="mb-2 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
-            How you rate
+            Not just another rating app
           </p>
-          <h2 className="mx-auto mb-12 max-w-lg text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
-            Every dimension that <em className="not-italic text-gradient">matters.</em>
+          <h2 className="mx-auto mb-14 max-w-xl text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
+            Built for fans who know the{' '}
+            <em className="not-italic text-gradient">score doesn't tell the story.</em>
           </h2>
         </ScrollReveal>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {FEATURES.map((feature, i) => (
-            <ScrollReveal key={feature.title} delay={(i % 4) as 0 | 1 | 2 | 3}>
-              <div className="group relative overflow-hidden border border-border/40 bg-buzzr-surface/20 p-6 transition-all hover:border-buzzr-accent/30 hover:bg-buzzr-surface/40">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-buzzr-accent/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <h3
-                  className="font-heading uppercase leading-none mb-4 text-foreground"
-                  style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)' }}
-                >
-                  {feature.title}
+        <div className="grid gap-px sm:grid-cols-2 bg-border/25">
+          {DIFFERENTIATORS.map((item, i) => (
+            <ScrollReveal key={item.number} delay={(i % 4) as 0 | 1 | 2 | 3}>
+              <div className="bg-background p-8 md:p-10 flex flex-col gap-4 h-full">
+                <span className="font-heading text-[11px] tracking-[0.35em] text-buzzr-accent/50">
+                  {item.number}
+                </span>
+                <h3 className="font-heading uppercase text-xl text-foreground leading-tight md:text-2xl">
+                  {item.title}
                 </h3>
-                <SegmentedBar value={feature.value} segments={10} segmentHeight={6} />
-                <p className="mt-5 text-xs font-sans leading-relaxed text-mutedForeground">
-                  {feature.description}
+                <p className="text-xs font-sans leading-relaxed text-mutedForeground flex-1">
+                  {item.description}
+                </p>
+                <p className="text-[10px] font-sans uppercase tracking-[0.25em] text-white/22 border-l-2 border-border/40 pl-3">
+                  {item.contrast}
                 </p>
               </div>
             </ScrollReveal>
           ))}
+        </div>
+      </section>
+
+      {/* ── FEATURE CARDS — photo poster with filmstrip (brand image style) ─ */}
+      <section aria-label="Features" className="w-full">
+        <ScrollReveal delay={0}>
+          <div className="mx-auto w-[90%] max-w-[1400px] pt-20 pb-12">
+            <p className="mb-2 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
+              How you rate
+            </p>
+            <h2 className="mx-auto text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
+              Every dimension that <em className="not-italic text-gradient">matters.</em>
+            </h2>
+          </div>
+        </ScrollReveal>
+
+        {/* Full-width 2×2 photo poster grid */}
+        <div className="grid sm:grid-cols-2">
+          {FEATURES.map((feature, i) => {
+            const photo = FEATURE_PHOTOS[feature.title] ?? { src: '/sports/basketball-dark.jpg' };
+            return (
+              <ScrollReveal key={feature.title} delay={(i % 4) as 0 | 1 | 2 | 3}>
+                <div
+                  className="pixel-filmstrip group relative overflow-hidden"
+                  style={{ minHeight: 'clamp(360px, 45vw, 580px)' }}
+                >
+                  {/* Photo */}
+                  <Image
+                    src={photo.src}
+                    alt=""
+                    fill
+                    className={`object-cover transition-transform duration-700 group-hover:scale-105 ${photo.position ?? 'object-center'}`}
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/15" />
+
+                  {/* Content — bottom-left */}
+                  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+                    <h3
+                      className="font-heading uppercase leading-none text-white mb-5"
+                      style={{ fontSize: 'clamp(2.8rem, 5vw, 4.5rem)' }}
+                    >
+                      {feature.title}
+                    </h3>
+                    <SegmentedBar value={feature.value} segments={10} segmentHeight={8} />
+                    <p className="mt-4 text-xs font-sans leading-relaxed text-white/45 max-w-xs">
+                      {feature.description}
+                    </p>
+                    <span className="mt-5 block text-[9px] font-sans uppercase tracking-[0.45em] text-buzzr-accent">
+                      BUZZR
+                    </span>
+                  </div>
+                </div>
+              </ScrollReveal>
+            );
+          })}
         </div>
       </section>
 
@@ -377,6 +545,68 @@ export default function HomePage() {
               </div>
             </ScrollReveal>
           ))}
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* ── WATCH PARTIES — full-width editorial, major differentiator ────── */}
+      <section
+        aria-label="Watch parties"
+        className="relative w-full overflow-hidden"
+        style={{ minHeight: 'clamp(500px, 65vh, 760px)' }}
+      >
+        <Image
+          src="/sports/stadium-crowd.jpg"
+          alt="Stadium crowd"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+        {/* BUZZR stamp */}
+        <div className="absolute top-6 left-8 z-10">
+          <span className="font-heading text-[10px] uppercase tracking-[0.45em] text-buzzr-accent">
+            BUZZR
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="absolute inset-0 flex items-end pb-16 md:pb-20">
+          <div className="mx-auto w-[90%] max-w-[1400px]">
+            <ScrollReveal delay={0}>
+              <p className="mb-4 text-[11px] font-sans uppercase tracking-[0.35em] text-buzzr-accent">
+                Watch Parties
+              </p>
+              <h2
+                className="font-heading uppercase text-white leading-[0.9] mb-6"
+                style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}
+              >
+                Rate it<br />
+                <em className="not-italic text-gradient">together.</em>
+              </h2>
+              <p className="text-sm font-sans text-white/50 max-w-xs leading-relaxed mb-8">
+                Invite friends, sync the game, and rate every wild moment in real-time.
+                The crowd in your living room deserves a score too.
+              </p>
+
+              {/* Three micro-stats */}
+              <div className="flex flex-wrap gap-6">
+                {[
+                  { stat: 'Live', label: 'Real-time ratings' },
+                  { stat: 'Social', label: 'Rate with friends' },
+                  { stat: 'Yours', label: 'Keep the log forever' },
+                ].map(({ stat, label }) => (
+                  <div key={stat} className="flex flex-col gap-1">
+                    <span className="font-heading text-2xl text-white uppercase">{stat}</span>
+                    <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-white/38">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
@@ -489,45 +719,135 @@ export default function HomePage() {
 
       <Divider />
 
-      {/* ── BADGE SHOWCASE ────────────────────────────────────────────────── */}
+      {/* ── DEBATES — boxing ring photo, editorial ────────────────────────── */}
+      <section
+        aria-label="Buzzr Debates"
+        className="pixel-filmstrip relative w-full overflow-hidden"
+        style={{ minHeight: 'clamp(560px, 70vh, 820px)' }}
+      >
+        <Image
+          src="/sports/boxing-ring.jpg"
+          alt="Boxing ring"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/65 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+
+        {/* BUZZR stamp */}
+        <div className="absolute top-6 left-8 z-10">
+          <span className="font-heading text-[10px] uppercase tracking-[0.45em] text-buzzr-accent">
+            BUZZR
+          </span>
+        </div>
+
+        <div className="absolute inset-0 z-10 flex flex-col justify-end pb-14 md:pb-20 px-[5%]">
+          <ScrollReveal delay={0}>
+            {/* VS tag */}
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-buzzr-accent font-heading text-sm tracking-widest">// VS //</span>
+            </div>
+
+            <h2
+              className="font-heading uppercase text-white leading-[0.88] mb-6"
+              style={{ fontSize: 'clamp(3.5rem, 9vw, 7rem)' }}
+            >
+              DEBATE<br />
+              <em className="not-italic text-gradient">ME.</em>
+            </h2>
+            <p className="text-[11px] font-sans uppercase tracking-[0.35em] text-white/35 mb-10">
+              Buzzr Debates
+            </p>
+
+            {/* Debate cards — horizontal row */}
+            <div className="grid gap-3 sm:grid-cols-3 max-w-3xl">
+              {DEBATES.map((debate, i) => (
+                <ScrollReveal key={debate.tag + i} delay={(i % 3) as 0 | 1 | 2}>
+                  <div className="border border-buzzr-accent/30 bg-black/60 backdrop-blur-sm p-5">
+                    <p className="text-[9px] font-sans uppercase tracking-[0.35em] text-buzzr-accent mb-2">
+                      {debate.tag}
+                    </p>
+                    <p className="font-heading text-sm text-white uppercase leading-tight mb-2">
+                      {debate.title}
+                    </p>
+                    <p className="text-[11px] font-sans text-white/38 leading-relaxed">
+                      {debate.body}
+                    </p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* ── BADGE SHOWCASE — dark sports bg, filmstrip, floating cards ─────── */}
       <section
         aria-label="Earn badges"
-        className="mx-auto w-[90%] max-w-[1400px] py-20 md:py-24"
+        className="pixel-filmstrip relative w-full overflow-hidden py-24 md:py-32"
       >
-        <ScrollReveal delay={0}>
-          <p className="mb-2 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
-            Earn your stripes
-          </p>
-          <h2 className="mx-auto mb-3 max-w-lg text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
-            Badges for real fans.
-          </h2>
-          <p className="mx-auto mb-12 max-w-sm text-center text-sm font-sans text-mutedForeground">
-            Rate games, log watches, and unlock badges that actually mean something.
-          </p>
-        </ScrollReveal>
+        {/* Background */}
+        <div className="absolute inset-0">
+          <Image
+            src="/sports/basketball-dark.jpg"
+            alt=""
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black/88" />
+        </div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
-          {BADGES.map((badge, i) => (
-            <ScrollReveal key={badge.name} delay={(i % 3) as 0 | 1 | 2}>
-              <div className="pixel-frame-full bg-buzzr-surface/20 p-6 text-center transition-shadow hover:shadow-glow">
-                <div className="flex justify-center gap-3 mb-5" aria-hidden>
-                  <BadgeIcon icon={badge.icon} size={20} />
-                  <BadgeIcon icon={badge.icon} size={20} />
-                  <BadgeIcon icon={badge.icon} size={20} />
+        {/* BUZZR stamp */}
+        <div className="absolute top-6 left-8 z-10">
+          <span className="font-heading text-[10px] uppercase tracking-[0.45em] text-buzzr-accent">
+            BUZZR
+          </span>
+        </div>
+
+        <div className="relative z-10 mx-auto w-[90%] max-w-[1400px]">
+          <ScrollReveal delay={0}>
+            <p className="mb-2 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
+              Earn your stripes
+            </p>
+            <h2 className="mx-auto mb-3 max-w-lg text-center font-heading text-2xl text-white md:text-3xl uppercase">
+              Badges for real fans.
+            </h2>
+            <p className="mx-auto mb-14 max-w-sm text-center text-sm font-sans text-white/38">
+              Rate games, log watches, and unlock badges that actually mean something.
+            </p>
+          </ScrollReveal>
+
+          <div className="grid gap-6 sm:grid-cols-3">
+            {BADGES.map((badge, i) => (
+              <ScrollReveal key={badge.name} delay={(i % 3) as 0 | 1 | 2}>
+                {/* Floating badge card — like Image 7 */}
+                <div className="border border-buzzr-accent/45 bg-black/72 backdrop-blur-sm p-7 text-center">
+                  <div className="flex justify-center gap-3 mb-5" aria-hidden>
+                    <BadgeIcon icon={badge.icon} size={22} />
+                    <BadgeIcon icon={badge.icon} size={22} />
+                    <BadgeIcon icon={badge.icon} size={22} />
+                  </div>
+                  <p className="text-[10px] font-sans uppercase tracking-[0.35em] text-buzzr-accent mb-2">
+                    Badge Unlocked
+                  </p>
+                  <p className="font-heading uppercase text-xl text-white mb-5 tracking-wide">
+                    {badge.name}
+                  </p>
+                  <SegmentedBar value={badge.level} segments={10} segmentHeight={5} className="mb-5" />
+                  <p className="text-xs font-sans text-white/38 leading-relaxed">
+                    {badge.description}
+                  </p>
+                  <span className="mt-5 block text-[9px] font-sans uppercase tracking-[0.45em] text-buzzr-accent/55">
+                    BUZZR
+                  </span>
                 </div>
-                <p className="font-heading uppercase text-lg text-foreground mb-1 tracking-wide">
-                  {badge.name}
-                </p>
-                <p className="text-[10px] font-sans uppercase tracking-widest text-buzzr-accent mb-4">
-                  Badge Unlocked
-                </p>
-                <SegmentedBar value={badge.level} segments={10} segmentHeight={5} className="mb-4" />
-                <p className="text-xs font-sans text-mutedForeground leading-relaxed">
-                  {badge.description}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -551,36 +871,66 @@ export default function HomePage() {
 
       <Divider />
 
-      {/* ── FINAL CTA ─────────────────────────────────────────────────────── */}
-      <ScrollReveal delay={0}>
-        <section
-          aria-label="Get early access"
-          className="mx-auto w-[90%] max-w-2xl py-24 md:py-32 text-center"
-        >
-          <p className="mb-3 text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
-            {HERO_STAT}
-          </p>
-          <h2 className="mb-4 font-heading text-3xl text-foreground md:text-5xl uppercase">
-            Join the beta.
-          </h2>
-          <p className="mb-10 text-sm font-sans text-mutedForeground max-w-sm mx-auto leading-relaxed">
-            Be the first to rate games by entertainment and host watch parties with your crew.
-          </p>
-          <Link href={BETA_TALLY_URL} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="min-w-[200px] animate-breathe glow-emerald-sm text-sm">
-              Get early access
-            </Button>
-          </Link>
-          <div className="mt-6 flex items-center justify-center gap-3 text-mutedForeground/40">
-            <FontAwesomeIcon icon={faApple} className="h-5 w-5 hover:text-mutedForeground transition-colors" aria-label="iOS" />
-            <FontAwesomeIcon icon={faGooglePlay} className="h-4 w-4 hover:text-mutedForeground transition-colors" aria-label="Android" />
-          </div>
-        </section>
-      </ScrollReveal>
+      {/* ── FINAL CTA — basketball macro photo, filmstrip, large wordmark ──── */}
+      <section
+        aria-label="Get early access"
+        className="pixel-filmstrip relative w-full overflow-hidden"
+        style={{ minHeight: 'clamp(520px, 65vh, 760px)' }}
+      >
+        <Image
+          src="/sports/basketball-macro.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/82 via-black/65 to-black/92" />
+
+        {/* BUZZR stamp top-left */}
+        <div className="absolute top-6 left-[5%] z-10">
+          <span className="font-heading text-[10px] uppercase tracking-[0.45em] text-buzzr-accent">
+            BUZZR
+          </span>
+        </div>
+
+        {/* Content — bottom-left, like Image 8 */}
+        <div className="absolute bottom-0 left-0 right-0 p-[5%] pb-16 md:pb-24">
+          <ScrollReveal delay={0}>
+            <p className="mb-5 text-[11px] font-sans uppercase tracking-[0.35em] text-buzzr-accent/75">
+              {HERO_STAT}
+            </p>
+            {/* Large buzzr. wordmark */}
+            <div className="mb-2">
+              <span
+                className="font-heading lowercase text-white leading-none"
+                style={{ fontSize: 'clamp(3.5rem, 9vw, 7rem)' }}
+              >
+                buzzr<span className="text-buzzr-accent">.</span>
+              </span>
+            </div>
+            <p className="mb-10 text-[11px] font-sans uppercase tracking-[0.35em] text-white/38">
+              RATE THE GAME.
+            </p>
+            <Link href={BETA_TALLY_URL} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="min-w-[200px] animate-breathe glow-emerald-sm text-sm">
+                Get early access
+              </Button>
+            </Link>
+            <div className="mt-6 flex items-center gap-3 text-white/28">
+              <FontAwesomeIcon icon={faApple} className="h-5 w-5" aria-label="iOS" />
+              <FontAwesomeIcon icon={faGooglePlay} className="h-4 w-4" aria-label="Android" />
+            </div>
+          </ScrollReveal>
+        </div>
+
+        <p className="absolute bottom-6 right-[5%] text-[10px] font-sans tracking-widest text-white/22">
+          @the_real_buzzr
+        </p>
+      </section>
 
       {/* ── CONTACT NOTE ──────────────────────────────────────────────────── */}
       <ScrollReveal delay={0}>
-        <section aria-label="Contact information" className="mx-auto w-[90%] max-w-[1400px] pb-20 pt-4">
+        <section aria-label="Contact information" className="mx-auto w-[90%] max-w-[1400px] pb-20 pt-8">
           <p className="text-center text-xs font-sans text-mutedForeground/60">
             For legal or support questions, contact{' '}
             <a

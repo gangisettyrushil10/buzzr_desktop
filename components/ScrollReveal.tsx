@@ -6,7 +6,6 @@ import { cn } from '@/components/utils';
 type ScrollRevealProps = {
   children: ReactNode;
   className?: string;
-  animation?: 'fade-in-up' | 'fade-in';
   delay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   rootMargin?: string;
 };
@@ -14,9 +13,8 @@ type ScrollRevealProps = {
 export function ScrollReveal({
   children,
   className,
-  animation = 'fade-in-up',
   delay = 0,
-  rootMargin = '0px 0px -40px 0px'
+  rootMargin = '0px 0px -48px 0px'
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -26,10 +24,8 @@ export function ScrollReveal({
     if (!el) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) setInView(true);
-      },
-      { threshold: 0.1, rootMargin }
+      ([entry]) => { if (entry?.isIntersecting) setInView(true); },
+      { threshold: 0.08, rootMargin }
     );
 
     observer.observe(el);
@@ -39,14 +35,15 @@ export function ScrollReveal({
   return (
     <div
       ref={ref}
-      className={cn(
-        'transition-all duration-700 ease-out',
-        !inView && 'opacity-0 translate-y-6',
-        inView && 'opacity-100 translate-y-0',
-        delay && `stagger-${delay}`,
-        className
-      )}
-      style={delay ? { transitionDelay: `${delay * 100}ms` } : undefined}
+      className={cn(className)}
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.985)',
+        transition: inView
+          ? `opacity 0.85s cubic-bezier(0.16,1,0.3,1) ${delay * 90}ms, transform 0.85s cubic-bezier(0.16,1,0.3,1) ${delay * 90}ms`
+          : 'none',
+        willChange: 'opacity, transform',
+      }}
     >
       {children}
     </div>

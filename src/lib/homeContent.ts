@@ -161,6 +161,68 @@ export const HOW_IT_WORKS: HowItWorksItem[] = [
   }
 ];
 
+export type DebateItem = {
+  tag: string;
+  title: string;
+  body: string;
+};
+
+export const DEBATES: DebateItem[] = [
+  {
+    tag: 'Buzzr Debates',
+    title: 'Was that a 10?',
+    body: 'Drop your rating. Back it up. Argue with strangers who watched the same game and felt completely different about it.',
+  },
+  {
+    tag: 'Hot Take',
+    title: 'The comeback > the trophy.',
+    body: 'The final score is just a number. What you felt in the last two minutes — that\'s the real story. Rate it. Fight for it.',
+  },
+  {
+    tag: 'Buzzr Debates',
+    title: 'Overrated. Fight me.',
+    body: 'Some games live on hype. Some deserve a 3. Post your take and let the crowd prove you wrong — or validate your taste forever.',
+  },
+];
+
+export type DifferentiatorItem = {
+  number: string;
+  title: string;
+  description: string;
+  contrast: string;
+};
+
+export const DIFFERENTIATORS: DifferentiatorItem[] = [
+  {
+    number: '01',
+    title: 'Not a number. A feeling.',
+    description:
+      'Rate Chaos, Energy, and Drama separately — because one number can\'t capture why that game was unforgettable.',
+    contrast: 'Basic apps give you a single star rating.',
+  },
+  {
+    number: '02',
+    title: 'Watch it together.',
+    description:
+      'Host live watch parties. Rate in real-time with your friends, not alone scrolling a recap the next morning.',
+    contrast: 'Basic apps are a solo experience.',
+  },
+  {
+    number: '03',
+    title: 'Find your next classic.',
+    description:
+      'See which games fans actually rewatched. Build a must-see list and never waste a night on a 40-point blowout.',
+    contrast: 'Basic apps tell you what happened. Buzzr tells you what\'s worth watching.',
+  },
+  {
+    number: '04',
+    title: 'Zero betting. Pure vibes.',
+    description:
+      'No spreads, no lines, no predictions. Buzzr is 100% about entertainment value — the chaos, the comebacks, the moments.',
+    contrast: 'Basic apps blur the line with sports gambling.',
+  },
+];
+
 export const BADGES: BadgeItem[] = [
   {
     name: 'BALL KNOWER',
