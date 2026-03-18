@@ -9,10 +9,13 @@ import {
   INSTAGRAM_URL,
   SITE_DESCRIPTION,
   SITE_NAME,
+  TAWK_PROPERTY_ID,
+  TAWK_WIDGET_ID,
   TWITTER_URL
 } from '@/src/lib/constants';
 import { acworth, inter } from './fonts';
 import { SiteBackground } from '@/components/SiteBackground';
+import { TawkTo } from '@/components/TawkTo';
 
 export const metadata: Metadata = {
   title: `${SITE_NAME} — Rate sports games by entertainment.`,
@@ -31,6 +34,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`dark ${acworth.variable} ${inter.variable}`}>
       <body className="bg-background text-foreground">
+        <TawkTo propertyId={TAWK_PROPERTY_ID} widgetId={TAWK_WIDGET_ID} />
         <div className="relative flex min-h-screen flex-col">
           {/* Subtle noise grain */}
           <div

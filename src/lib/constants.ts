@@ -49,6 +49,12 @@ export const HERO_STAT = "Join 500+ fans already in beta.";
 export const TRUST_STRIP =
   'NBA Playoffs · NFL · FIFA World Cup 2026 · March Madness · IPL · F1 · and every game that actually delivers.';
 
+/** Tawk.to live chat */
+export const TAWK_PROPERTY_ID =
+  process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID ?? '';
+export const TAWK_WIDGET_ID =
+  process.env.NEXT_PUBLIC_TAWK_WIDGET_ID ?? 'default';
+
 /** Social – overridable via env */
 export const TWITTER_URL =
   process.env.NEXT_PUBLIC_TWITTER_URL ?? 'https://x.com/the_real_buzzr';
