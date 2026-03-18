@@ -43,21 +43,21 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="relative z-10 flex min-h-screen flex-col w-full">
 
             {/* ── Header ── */}
-            <header className="sticky top-0 z-40 border-b border-white/[0.06] backdrop-blur-2xl bg-black/60">
+            <header className="sticky top-0 z-40 border-b border-white/[0.06] backdrop-blur-2xl bg-black/60 xl:pr-52">
               <div className="mx-auto flex w-[90%] max-w-[1400px] items-center justify-between py-4">
                 <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-75" aria-label="Buzzr home">
                   <img
                     src="/BuzzrLogo.PNG"
                     alt="Buzzr"
-                    width="32"
-                    height="32"
-                    className="shrink-0"
+                    width="36"
+                    height="36"
+                    className="shrink-0 drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]"
                   />
                   <div className="flex flex-col gap-px">
-                    <span className="font-heading text-[1.1rem] lowercase leading-none text-foreground tracking-tight">
+                    <span className="font-heading text-[1.2rem] lowercase leading-none text-white tracking-tight">
                       buzzr<span className="text-buzzr-accent">.</span>
                     </span>
-                    <span className="hidden sm:block text-[8px] font-sans uppercase tracking-[0.35em] text-white/25 leading-none">
+                    <span className="hidden sm:block text-[8px] font-sans uppercase tracking-[0.35em] text-white/55 leading-none">
                       Rate the game.
                     </span>
                   </div>
@@ -93,10 +93,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </div>
             </header>
 
-            <main className="w-full flex-1">{children}</main>
+            <main className="w-full flex-1 xl:pr-52">{children}</main>
 
             {/* ── Footer ── */}
-            <footer className="border-t border-white/[0.06] text-xs text-mutedForeground">
+            <footer className="border-t border-white/[0.06] text-xs text-mutedForeground xl:pr-52">
               <div className="mx-auto w-[90%] max-w-[1400px] py-10">
                 <div className="mb-8 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                   <div className="space-y-3">

@@ -118,14 +118,6 @@ export default function HomePage() {
           </span>
         </div>
 
-        {/* GAME NIGHT badge — top-right */}
-        <div className="absolute top-6 right-[5%] z-10">
-          <span className="inline-flex items-center gap-2 text-[11px] font-sans tracking-[0.2em] text-white/55 uppercase">
-            <span className="h-2 w-2 rounded-full bg-red-500" aria-hidden />
-            GAME NIGHT
-          </span>
-        </div>
-
         {/* Hero content — bottom-left poster */}
         <div className="relative mx-auto w-[90%] max-w-[1400px] pb-16 pt-32">
           <header className="max-w-4xl">

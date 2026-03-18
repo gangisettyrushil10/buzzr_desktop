@@ -1,90 +1,132 @@
 'use client';
 
 type FeedItem =
-  | { kind: 'event'; league: string; name: string; dateShort: string; live?: boolean }
-  | { kind: 'review'; game: string; quote: string; rating: string };
+  | { kind: 'score';    league: string; home: string; away: string; homeScore: number; awayScore: number; clock: string; live: true }
+  | { kind: 'news';     league: string; headline: string; time: string }
+  | { kind: 'rating';   user: string; game: string; score: number; dimension: string }
+  | { kind: 'reaction'; user: string; game: string; quote: string };
 
 const FEED_ITEMS: FeedItem[] = [
-  { kind: 'event',  league: 'NCAAB', name: 'March Madness 2026',       dateShort: 'LIVE NOW', live: true },
-  { kind: 'review', game: 'March Madness 2026 · R64', quote: 'That last-second heave. The whole building froze. Chaos 10, no debate.', rating: 'Chaos 10/10' },
-  { kind: 'event',  league: 'NBA',   name: 'Playoff Race Heating Up',  dateShort: 'Apr 2026' },
-  { kind: 'review', game: 'Super Bowl LX · Feb 2026', quote: 'Super Bowl overtime and somehow I was more nervous than the players.', rating: 'Drama 9.9/10' },
-  { kind: 'event',  league: 'NHL',   name: 'NHL Playoffs 2026',        dateShort: 'Apr 2026' },
-  { kind: 'review', game: 'NBA · Thunder vs Nuggets, Feb 22', quote: 'Three overtimes. Lost my voice before halftime — watching alone.', rating: 'Energy 9.7/10' },
-  { kind: 'event',  league: 'FIFA',  name: 'FIFA World Cup 2026',      dateShort: 'Jun 2026' },
-  { kind: 'review', game: 'FIFA World Cup 2022 · Argentina vs France', quote: 'Cried. Actually cried. That game took years off my life.', rating: 'Entertainment 10/10' },
-  { kind: 'event',  league: 'NCAAB', name: 'Sweet 16 — On Deck',       dateShort: 'Mar 27' },
-  { kind: 'review', game: 'NCAAB · Florida vs Houston, 2025', quote: 'My whole group chat was rating in real time. Never watched the same way since.', rating: 'Clutch 9.5/10' },
-  { kind: 'event',  league: 'NBA',   name: 'Regular Season Stretch Run', dateShort: 'Mar 2026' },
-  { kind: 'review', game: 'NFL · Chiefs vs Bills, 2022 Divisional', quote: 'Could not breathe the last five minutes. We were all just screaming.', rating: 'Chaos 10/10' },
+  { kind: 'score',    league: 'NCAAB', home: 'Duke',     away: 'UNC',      homeScore: 67, awayScore: 71, clock: '2nd · 8:42', live: true },
+  { kind: 'news',     league: 'NCAAB', headline: '#13 seed stuns #4 seed in OT — Buzzr score: 9.8', time: '2m ago' },
+  { kind: 'rating',   user: 'jalen_w', game: 'Duke vs UNC · R64', score: 9.4, dimension: 'Drama' },
+  { kind: 'score',    league: 'NBA',   home: 'OKC',      away: 'DEN',      homeScore: 104, awayScore: 98, clock: '4Q · 3:11', live: true },
+  { kind: 'reaction', user: 'hoopshead', game: 'Duke vs UNC', quote: 'I stood up and my chair fell over. Still shaking.' },
+  { kind: 'news',     league: 'NBA',   headline: 'OKC clinches playoff spot with late-game run', time: '11m ago' },
+  { kind: 'rating',   user: 'soccerphil', game: 'Argentina vs France · WC Final', score: 10, dimension: 'Chaos' },
+  { kind: 'score',    league: 'NHL',   home: 'FLA',      away: 'TOR',      homeScore: 3,  awayScore: 2,  clock: '3rd · 1:58 OT', live: true },
+  { kind: 'reaction', user: 'madness26', game: 'March Madness R64', quote: 'That buzzer beater is going in the hall of fame. Chaos 10.' },
+  { kind: 'news',     league: 'NHL',   headline: 'Florida and Toronto heading to OT — third straight game', time: '4m ago' },
+  { kind: 'rating',   user: 'clutch_k', game: 'Chiefs vs Eagles · SB LX', score: 9.9, dimension: 'Drama' },
+  { kind: 'reaction', user: 'nhlnerd', game: 'FLA vs TOR · Game 4', quote: 'Every single game goes to overtime. My heart cannot do this.' },
+  { kind: 'news',     league: 'NCAAB', headline: 'Sweet 16 bracket taking shape — three #1 seeds survive weekend', time: '18m ago' },
+  { kind: 'score',    league: 'NCAAB', home: 'Gonzaga',  away: 'Illinois', homeScore: 55, awayScore: 58, clock: '2nd · 4:20', live: true },
+  { kind: 'rating',   user: 'brianf',  game: 'OKC vs DEN · Feb 22', score: 9.7, dimension: 'Energy' },
+  { kind: 'reaction', user: 'bballer_',  game: 'Gonzaga vs Illinois', quote: 'Illinois is cooking right now. Feed is going insane.' },
+  { kind: 'news',     league: 'FIFA',  headline: 'World Cup 2026 venues confirmed — 16 cities across US, Canada, Mexico', time: '1h ago' },
+  { kind: 'rating',   user: 'dramaqueen', game: 'SD State vs FAU · Final Four 2023', score: 9.8, dimension: 'Clutch' },
+  { kind: 'reaction', user: 'tonymad', game: 'Chiefs vs Eagles · SB LX', quote: 'Overtime at the Super Bowl. I genuinely forgot to breathe.' },
+  { kind: 'news',     league: 'NBA',   headline: 'Playoff seeding picture: 7 teams within 2 games of each other in the West', time: '34m ago' },
 ];
 
+function ScoreBar({ value }: { value: number }) {
+  const pct = Math.min(100, (value / 10) * 100);
+  return (
+    <div className="h-0.5 w-full bg-white/10 mt-1">
+      <div className="h-full bg-buzzr-accent/70" style={{ width: `${pct}%` }} />
+    </div>
+  );
+}
+
 export function LiveFeed() {
-  // Duplicate for seamless loop
   const items = [...FEED_ITEMS, ...FEED_ITEMS];
 
   return (
-    <div className="fixed right-5 top-1/2 -translate-y-1/2 z-40 hidden min-[1800px]:flex flex-col w-44">
-      {/* Header */}
-      <div className="flex items-center gap-2 px-2 pb-2">
+    <div className="fixed right-0 top-0 bottom-0 z-40 hidden xl:flex flex-col w-52 border-l border-white/[0.06] bg-black/70 backdrop-blur-md">
+
+      {/* Header — pinned */}
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.07] shrink-0">
         <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse shrink-0" aria-hidden />
-        <span className="text-[9px] font-sans uppercase tracking-[0.35em] text-white/35">
+        <span className="text-[9px] font-sans uppercase tracking-[0.4em] text-white/40">
           Buzzr Feed
         </span>
       </div>
 
-      {/* Feed window */}
-      <div
-        className="overflow-hidden border border-white/[0.07] bg-black/55 backdrop-blur-md"
-        style={{ height: '62vh' }}
-        aria-label="Live Buzzr feed"
-        aria-live="off"
-      >
+      {/* Scrolling area */}
+      <div className="flex-1 overflow-hidden relative" aria-label="Live Buzzr feed" aria-live="off">
+
         {/* Top fade */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-8 z-10"
-          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.6), transparent)' }}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-6 z-10"
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7), transparent)' }}
           aria-hidden
         />
 
-        {/* Scrolling content */}
+        {/* Animated list */}
         <div className="animate-feed-scroll">
           {items.map((item, i) => (
-            <div
-              key={i}
-              className="px-3 py-2.5 border-b border-white/[0.06] last:border-0"
-            >
-              {item.kind === 'event' ? (
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[8px] font-sans uppercase tracking-[0.2em] text-buzzr-accent/65 shrink-0">
+            <div key={i} className="px-4 py-3 border-b border-white/[0.05]">
+
+              {item.kind === 'score' && (
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[8px] font-sans uppercase tracking-[0.25em] text-buzzr-accent/60">
                       {item.league}
                     </span>
-                    {item.live && (
-                      <span className="text-[7px] font-sans uppercase tracking-wider text-red-400 bg-red-500/15 px-1 py-px">
-                        live
-                      </span>
-                    )}
+                    <span className="text-[7px] font-sans uppercase tracking-wider text-red-400 bg-red-500/15 px-1.5 py-px">
+                      live
+                    </span>
                   </div>
-                  <p className="text-[10px] font-sans leading-snug text-white/65">
-                    {item.name}
-                  </p>
-                  <p className="text-[9px] font-sans text-white/28 tracking-wide">
-                    {item.dateShort}
-                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-heading uppercase text-white/80">{item.home}</span>
+                    <span className="font-heading text-sm text-white">{item.homeScore}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-heading uppercase text-white/80">{item.away}</span>
+                    <span className="font-heading text-sm text-white">{item.awayScore}</span>
+                  </div>
+                  <p className="text-[8px] font-sans text-white/30 tracking-wide">{item.clock}</p>
                 </div>
-              ) : (
+              )}
+
+              {item.kind === 'news' && (
                 <div className="flex flex-col gap-1">
-                  <p className="text-[8px] font-sans uppercase tracking-[0.2em] text-buzzr-accent/55">
-                    {item.rating}
-                  </p>
-                  <p className="text-[10px] font-sans leading-snug text-white/55 italic">
-                    &ldquo;{item.quote}&rdquo;
-                  </p>
-                  <p className="text-[8px] font-sans text-white/22 leading-snug">
-                    {item.game}
+                  <span className="text-[8px] font-sans uppercase tracking-[0.2em] text-white/30">
+                    {item.league} · {item.time}
+                  </span>
+                  <p className="text-[10px] font-sans leading-snug text-white/60">
+                    {item.headline}
                   </p>
                 </div>
               )}
+
+              {item.kind === 'rating' && (
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[8px] font-sans text-white/30">@{item.user}</span>
+                    <span className="text-[8px] font-sans uppercase tracking-[0.2em] text-buzzr-accent/60">
+                      {item.dimension}
+                    </span>
+                  </div>
+                  <div className="flex items-baseline gap-1">
+                    <span className="font-heading text-lg leading-none text-white">{item.score}</span>
+                    <span className="text-[8px] font-sans text-white/25">/10</span>
+                  </div>
+                  <ScoreBar value={item.score} />
+                  <p className="text-[8px] font-sans text-white/25 mt-0.5 leading-snug">{item.game}</p>
+                </div>
+              )}
+
+              {item.kind === 'reaction' && (
+                <div className="flex flex-col gap-1">
+                  <span className="text-[8px] font-sans text-white/28">@{item.user}</span>
+                  <p className="text-[10px] font-sans leading-snug text-white/55 italic">
+                    &ldquo;{item.quote}&rdquo;
+                  </p>
+                  <p className="text-[8px] font-sans text-white/20 leading-snug">{item.game}</p>
+                </div>
+              )}
+
             </div>
           ))}
         </div>
@@ -92,7 +134,7 @@ export function LiveFeed() {
         {/* Bottom fade */}
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 h-10 z-10"
-          style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65), transparent)' }}
+          style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75), transparent)' }}
           aria-hidden
         />
       </div>
