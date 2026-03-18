@@ -112,9 +112,21 @@ export const FEATURES: FeatureItem[] = [
 export const REVIEWS: ReviewItem[] = [
   {
     quote:
-      'I could not breathe the last five minutes. We were all just screaming. Still get chills thinking about it.',
-    game: 'NFL - Chiefs vs Bills, 2022 Divisional',
+      "That last-second heave. The whole building just froze. I rated it before the net stopped moving. Chaos 10, no debate.",
+    game: 'NCAAB - March Madness 2026, Round of 64 · #13 over #4',
     rating: 'Chaos 10/10'
+  },
+  {
+    quote:
+      "Super Bowl overtime in 2026 and somehow I was more nervous than the players. I had to lie down after.",
+    game: 'NFL - Super Bowl LX · Chiefs vs Eagles, Feb 2026',
+    rating: 'Drama 9.9/10'
+  },
+  {
+    quote:
+      "Three overtimes. I lost my voice before halftime and I was watching alone in my apartment.",
+    game: 'NBA - Thunder vs Nuggets, Feb 22 2026',
+    rating: 'Energy 9.7/10'
   },
   {
     quote: 'Cried. Actually cried. That game took years off my life.',
@@ -122,17 +134,14 @@ export const REVIEWS: ReviewItem[] = [
     rating: 'Entertainment 10/10'
   },
   {
-    quote: 'That shot. I still do not believe it. My jaw was on the floor.',
-    game: 'NCAAB - San Diego State vs FAU, 2023 Final Four',
+    quote:
+      'I could not breathe the last five minutes. We were all just screaming. Still get chills thinking about it.',
+    game: 'NFL - Chiefs vs Bills, 2022 Divisional',
     rating: 'Chaos 10/10'
   },
   {
-    quote: 'Found myself checking Buzzr between quarters to see if other fans were as shocked as I was.',
-    game: 'NBA Playoffs 2023 - Heat vs Celtics, Game 7',
-    rating: 'Drama 9.8/10'
-  },
-  {
-    quote: 'My whole group chat was rating in real time. Never watched a game the same way since.',
+    quote:
+      "My whole group chat was rating in real time. Never watched a game the same way since.",
     game: 'NCAAB - Florida vs Houston, 2025 National Championship',
     rating: 'Clutch 9.5/10'
   }
@@ -264,38 +273,38 @@ export const DIFFERENTIATORS: DifferentiatorItem[] = [
 
 export const UPCOMING_EVENTS: UpcomingEventItem[] = [
   {
+    name: 'March Madness 2026',
+    subtitle: 'The bracket is live. Rate every upset, buzzer beater, and Cinderella run.',
+    date: 'March 17 – April 6, 2026',
+    dateShort: 'LIVE NOW',
+    league: 'NCAAB',
+    fans: '14.2K fans rating',
+    highlight: true,
+  },
+  {
+    name: 'NBA Playoffs 2026',
+    subtitle: 'Playoff race is heating up. Every game counts.',
+    date: 'April – June 2026',
+    dateShort: 'Apr 2026',
+    league: 'NBA',
+    fans: '9.3K fans watching',
+  },
+  {
+    name: 'NHL Playoffs 2026',
+    subtitle: 'Overtimes. Shutouts. The race for the Cup is coming.',
+    date: 'April – June 2026',
+    dateShort: 'Apr 2026',
+    league: 'NHL',
+    fans: '4.8K fans watching',
+  },
+  {
     name: 'FIFA World Cup 2026',
     subtitle: '48 teams. 104 matches. The biggest sporting event on earth.',
     date: 'June 11 – July 19, 2026',
     dateShort: 'Jun 2026',
     league: 'FIFA',
     venue: 'Final · MetLife Stadium, NJ',
-    fans: '12.4K fans watching',
-    highlight: true,
-  },
-  {
-    name: 'NBA Playoffs 2026',
-    subtitle: 'Every possession. Every buzzer. Every comeback.',
-    date: 'April – June 2026',
-    dateShort: 'Apr 2026',
-    league: 'NBA',
-    fans: '8.1K fans watching',
-  },
-  {
-    name: 'NFL Season Opener',
-    subtitle: 'The wait is over. Rate Week 1 in real-time.',
-    date: 'September 2026',
-    dateShort: 'Sep 2026',
-    league: 'NFL',
-    fans: '5.7K fans watching',
-  },
-  {
-    name: 'March Madness 2025',
-    subtitle: 'Florida beat Houston 65–63. Did you rate that final?',
-    date: 'Champion: Florida · Apr 7, 2025',
-    dateShort: 'Apr 2025',
-    league: 'NCAAB',
-    fans: 'Rate the games now',
+    fans: '13.1K fans watching',
   },
 ];
 
