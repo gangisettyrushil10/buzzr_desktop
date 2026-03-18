@@ -1,13 +1,13 @@
 'use client';
 
 type FeedItem =
-  | { kind: 'score';    league: string; home: string; away: string; homeScore: number; awayScore: number; clock: string; live: true }
+  | { kind: 'score';    league: string; home: string; away: string; homeScore: number; awayScore: number; clock: string; live: true; homeSeed?: number; awaySeed?: number }
   | { kind: 'news';     league: string; headline: string; time: string }
   | { kind: 'rating';   user: string; game: string; score: number; dimension: string }
   | { kind: 'reaction'; user: string; game: string; quote: string };
 
 const FEED_ITEMS: FeedItem[] = [
-  { kind: 'score',    league: 'NCAAB', home: 'Duke',     away: 'UNC',      homeScore: 67, awayScore: 71, clock: '2nd · 8:42', live: true },
+  { kind: 'score',    league: 'NCAAB', home: 'Duke',     away: 'UNC',      homeScore: 67, awayScore: 71, clock: '2nd · 8:42', live: true, homeSeed: 4, awaySeed: 13 },
   { kind: 'news',     league: 'NCAAB', headline: '#13 seed stuns #4 seed in OT — Buzzr score: 9.8', time: '2m ago' },
   { kind: 'rating',   user: 'jalen_w', game: 'Duke vs UNC · R64', score: 9.4, dimension: 'Drama' },
   { kind: 'score',    league: 'NBA',   home: 'OKC',      away: 'DEN',      homeScore: 104, awayScore: 98, clock: '4Q · 3:11', live: true },
@@ -20,7 +20,7 @@ const FEED_ITEMS: FeedItem[] = [
   { kind: 'rating',   user: 'clutch_k', game: 'Chiefs vs Eagles · SB LX', score: 9.9, dimension: 'Drama' },
   { kind: 'reaction', user: 'nhlnerd', game: 'FLA vs TOR · Game 4', quote: 'Every single game goes to overtime. My heart cannot do this.' },
   { kind: 'news',     league: 'NCAAB', headline: 'Sweet 16 bracket taking shape — three #1 seeds survive weekend', time: '18m ago' },
-  { kind: 'score',    league: 'NCAAB', home: 'Gonzaga',  away: 'Illinois', homeScore: 55, awayScore: 58, clock: '2nd · 4:20', live: true },
+  { kind: 'score',    league: 'NCAAB', home: 'Gonzaga',  away: 'Illinois', homeScore: 55, awayScore: 58, clock: '2nd · 4:20', live: true, homeSeed: 2, awaySeed: 10 },
   { kind: 'rating',   user: 'brianf',  game: 'OKC vs DEN · Feb 22', score: 9.7, dimension: 'Energy' },
   { kind: 'reaction', user: 'bballer_',  game: 'Gonzaga vs Illinois', quote: 'Illinois is cooking right now. Feed is going insane.' },
   { kind: 'news',     league: 'FIFA',  headline: 'World Cup 2026 venues confirmed — 16 cities across US, Canada, Mexico', time: '1h ago' },
@@ -77,13 +77,23 @@ export function LiveFeed() {
                       live
                     </span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-heading uppercase text-white/80">{item.home}</span>
-                    <span className="font-heading text-sm text-white">{item.homeScore}</span>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      {item.homeSeed && (
+                        <span className="text-[8px] font-sans text-white/30 tabular-nums w-4 shrink-0">{item.homeSeed}</span>
+                      )}
+                      <span className="text-[11px] font-sans font-semibold uppercase text-white/80 truncate">{item.home}</span>
+                    </div>
+                    <span className="text-sm font-sans font-bold tabular-nums text-white shrink-0">{item.homeScore}</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-heading uppercase text-white/80">{item.away}</span>
-                    <span className="font-heading text-sm text-white">{item.awayScore}</span>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      {item.awaySeed && (
+                        <span className="text-[8px] font-sans text-white/30 tabular-nums w-4 shrink-0">{item.awaySeed}</span>
+                      )}
+                      <span className="text-[11px] font-sans font-semibold uppercase text-white/80 truncate">{item.away}</span>
+                    </div>
+                    <span className="text-sm font-sans font-bold tabular-nums text-white shrink-0">{item.awayScore}</span>
                   </div>
                   <p className="text-[8px] font-sans text-white/30 tracking-wide">{item.clock}</p>
                 </div>
@@ -109,7 +119,7 @@ export function LiveFeed() {
                     </span>
                   </div>
                   <div className="flex items-baseline gap-1">
-                    <span className="font-heading text-lg leading-none text-white">{item.score}</span>
+                    <span className="font-sans font-bold text-lg leading-none text-white tabular-nums">{item.score}</span>
                     <span className="text-[8px] font-sans text-white/25">/10</span>
                   </div>
                   <ScoreBar value={item.score} />
