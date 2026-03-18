@@ -233,55 +233,145 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* ── LEAGUE MARQUEE ────────────────────────────────────────────────── */}
-      <Marquee />
-
-      {/* ── UPCOMING EVENTS ───────────────────────────────────────────────── */}
+      {/* ── HOW IT WORKS ──────────────────────────────────────────────────── */}
       <section
-        aria-label="Upcoming events"
+        aria-label="How Buzzr works"
         className="mx-auto w-[90%] max-w-[1400px] py-20 md:py-24"
       >
         <ScrollReveal delay={0}>
           <p className="mb-2 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
-            On the radar
+            How it works
           </p>
-          <h2 className="mx-auto mb-12 max-w-lg text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
-            Big games are{' '}
-            <em className="not-italic text-gradient">coming.</em>
+          <h2 className="mx-auto mb-12 max-w-md text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
+            Three steps to a better watch list.
           </h2>
         </ScrollReveal>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {UPCOMING_EVENTS.map((event, i) => (
-            <ScrollReveal key={event.name} delay={(i % 4) as 0 | 1 | 2 | 3}>
-              <div className={`flex h-full flex-col gap-3 border p-6 transition-colors hover:border-buzzr-accent/40 ${
-                event.highlight
-                  ? 'border-buzzr-accent/50 bg-buzzr-surface/50'
-                  : 'border-border/40 bg-buzzr-surface/20'
-              }`}>
-                <span className="inline-flex w-fit border border-buzzr-accent/30 px-1.5 py-0.5 text-[9px] font-sans uppercase tracking-[0.25em] text-buzzr-accent">
-                  {event.league}
-                </span>
-                <p className="text-[10px] font-sans uppercase tracking-widest text-mutedForeground/55">
-                  {event.dateShort}
-                </p>
-                <h3 className="font-heading text-lg uppercase leading-tight text-foreground">
-                  {event.name}
-                </h3>
-                <p className="flex-1 text-xs font-sans leading-relaxed text-mutedForeground">
-                  {event.subtitle}
-                </p>
-                {event.venue && (
-                  <p className="text-[10px] font-sans uppercase tracking-wide text-white/25">
-                    {event.venue}
-                  </p>
-                )}
-                <div className="flex items-center gap-2 border-t border-border/30 pt-3">
-                  <span className="h-1.5 w-1.5 rounded-full bg-buzzr-accent animate-breathe" aria-hidden />
-                  <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-mutedForeground/60">
-                    {event.fans}
+        <div className="mx-auto max-w-2xl">
+          {HOW_IT_WORKS.map((item, i) => (
+            <ScrollReveal key={item.step} delay={(i % 3) as 0 | 1 | 2}>
+              <div className="flex gap-6 pb-10 last:pb-0">
+                <div className="flex flex-col items-center gap-2">
+                  <span
+                    className="flex h-10 w-10 shrink-0 items-center justify-center font-heading text-base font-bold text-buzzr-accent"
+                    style={{
+                      background: 'rgba(16,185,129,0.08)',
+                      border: '1px solid rgba(16,185,129,0.3)'
+                    }}
+                    aria-hidden
+                  >
+                    {item.step}
                   </span>
+                  {i < HOW_IT_WORKS.length - 1 && (
+                    <div
+                      className="w-px flex-1"
+                      style={{ background: 'linear-gradient(to bottom, rgba(16,185,129,0.25), transparent)' }}
+                      aria-hidden
+                    />
+                  )}
                 </div>
+                <div className="min-w-0 pb-2 pt-1.5">
+                  <h3 className="mb-1.5 text-sm font-sans font-semibold text-foreground">{item.title}</h3>
+                  <p className="text-xs font-sans leading-relaxed text-mutedForeground">{item.body}</p>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ── FEATURE CARDS — photo poster with filmstrip (brand image style) ─ */}
+      <section aria-label="Features" className="w-full">
+        <ScrollReveal delay={0}>
+          <div className="mx-auto w-[90%] max-w-[1400px] pt-20 pb-12">
+            <p className="mb-2 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
+              How you rate
+            </p>
+            <h2 className="mx-auto text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
+              Every dimension that <em className="not-italic text-gradient">matters.</em>
+            </h2>
+          </div>
+        </ScrollReveal>
+
+        {/* Full-width 2×2 photo poster grid */}
+        <div className="grid sm:grid-cols-2">
+          {FEATURES.map((feature, i) => {
+            const photo = FEATURE_PHOTOS[feature.title] ?? { src: '/sports/basketball-macro.jpg' };
+            return (
+              <ScrollReveal key={feature.title} delay={(i % 4) as 0 | 1 | 2 | 3}>
+                <div
+                  className="pixel-filmstrip group relative overflow-hidden"
+                  style={{ minHeight: 'clamp(360px, 45vw, 580px)' }}
+                >
+                  {/* Photo */}
+                  <Image
+                    src={photo.src}
+                    alt=""
+                    fill
+                    className={`object-cover transition-transform duration-700 group-hover:scale-105 ${photo.position ?? 'object-center'}`}
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/15" />
+
+                  {/* Content — bottom-left */}
+                  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+                    <h3
+                      className="font-heading uppercase leading-none text-white mb-5"
+                      style={{ fontSize: 'clamp(2.8rem, 5vw, 4.5rem)' }}
+                    >
+                      {feature.title}
+                    </h3>
+                    <SegmentedBar value={feature.value} segments={10} segmentHeight={8} />
+                    <p className="mt-4 text-xs font-sans leading-relaxed text-white/45 max-w-xs">
+                      {feature.description}
+                    </p>
+                    <span className="mt-5 block text-[9px] font-sans uppercase tracking-[0.45em] text-buzzr-accent">
+                      BUZZR
+                    </span>
+                  </div>
+                </div>
+              </ScrollReveal>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ── LEAGUE MARQUEE ────────────────────────────────────────────────── */}
+      <Marquee />
+
+      <Divider />
+
+      {/* ── WHO BUZZR IS FOR ──────────────────────────────────────────────── */}
+      <section
+        aria-label="Who Buzzr is for"
+        className="mx-auto w-[90%] max-w-[1400px] py-20 md:py-24"
+      >
+        <ScrollReveal delay={0}>
+          <p className="mb-2 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
+            Built for fans like you
+          </p>
+          <h2 className="mx-auto mb-10 max-w-lg text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
+            Whether you watch every game or{' '}
+            <em className="not-italic text-gradient">just chase the best ones.</em>
+          </h2>
+        </ScrollReveal>
+
+        <div className="overflow-hidden border border-border/40">
+          {PERSONAS.map((persona, i) => (
+            <ScrollReveal key={persona.title} delay={(i % 3) as 0 | 1 | 2}>
+              <div
+                className={`flex flex-col gap-2 px-6 py-6 sm:flex-row sm:items-center sm:gap-8 transition-colors ${
+                  i % 2 === 0 ? 'bg-buzzr-surface/30' : 'bg-transparent'
+                } hover:bg-buzzr-surface/50`}
+              >
+                <h3 className="shrink-0 text-sm font-heading uppercase text-foreground sm:w-44">
+                  {persona.title}
+                </h3>
+                <div className="h-px w-full sm:hidden bg-border/30" aria-hidden />
+                <p className="text-xs font-sans leading-relaxed text-mutedForeground sm:flex-1">
+                  {persona.description}
+                </p>
               </div>
             </ScrollReveal>
           ))}
@@ -443,65 +533,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FEATURE CARDS — photo poster with filmstrip (brand image style) ─ */}
-      <section aria-label="Features" className="w-full">
-        <ScrollReveal delay={0}>
-          <div className="mx-auto w-[90%] max-w-[1400px] pt-20 pb-12">
-            <p className="mb-2 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
-              How you rate
-            </p>
-            <h2 className="mx-auto text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
-              Every dimension that <em className="not-italic text-gradient">matters.</em>
-            </h2>
-          </div>
-        </ScrollReveal>
-
-        {/* Full-width 2×2 photo poster grid */}
-        <div className="grid sm:grid-cols-2">
-          {FEATURES.map((feature, i) => {
-            const photo = FEATURE_PHOTOS[feature.title] ?? { src: '/sports/basketball-macro.jpg' };
-            return (
-              <ScrollReveal key={feature.title} delay={(i % 4) as 0 | 1 | 2 | 3}>
-                <div
-                  className="pixel-filmstrip group relative overflow-hidden"
-                  style={{ minHeight: 'clamp(360px, 45vw, 580px)' }}
-                >
-                  {/* Photo */}
-                  <Image
-                    src={photo.src}
-                    alt=""
-                    fill
-                    className={`object-cover transition-transform duration-700 group-hover:scale-105 ${photo.position ?? 'object-center'}`}
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                  />
-                  {/* Dark overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/15" />
-
-                  {/* Content — bottom-left */}
-                  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
-                    <h3
-                      className="font-heading uppercase leading-none text-white mb-5"
-                      style={{ fontSize: 'clamp(2.8rem, 5vw, 4.5rem)' }}
-                    >
-                      {feature.title}
-                    </h3>
-                    <SegmentedBar value={feature.value} segments={10} segmentHeight={8} />
-                    <p className="mt-4 text-xs font-sans leading-relaxed text-white/45 max-w-xs">
-                      {feature.description}
-                    </p>
-                    <span className="mt-5 block text-[9px] font-sans uppercase tracking-[0.45em] text-buzzr-accent">
-                      BUZZR
-                    </span>
-                  </div>
-                </div>
-              </ScrollReveal>
-            );
-          })}
-        </div>
-      </section>
-
-      <Divider />
-
       {/* ── APP SCREENSHOTS ───────────────────────────────────────────────── */}
       <section
         aria-label="App preview"
@@ -596,55 +627,6 @@ export default function HomePage() {
 
       <Divider />
 
-      {/* ── HOW IT WORKS ──────────────────────────────────────────────────── */}
-      <section
-        aria-label="How Buzzr works"
-        className="mx-auto w-[90%] max-w-[1400px] py-20 md:py-24"
-      >
-        <ScrollReveal delay={0}>
-          <p className="mb-2 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
-            How it works
-          </p>
-          <h2 className="mx-auto mb-12 max-w-md text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
-            Three steps to a better watch list.
-          </h2>
-        </ScrollReveal>
-
-        <div className="mx-auto max-w-2xl">
-          {HOW_IT_WORKS.map((item, i) => (
-            <ScrollReveal key={item.step} delay={(i % 3) as 0 | 1 | 2}>
-              <div className="flex gap-6 pb-10 last:pb-0">
-                <div className="flex flex-col items-center gap-2">
-                  <span
-                    className="flex h-10 w-10 shrink-0 items-center justify-center font-heading text-base font-bold text-buzzr-accent"
-                    style={{
-                      background: 'rgba(16,185,129,0.08)',
-                      border: '1px solid rgba(16,185,129,0.3)'
-                    }}
-                    aria-hidden
-                  >
-                    {item.step}
-                  </span>
-                  {i < HOW_IT_WORKS.length - 1 && (
-                    <div
-                      className="w-px flex-1"
-                      style={{ background: 'linear-gradient(to bottom, rgba(16,185,129,0.25), transparent)' }}
-                      aria-hidden
-                    />
-                  )}
-                </div>
-                <div className="min-w-0 pb-2 pt-1.5">
-                  <h3 className="mb-1.5 text-sm font-sans font-semibold text-foreground">{item.title}</h3>
-                  <p className="text-xs font-sans leading-relaxed text-mutedForeground">{item.body}</p>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      <Divider />
-
       {/* ── REVIEWS ───────────────────────────────────────────────────────── */}
       <section
         aria-label="What fans are saying"
@@ -665,36 +647,52 @@ export default function HomePage() {
 
       <Divider />
 
-      {/* ── WHO BUZZR IS FOR ──────────────────────────────────────────────── */}
+      {/* ── UPCOMING EVENTS ───────────────────────────────────────────────── */}
       <section
-        aria-label="Who Buzzr is for"
+        aria-label="Upcoming events"
         className="mx-auto w-[90%] max-w-[1400px] py-20 md:py-24"
       >
         <ScrollReveal delay={0}>
           <p className="mb-2 text-center text-[11px] font-sans uppercase tracking-[0.3em] text-buzzr-accent/80">
-            Built for fans like you
+            On the radar
           </p>
-          <h2 className="mx-auto mb-10 max-w-lg text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
-            Whether you watch every game or{' '}
-            <em className="not-italic text-gradient">just chase the best ones.</em>
+          <h2 className="mx-auto mb-12 max-w-lg text-center font-heading text-2xl text-foreground md:text-3xl uppercase">
+            Big games are{' '}
+            <em className="not-italic text-gradient">coming.</em>
           </h2>
         </ScrollReveal>
 
-        <div className="overflow-hidden border border-border/40">
-          {PERSONAS.map((persona, i) => (
-            <ScrollReveal key={persona.title} delay={(i % 3) as 0 | 1 | 2}>
-              <div
-                className={`flex flex-col gap-2 px-6 py-6 sm:flex-row sm:items-center sm:gap-8 transition-colors ${
-                  i % 2 === 0 ? 'bg-buzzr-surface/30' : 'bg-transparent'
-                } hover:bg-buzzr-surface/50`}
-              >
-                <h3 className="shrink-0 text-sm font-heading uppercase text-foreground sm:w-44">
-                  {persona.title}
-                </h3>
-                <div className="h-px w-full sm:hidden bg-border/30" aria-hidden />
-                <p className="text-xs font-sans leading-relaxed text-mutedForeground sm:flex-1">
-                  {persona.description}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {UPCOMING_EVENTS.map((event, i) => (
+            <ScrollReveal key={event.name} delay={(i % 4) as 0 | 1 | 2 | 3}>
+              <div className={`flex h-full flex-col gap-3 border p-6 transition-colors hover:border-buzzr-accent/40 ${
+                event.highlight
+                  ? 'border-buzzr-accent/50 bg-buzzr-surface/50'
+                  : 'border-border/40 bg-buzzr-surface/20'
+              }`}>
+                <span className="inline-flex w-fit border border-buzzr-accent/30 px-1.5 py-0.5 text-[9px] font-sans uppercase tracking-[0.25em] text-buzzr-accent">
+                  {event.league}
+                </span>
+                <p className="text-[10px] font-sans uppercase tracking-widest text-mutedForeground/55">
+                  {event.dateShort}
                 </p>
+                <h3 className="font-heading text-lg uppercase leading-tight text-foreground">
+                  {event.name}
+                </h3>
+                <p className="flex-1 text-xs font-sans leading-relaxed text-mutedForeground">
+                  {event.subtitle}
+                </p>
+                {event.venue && (
+                  <p className="text-[10px] font-sans uppercase tracking-wide text-white/25">
+                    {event.venue}
+                  </p>
+                )}
+                <div className="flex items-center gap-2 border-t border-border/30 pt-3">
+                  <span className="h-1.5 w-1.5 rounded-full bg-buzzr-accent animate-breathe" aria-hidden />
+                  <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-mutedForeground/60">
+                    {event.fans}
+                  </span>
+                </div>
               </div>
             </ScrollReveal>
           ))}
