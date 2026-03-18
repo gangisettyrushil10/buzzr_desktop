@@ -51,9 +51,10 @@ const config: Config = {
         'card':        '0 1px 3px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.25)'
       },
       animation: {
-        'marquee':    'marquee 25s linear infinite',
-        'fade-in-up': 'fade-in-up 0.65s ease-out forwards',
-        'float':      'float 3.2s ease-in-out infinite'
+        'marquee':     'marquee 25s linear infinite',
+        'fade-in-up':  'fade-in-up 0.65s ease-out forwards',
+        'float':       'float 3.2s ease-in-out infinite',
+        'feed-scroll': 'feed-scroll 55s linear infinite',
       },
       keyframes: {
         marquee: {
@@ -67,7 +68,11 @@ const config: Config = {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%':      { transform: 'translateY(-6px)' }
-        }
+        },
+        'feed-scroll': {
+          '0%':   { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-50%)' }
+        },
       }
     }
   },

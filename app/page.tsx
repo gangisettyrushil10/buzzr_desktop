@@ -37,6 +37,7 @@ import { FaqAccordion } from '@/components/FaqAccordion';
 import { SocialProofStrip } from '@/components/SocialProofStrip';
 import { PixelFire, PixelBolt, PixelStar, PixelOrb } from '@/components/PixelIcons';
 import { SegmentedBar } from '@/components/SegmentedBar';
+import { LiveFeed } from '@/components/LiveFeed';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faApple, faGooglePlay } from '@fortawesome/free-brands-svg-icons';
 
@@ -90,6 +91,7 @@ function BadgeIcon({ icon, size = 24 }: { icon: string; size?: number }) {
 export default function HomePage() {
   return (
     <div className="relative">
+      <LiveFeed />
 
       {/* ── HERO — dark sports photo, poster headline ─────────────────────── */}
       <section
