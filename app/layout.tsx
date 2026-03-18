@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="relative z-10 flex min-h-screen flex-col w-full">
 
             {/* ── Header ── */}
-            <header className="sticky top-0 z-40 border-b border-white/[0.06] backdrop-blur-2xl bg-black/60 xl:pr-52">
+            <header className="sticky top-0 z-40 border-b border-white/[0.06] backdrop-blur-2xl bg-black/60 xl:pl-52">
               <div className="mx-auto flex w-[90%] max-w-[1400px] items-center justify-between py-4">
                 <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-75" aria-label="Buzzr home">
                   <img
@@ -97,10 +97,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </div>
             </header>
 
-            <main className="w-full flex-1 xl:pr-52">{children}</main>
+            <main className="w-full flex-1 xl:pl-52">{children}</main>
 
             {/* ── Footer ── */}
-            <footer className="border-t border-white/[0.06] text-xs text-mutedForeground xl:pr-52">
+            <footer className="border-t border-white/[0.06] text-xs text-mutedForeground xl:pl-52">
               <div className="mx-auto w-[90%] max-w-[1400px] py-10">
                 <div className="mb-8 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                   <div className="space-y-3">

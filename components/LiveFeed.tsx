@@ -42,7 +42,7 @@ export function LiveFeed() {
   const items = [...FEED_ITEMS, ...FEED_ITEMS];
 
   return (
-    <div className="fixed right-4 top-20 bottom-6 z-40 hidden xl:flex flex-col w-52 rounded-2xl border border-white/[0.10] bg-black/70 backdrop-blur-md overflow-hidden">
+    <div className="fixed left-4 top-20 bottom-6 z-40 hidden xl:flex flex-col w-52 rounded-2xl border border-white/[0.10] bg-black/70 backdrop-blur-md overflow-hidden">
 
       {/* Header — pinned */}
       <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.07] shrink-0">
