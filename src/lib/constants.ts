@@ -51,9 +51,9 @@ export const TRUST_STRIP =
 
 /** Tawk.to live chat */
 export const TAWK_PROPERTY_ID =
-  process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID ?? '';
+  process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID ?? '69ba0992c4b5991c3637fba6';
 export const TAWK_WIDGET_ID =
-  process.env.NEXT_PUBLIC_TAWK_WIDGET_ID ?? 'default';
+  process.env.NEXT_PUBLIC_TAWK_WIDGET_ID ?? '1jjvbap7b';
 
 /** Social – overridable via env */
 export const TWITTER_URL =
