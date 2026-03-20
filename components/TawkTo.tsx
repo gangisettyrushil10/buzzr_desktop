@@ -19,15 +19,16 @@ export function TawkTo({ propertyId, widgetId = 'default' }: TawkToProps) {
           var Tawk_API = Tawk_API || {};
           var Tawk_LoadStart = new Date();
 
-          // Position bottom-left, compact offsets
+          // Position bottom-right, start minimized
           Tawk_API.customStyle = {
             visibility: {
-              desktop: { position: 'bl', xOffset: 20, yOffset: 20 },
-              mobile:  { position: 'bl', xOffset: 10, yOffset: 10 }
+              desktop: { position: 'br', xOffset: 20, yOffset: 20 },
+              mobile:  { position: 'br', xOffset: 10, yOffset: 10 }
             }
           };
 
           Tawk_API.onLoad = function() {
+            Tawk_API.minimize();
             Tawk_API.setAttributes({ name: 'Buzzr Fan' }, function() {});
           };
 
