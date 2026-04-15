@@ -47,7 +47,7 @@ export const HERO_EMOTIONAL_LINE =
 export const HERO_STAT = "Join 500+ fans already in beta.";
 
 export const TRUST_STRIP =
-  'NBA Playoffs · NFL · FIFA World Cup 2026 · March Madness · IPL · F1 · and every game that actually delivers.';
+  'NBA Playoffs · NFL · FIFA World Cup 2026 · March Madness · F1 · UCL · and every game that actually delivers.';
 
 /** Tawk.to live chat */
 export const TAWK_PROPERTY_ID =

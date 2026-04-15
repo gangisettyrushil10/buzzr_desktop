@@ -172,7 +172,7 @@ export const FAQS: FaqItem[] = [
   },
   {
     q: 'Which sports and leagues does Buzzr support?',
-    a: 'We are starting with the majors: NBA, NFL, NCAAB, NCAAF, IPL, F1, NHL, MLB, MLS — plus March Madness, the World Cup, and the games that define generations.'
+    a: 'Buzzr covers NBA, WNBA, NFL, MLB, NHL, March Madness, EPL, MLS, NWSL, UCL, La Liga, Bundesliga, Serie A, Ligue 1, F1, IndyCar, NASCAR, MotoGP, ATP, WTA, UFC, Boxing, League of Legends, Valorant, CS2, and Dota 2 — with more on the way.'
   },
   {
     q: 'Is Buzzr free to use?',
@@ -213,7 +213,7 @@ export const HOW_IT_WORKS: HowItWorksItem[] = [
   {
     step: 2,
     title: 'Rate by what you felt',
-    body: 'Chaos, Energy, Drama, Clutch. Four dimensions that actually capture whether a game was worth your night. Not just the score.'
+    body: 'A single 1–10 slider. Tag what happened — close game, comeback, overtime chaos, clutch — and drop a take to back it up.'
   },
   {
     step: 3,
@@ -245,7 +245,7 @@ export const DIFFERENTIATORS: DifferentiatorItem[] = [
     number: '01',
     title: 'Not a number. A feeling.',
     description:
-      "Rate Chaos, Energy, and Drama separately — because one number can't capture why that game was unforgettable.",
+      "Rate 1–10 on entertainment, then tag what actually happened — the comeback, the blowout, the overtime chaos. Context every number deserves.",
     contrast: 'Basic apps give you a single star rating.',
   },
   {
@@ -273,29 +273,29 @@ export const DIFFERENTIATORS: DifferentiatorItem[] = [
 
 export const UPCOMING_EVENTS: UpcomingEventItem[] = [
   {
-    name: 'March Madness 2026',
-    subtitle: 'The bracket is live. Rate every upset, buzzer beater, and Cinderella run.',
-    date: 'March 17 – April 6, 2026',
+    name: 'NBA Playoffs 2026',
+    subtitle: 'First round is in. Rate every buzzer beater as the bracket unfolds.',
+    date: 'April – June 2026',
     dateShort: 'LIVE NOW',
-    league: 'NCAAB',
-    fans: '14.2K fans rating',
+    league: 'NBA',
+    fans: '12.6K fans rating',
     highlight: true,
   },
   {
-    name: 'NBA Playoffs 2026',
-    subtitle: 'Playoff race is heating up. Every game counts.',
+    name: 'NHL Playoffs 2026',
+    subtitle: 'Overtimes. Shutouts. The race for the Cup is on.',
     date: 'April – June 2026',
-    dateShort: 'Apr 2026',
-    league: 'NBA',
-    fans: '9.3K fans watching',
+    dateShort: 'LIVE NOW',
+    league: 'NHL',
+    fans: '5.4K fans rating',
   },
   {
-    name: 'NHL Playoffs 2026',
-    subtitle: 'Overtimes. Shutouts. The race for the Cup is coming.',
-    date: 'April – June 2026',
+    name: 'UCL Semifinals',
+    subtitle: 'Europe\'s four best left standing. Every leg matters.',
+    date: 'April 28 – May 6, 2026',
     dateShort: 'Apr 2026',
-    league: 'NHL',
-    fans: '4.8K fans watching',
+    league: 'UCL',
+    fans: '7.9K fans watching',
   },
   {
     name: 'FIFA World Cup 2026',
@@ -315,31 +315,31 @@ export const TRENDING_GAME: TrendingGameItem = {
   date: 'Dec 18, 2022',
   label: 'All-Time Classic',
   breakdown: [
-    { label: 'Chaos',  value: 10  },
-    { label: 'Energy', value: 9.8 },
-    { label: 'Drama',  value: 10  },
-    { label: 'Clutch', value: 9.6 },
+    { label: 'Star Power', value: 9.6 },
+    { label: 'Rivalry',    value: 9.4 },
+    { label: 'Stakes',     value: 10  },
+    { label: 'Clutch',     value: 10  },
   ],
   context: 'Three penalties. Two Mbappé comebacks. Extra time. The greatest World Cup Final in history.',
 };
 
 export const BADGES: BadgeItem[] = [
   {
-    name: 'BALL KNOWER',
-    description: 'Rate 10 games across 3 different leagues',
-    icon: 'orb',
-    level: 7
+    name: 'SPEED STING',
+    description: 'Rate a game within 10 minutes of the final buzzer',
+    icon: 'bolt',
+    level: 3
   },
   {
-    name: 'RIDE OR DIE',
-    description: 'Log 5 games from the same team in a season',
+    name: 'HOT TAKE',
+    description: 'Post your first detailed take in a community thread',
     icon: 'fire',
-    level: 5
+    level: 2
   },
   {
-    name: 'DRAMA QUEEN',
-    description: 'Rate 3 games with Drama score above 9.5',
-    icon: 'star',
-    level: 9
+    name: 'MIGRATION',
+    description: 'Rate games across 3 different leagues',
+    icon: 'orb',
+    level: 6
   }
 ];
