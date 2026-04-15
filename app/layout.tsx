@@ -1,5 +1,5 @@
 import './globals.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import {
@@ -30,10 +30,17 @@ export const metadata: Metadata = {
   }
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#000000'
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`dark ${acworth.variable} ${inter.variable}`}>
-      <body className="bg-background text-foreground">
+      <body className="bg-background text-foreground overflow-x-hidden">
         <TawkTo propertyId={TAWK_PROPERTY_ID} widgetId={TAWK_WIDGET_ID} />
         <div className="relative flex min-h-screen flex-col">
           {/* Subtle noise grain */}
@@ -72,12 +79,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
                 <nav aria-label="Primary">
                   <ul className="flex items-center gap-0.5 text-[11px] text-white/40">
-                    <li>
+                    <li className="hidden sm:block">
                       <Link href="/support" className="px-3 py-2 transition-colors hover:text-white rounded-md hover:bg-white/[0.06]">
                         Support
                       </Link>
                     </li>
-                    <li>
+                    <li className="hidden sm:block">
                       <Link href="/privacy" className="px-3 py-2 transition-colors hover:text-white rounded-md hover:bg-white/[0.06]">
                         Privacy
                       </Link>
@@ -87,7 +94,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         href={BETA_TALLY_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="ml-2 inline-flex items-center border border-buzzr-accent/50 bg-buzzr-accent/10 px-4 py-2 text-buzzr-accent transition-all hover:bg-buzzr-accent/20 hover:border-buzzr-accent text-[11px] font-medium tracking-wide"
+                        className="sm:ml-2 inline-flex items-center border border-buzzr-accent/50 bg-buzzr-accent/10 px-3 py-2 sm:px-4 text-buzzr-accent transition-all hover:bg-buzzr-accent/20 hover:border-buzzr-accent text-[11px] font-medium tracking-wide"
                       >
                         Join Beta
                       </Link>
