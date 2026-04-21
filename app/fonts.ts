@@ -1,15 +1,15 @@
-import localFont from 'next/font/local';
-import { Inter } from 'next/font/google';
+import { Montserrat, JetBrains_Mono } from 'next/font/google';
 
-export const acworth = localFont({
-  src: '../public/fonts/Acworth-Bold.otf',
-  variable: '--font-acworth',
-  display: 'swap'
-});
-
-export const inter = Inter({
+export const montserrat = Montserrat({
   subsets: ['latin'],
-  variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-montserrat',
   display: 'swap'
 });
 
+export const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
+  display: 'swap'
+});

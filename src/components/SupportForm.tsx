@@ -58,7 +58,7 @@ export function SupportForm() {
 
       setStatus({
         type: 'success',
-        message: 'Thanks — your message has been sent.'
+        message: 'Thanks. Your message has been sent.'
       });
       event.currentTarget.reset();
     } catch {

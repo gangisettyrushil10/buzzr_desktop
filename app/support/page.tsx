@@ -5,7 +5,7 @@ import { COMPANY_NAME, SITE_NAME, SUPPORT_EMAIL } from '@/src/lib/constants';
 import { ScrollReveal } from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: `Support — ${SITE_NAME}`,
+  title: `Support · ${SITE_NAME}`,
   description:
     `Get help with ${SITE_NAME}. Contact support or submit a request to ${COMPANY_NAME}.`
 };

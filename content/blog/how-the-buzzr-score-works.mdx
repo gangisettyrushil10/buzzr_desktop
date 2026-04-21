@@ -1,0 +1,117 @@
+---
+title: "What makes a 9.8: how the Buzzr Score works"
+description: "Not a win probability. Not a power rating. A fan-facing 1–10 score built from three dimensions: chaos, energy, drama. Here's the methodology."
+publishedAt: "2026-04-18"
+readingTime: 7
+author: "Buzzr Editorial"
+tags: ["Product", "Methodology"]
+cover:
+  src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&auto=format&fit=crop&q=80"
+  alt: "Two laptop screens displaying live charts and analytics dashboards in a dark room."
+  credit: "Luke Chesser on Unsplash"
+  creditUrl: "https://unsplash.com/@lukechesser"
+---
+
+Every live game in Buzzr ends with a single number between 1.0 and 10.0. It's the first thing a fan sees , on the feed, on the game card, on a friend's post-game text. **It is not a prediction. It is not a win probability. It is not a power rating.** It is an entertainment score: the answer to the question "was this game worth watching?"
+
+This post explains, in as much detail as is useful, how we get to that number.
+
+## The north star: entertainment, not outcome
+
+Almost every number attached to a sports game today , spreads, over/unders, power ratings, ELO, moneylines, ESPN's Matchup Quality , is ultimately about predicting or evaluating **who won and how much.** Those are valuable numbers. They are not the number most fans want when they wake up on a Sunday and ask "is last night's game worth catching the replay of?"
+
+That question has a different shape. It cares about swings, not margins. It cares about context, not raw production. A 40-point NBA blowout with two stars sitting is technically a game; it is not one you'd recommend to a friend. A 118-117 triple-overtime chaos opera with three lead changes in the final 30 seconds is rewatchable a decade later.
+
+The Buzzr Score is our attempt to build the number for that second kind of question.
+
+## The three dimensions
+
+Every Buzzr Score decomposes into three sub-scores, each also on a 1–10 scale: **Chaos, Energy, Drama.** You can see all three on any game card in the app, and the overall score is a weighted blend of them.
+
+### Chaos (unpredictability)
+
+Chaos measures how hard the game was to forecast as it unfolded. Our inputs include:
+
+- **Win-probability variance.** We track modeled win probability minute-by-minute (for clock-based sports) or possession-by-possession (for paced sports like basketball and hockey). High variance , the number swinging from 80/20 to 30/70 to 60/40 , produces high chaos.
+- **Lead changes and ties.** More lead changes = higher chaos, with a nonlinear weight on changes in the final 25% of regulation.
+- **Score-margin oscillation.** Measures how much the margin "whips" , a game that bounces between +8 and -6 scores higher than one that drifts linearly from 0 to -12.
+
+A game that was a comfortable blowout from tip to final whistle , pick your most one-sided playoff loss , lands in the 3–5 range on chaos. A best-of-seven Game 7 that goes to double-OT with the lead changing eight times lands in the 9–10 range.
+
+### Energy (the room)
+
+Energy is a proxy for how much the game mattered to the people watching it , not how many people watched, but how **hot** the watching was. Inputs:
+
+- **Rating velocity.** How fast are fans opening Buzzr and rating this game in real time? Games with heavy mid-game rating volume score higher than games that generate only end-of-night ratings.
+- **Reaction rate.** 🔥, 💯, and ❄️ reactions logged during the game. A big-play burst of 🔥 in the 4th quarter spikes energy.
+- **Take volume.** The density of community posts, replies, and quick takes dropped during the game window.
+- **Party activity.** Number of active Watch Parties running on the game, plus per-party engagement.
+
+Energy is the most network-dependent dimension. A historic regular-season game in October still scores lower on energy than a quarterfinal elimination , correctly, because the room wasn't as hot. That's a feature, not a bug: we're measuring what fans actually felt.
+
+### Drama (the moments)
+
+Drama is about the shape of the decisive minutes. It overweights the last 25% of regulation, overtime, and explicit "win or go home" context:
+
+- **Late-game tension.** A one-possession game in the final two minutes scores high; a 20-point runaway does not.
+- **Overtime depth.** Each extra period compounds. Double-OT games almost always clear 9.0 drama.
+- **Clutch plays.** Game-tying or go-ahead plays in the final 30 seconds of any period trigger drama weight.
+- **Stakes multiplier.** Win-or-go-home context (playoff elimination, championship, relegation, qualification cutoff) multiplies the raw drama number , stakes are the scaffolding that makes late-game moments feel heavier.
+
+A stakes multiplier is why an OT thriller in an NBA regular season game in January lands around an 8.8 drama, while a structurally similar game in Round 1 of the playoffs lands at 9.3.
+
+## How the three combine
+
+The overall Buzzr Score is a weighted blend:
+
+```
+BuzzrScore = 0.30 × Chaos + 0.30 × Energy + 0.40 × Drama
+```
+
+Drama is weighted most heavily because, empirically, it's the strongest predictor of whether a fan would tell a friend to watch the replay. Chaos and Energy are equally weighted because they measure different things (in-game structure vs. out-of-game reaction) and we want both to matter.
+
+Two additional adjustments apply:
+
+1. **The late-game boost.** A score near 8.5 that includes a true buzzer-beater moment gets a small bump, capped at +0.3. The idea is to recognize that some games become great only in the final 30 seconds, and the dimensional sub-scores can slightly underweight that.
+2. **The fan-rating pull.** If the community consensus rating (the average user rating submitted during and after the game) strongly disagrees with the algorithmic score , say, more than 1.2 points apart , we pull the score 20% toward the fan number. This is a small but meaningful correction: fans see things the model doesn't (a referee moment, a star's 1-leg return, a stadium atmosphere). The algorithm stays anchored, but the crowd gets to vote.
+
+## Band names and what they mean
+
+Every game ends in a band. These are the labels you see next to the number:
+
+- **10.0 , Perfect Game.** Once or twice a season, league-wide. The algorithm and the crowd agree: this one goes in the book.
+- **9.5–9.9 , All-time classic.** Drama was maxed, chaos was high, and the room was white-hot.
+- **9.0–9.4 , Absolute banger.** The game you rewatch.
+- **8.5–8.9 , Must-watch.** Worth the two hours. You'll remember two moments.
+- **7.5–8.4 , Worth your time.** Solid night of sport. Not a classic, but a real game.
+- **6.0–7.4 , Decent game.** Some moments. Not a priority replay.
+- **4.0–5.9 , Skippable.** You didn't miss much.
+- **1.0–3.9 , Skip it.** Blowout, lifeless, or both.
+
+Bands are meant to do the heavy lifting of communication. The number is exact; the band is what you remember.
+
+## What we deliberately don't count
+
+A methodology isn't just what you include. It's also what you refuse to count. The Buzzr Score explicitly does **not** factor in:
+
+- **The spread or any betting line.** Whether a game "beat the number" is not our problem. Ever.
+- **Individual player fantasy output.** Scoring a lot of fantasy points doesn't mean the game was entertaining.
+- **Market size or TV rating.** A Bills-Dolphins Thursday night draws a different audience than a Yankees-Dodgers World Series game. Both can be 9.5s. Both can be 4.0s.
+- **Pre-game hype.** If the game is being scored after the fact, what people expected going in is irrelevant. Only what happened counts.
+
+## Where the score breaks (and what we do about it)
+
+The score is honest about its own failure modes. Two examples:
+
+- **Low-scoring games in paced sports.** A 1-0 EPL match with elite defense and one late winner can feel transcendent to a soccer fan and read as a low-drama, low-chaos event to a model that was trained mostly on higher-scoring formats. Sport-specific weighting corrects for this, but we continue to tune it.
+- **Historic milestones.** When a player breaks a decades-old record in an otherwise ordinary game, the game's dimensional score will underrate what fans experienced. We don't auto-inject a "milestone bump." Instead we trust the fan-rating pull to catch it. It usually does.
+
+Both are areas we keep investing in.
+
+## The simplest explanation
+
+If you've made it this far and you want the one-line version, here it is: **the Buzzr Score is the number a friend with perfect judgment would give you when you ask, "was the game last night worth my time?"** Everything else is how we try to get as close as possible to that friend.
+
+---
+
+**Further reading:** [Esports isn't eating traditional sports](/blog/esports-and-the-sports-world) · [Betting fatigue](/blog/betting-fatigue) · [How the group chat ate the sports bar](/blog/group-chat-ate-the-sports-bar)

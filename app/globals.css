@@ -2,94 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design tokens ─────────────────────────────────────────────────────────── */
+/* ─── Design tokens ─────────────────────────────────────────────────────────────
+   1:1 port of the Buzzr app palette (src/theme/colors.ts + palette.ts).
+   Landing is dark-first to match the app's forceDark behavior.
+────────────────────────────────────────────────────────────────────────────── */
 :root,
-.light {
-  color-scheme: light;
-
-  /* Accent palette — emerald → cyan */
-  --accent:    16 185 129;  /* #10b981 emerald */
-  --accent-2:  52 211 153;  /* #34d399 */
-  --accent-3:   6 182 212;  /* #06b6d4 cyan */
-  --accent-4:  34 211 238;  /* #22d3ee */
-  --accent-5: 103 232 249;  /* #67e8f9 */
-
-  /* Light palette */
-  --background:       248 248 246;
-  --surface:          255 255 255;
-  --surface-elevated: 241 242 243;
-  --foreground:        37  50  55;
-  --muted-foreground:  92 107 115;
-  --border:           200 214 220;
-  --muted:            241 242 243;
-  --input:            255 255 255;
-  --ring:              16 185 129;
-
-  --bg-gradient-start: 248 248 246;
-  --bg-gradient-mid:   255 255 255;
-  --bg-gradient-end:   241 242 243;
-  --preview-start:     241 242 243;
-  --preview-end:       200 214 220;
-  --logo-surface:      255 255 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-
-    --accent:    16 185 129;
-    --accent-2:  52 211 153;
-    --accent-3:   6 182 212;
-    --accent-4:  34 211 238;
-    --accent-5: 103 232 249;
-
-    --background:         0   0   0;   /* #000000 pure black */
-    --surface:            8   8   8;   /* #080808 */
-    --surface-elevated:  18  18  18;   /* #121212 */
-    --foreground:       245 245 247;   /* #f5f5f7 Apple-style near-white */
-    --muted-foreground: 134 134 139;   /* #86868b Apple muted */
-    --border:            38  38  40;   /* #262628 */
-    --muted:              8   8   8;
-    --input:              8   8   8;
-    --ring:              16 185 129;
-
-    --bg-gradient-start:  0   0   0;
-    --bg-gradient-mid:    4   4   4;
-    --bg-gradient-end:    0   0   0;
-    --preview-start:      8   8   8;
-    --preview-end:       18  18  18;
-    --logo-surface:       0   0   0;
-  }
-}
-
 .dark {
-  color-scheme: dark;
+  color-scheme: dark only;
 
-  --accent:    16 185 129;
-  --accent-2:  52 211 153;
-  --accent-3:   6 182 212;
-  --accent-4:  34 211 238;
-  --accent-5: 103 232 249;
+  /* Accent palette : emerald → lime (NO cyan : matches app brand ramp) */
+  --accent:     0 230 118;   /* #00e676 : app brand emerald (CRT green) */
+  --accent-2:  57 255 142;   /* #39ff8e : lime */
+  --accent-3: 105 255 170;   /* #69ffaa */
+  --accent-4: 153 255 198;   /* #99ffc6 */
+  --accent-5: 204 255 226;   /* #ccffe2 */
 
-  --background:         0   0   0;
-  --surface:            8   8   8;
-  --surface-elevated:  18  18  18;
-  --foreground:       245 245 247;
-  --muted-foreground: 134 134 139;
-  --border:            38  38  40;
-  --muted:              8   8   8;
-  --input:              8   8   8;
-  --ring:              16 185 129;
+  /* Surfaces : from palette.ts darkPalette */
+  --background:        10  10  12;   /* #0a0a0c */
+  --surface:           17  17  20;   /* #111114 */
+  --surface-elevated:  26  26  29;   /* #1a1a1d */
+  --foreground:       245 251 255;   /* #f5fbff cool white */
+  --muted-foreground: 184 198 208;   /* #b8c6d0 */
+  --border:           245 251 255;   /* consumed with /0.10 via <alpha-value> */
+  --muted:             17  17  20;
+  --input:             12  12  14;   /* #0c0c0e : input bg from palette.ts */
+  --ring:               0 230 118;
 
-  --bg-gradient-start:  0   0   0;
-  --bg-gradient-mid:    4   4   4;
-  --bg-gradient-end:    0   0   0;
-  --preview-start:      8   8   8;
-  --preview-end:       18  18  18;
-  --logo-surface:       0   0   0;
+  /* Semantic tokens */
+  --success:  94 230 196;    /* #5ee6c4 */
+  --warning: 251 191  36;    /* #fbbf24 */
+  --danger:  248 113 113;    /* #f87171 */
+  --live:    239  68  68;    /* #ef4444 */
+  --on-accent: 2 26 10;      /* #021a0a : text on accent bg, AA compliant */
+  --shadow:    2   8  18;    /* #020812 : cool-blue shadow tint */
+
+  /* Background gradient stops (kept for compatibility) */
+  --bg-gradient-start: 10 10 12;
+  --bg-gradient-mid:   12 12 14;
+  --bg-gradient-end:   10 10 12;
+  --preview-start:     17 17 20;
+  --preview-end:       26 26 29;
+  --logo-surface:      10 10 12;
+
+  /* Pixel ornament tokens */
+  --pixel-size: 3px;
+  --pixel-gap: 1px;
+}
+
+/* Selection + focus rings */
+::selection {
+  background: rgba(0, 230, 118, 0.22);
+  color: rgb(245, 251, 255);
+}
+:focus-visible {
+  outline: 2px solid rgba(0, 230, 118, 0.55);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* ─── Base ──────────────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* offset for sticky header on anchor jumps */
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 body {
   @apply min-h-screen bg-background text-foreground font-sans antialiased;
 }
@@ -101,8 +80,8 @@ h1, h2, h3 {
 
 /* ─── Keyframes ─────────────────────────────────────────────────────────────── */
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0);     }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fade-in {
@@ -201,13 +180,18 @@ h1, h2, h3 {
 }
 
 @keyframes meter-glow {
-  0%, 100% { box-shadow: 0 0 12px rgba(16,185,129,0.5), 0 0 24px rgba(6,182,212,0.2); }
-  50%       { box-shadow: 0 0 22px rgba(16,185,129,0.85), 0 0 44px rgba(6,182,212,0.4); }
+  0%, 100% { box-shadow: 0 0 12px rgba(0,230,118,0.5),  0 0 24px rgba(57,255,142,0.2); }
+  50%       { box-shadow: 0 0 22px rgba(0,230,118,0.85), 0 0 44px rgba(57,255,142,0.4); }
 }
 
 @keyframes badge-pulse {
-  0%, 100% { box-shadow: 0 0 0 0   rgba(16,185,129,0.5); }
-  50%       { box-shadow: 0 0 0 5px rgba(16,185,129,0);   }
+  0%, 100% { box-shadow: 0 0 0 0   rgba(0,230,118,0.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(0,230,118,0);   }
+}
+
+@keyframes badge-pulse-live {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(239,68,68,0.55); }
+  50%       { box-shadow: 0 0 0 5px rgba(239,68,68,0);    }
 }
 
 @keyframes badge-reveal {
@@ -228,6 +212,75 @@ h1, h2, h3 {
   to   { transform: scaleY(1); opacity: 1; }
 }
 
+@keyframes pixel-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+@keyframes live-ping {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.55); }
+  100% { box-shadow: 0 0 0 8px rgba(0, 230, 118, 0); }
+}
+
+@keyframes count-up {
+  from { opacity: 0.3; transform: translateY(4px); }
+  to   { opacity: 1;   transform: translateY(0); }
+}
+
+/* Deep-space universe (Swipe section backdrop) */
+@keyframes twinkle {
+  0%, 100% { opacity: var(--twk-min, 0.15); transform: scale(1);    }
+  50%      { opacity: var(--twk-max, 1);    transform: scale(1.4);  }
+}
+@keyframes nebula-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1);    }
+  50%      { opacity: 1;    transform: scale(1.08); }
+}
+@keyframes parallax-drift-y {
+  0%, 100% { transform: translate3d(0, 0, 0);    }
+  50%      { transform: translate3d(0, -12px, 0); }
+}
+@keyframes parallax-drift-xy {
+  0%   { transform: translate3d(0, 0, 0);       }
+  33%  { transform: translate3d(-8px, -10px, 0);}
+  66%  { transform: translate3d(6px, -4px, 0);  }
+  100% { transform: translate3d(0, 0, 0);       }
+}
+/* Spin around the element's bounding-box center. Used on SVG <g> wrappers. */
+@keyframes universe-spin-cw  { from { transform: rotate(0deg);   } to { transform: rotate(360deg);  } }
+@keyframes universe-spin-ccw { from { transform: rotate(0deg);   } to { transform: rotate(-360deg); } }
+/* A single bright "satellite" arcs from one side of the section to the other. */
+@keyframes shooting-star {
+  0%   { opacity: 0; transform: translate3d(0, 0, 0)     scale(0.6); }
+  8%   { opacity: 1; }
+  60%  { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(var(--sx, 280px), var(--sy, 180px), 0) scale(0.4); }
+}
+
+/* Emoji orbit , used by QuickRate demo */
+@keyframes orbit-rotate   { from { transform: rotate(0deg); }   to { transform: rotate(360deg); }  }
+@keyframes orbit-counter  { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
+
+/* Celebration burst particles */
+@keyframes burst-particle {
+  0%   { opacity: 1; transform: translate(0, 0) scale(0.8); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.2); }
+}
+
+/* Chat typing indicator dots */
+@keyframes dot-bounce {
+  0%, 80%, 100% { transform: translateY(0);    opacity: 0.45; }
+  40%           { transform: translateY(-3px); opacity: 1;    }
+}
+
+/* Footstep trail: fade in, linger, fade out */
+@keyframes footstep-fade {
+  0%   { opacity: 0;   }
+  15%  { opacity: 1;   }
+  70%  { opacity: 0.8; }
+  100% { opacity: 0;   }
+}
+
 /* ─── Reduced motion ────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -241,20 +294,24 @@ h1, h2, h3 {
 @layer utilities {
   .pixelated { image-rendering: pixelated; }
 
+  /* Hide scrollbar on scroll-snap rails; horizontal scrolling still works */
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
   .pixel-border {
     box-shadow:
       0 0 0 1px rgba(var(--accent), 0.5),
       0 4px 0 0  rgba(var(--background), 1);
   }
 
-  /* Glows */
-  .glow-emerald    { box-shadow: 0 0 30px rgba(16,185,129,0.35), 0 0 60px rgba(16,185,129,0.15); }
-  .glow-cyan       { box-shadow: 0 0 30px rgba(6,182,212,0.35),  0 0 60px rgba(6,182,212,0.15);  }
-  .glow-emerald-sm { box-shadow: 0 0 14px rgba(16,185,129,0.55); }
+  /* Glows : CRT emerald → lime (matches app brand ramp) */
+  .glow-emerald    { box-shadow: 0 0 30px rgba(0,230,118,0.35),  0 0 60px rgba(0,230,118,0.15);  }
+  .glow-lime       { box-shadow: 0 0 30px rgba(57,255,142,0.35), 0 0 60px rgba(57,255,142,0.15); }
+  .glow-emerald-sm { box-shadow: 0 0 14px rgba(0,230,118,0.55); }
 
-  /* Gradient text: emerald → cyan */
+  /* Gradient text: emerald → lime */
   .text-gradient {
-    background: linear-gradient(135deg, rgb(16,185,129) 0%, rgb(6,182,212) 55%, rgb(103,232,249) 100%);
+    background: linear-gradient(135deg, rgb(0,230,118) 0%, rgb(57,255,142) 55%, rgb(105,255,170) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -275,12 +332,12 @@ h1, h2, h3 {
     -webkit-text-fill-color: transparent;
   }
 
-  /* Live badge */
+  /* Live badge : uses app's live-red semantic token */
   .badge-live {
-    background: rgba(16,185,129,0.12);
-    border: 1px solid rgba(16,185,129,0.35);
-    color: rgb(52,211,153);
-    animation: badge-pulse 2.8s ease-in-out infinite;
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.38);
+    color: rgb(248,113,113);
+    animation: badge-pulse-live 2.8s ease-in-out infinite;
   }
 
   /* Glass card */
@@ -297,9 +354,16 @@ h1, h2, h3 {
     background: linear-gradient(90deg, transparent, rgba(var(--accent),0.45) 40%, rgba(var(--accent-3),0.45) 60%, transparent);
   }
 
+  .divider-hairline {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
   /* Animation classes */
-  .animate-fade-in-up        { animation: fade-in-up 0.65s ease-out forwards; }
-  .animate-fade-in           { animation: fade-in 0.5s ease-out forwards; }
+  .animate-fade-in-up        { animation: fade-in-up 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .animate-fade-in           { animation: fade-in 0.22s ease-out forwards; }
+  .animate-pixel-blink       { animation: pixel-blink 1.6s ease-in-out infinite; }
+  .animate-count-up          { animation: count-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
   .animate-glow-pulse        { animation: glow-pulse 4s ease-in-out infinite; }
   .animate-float             { animation: float 3.2s ease-in-out infinite; }
   .animate-marquee           { animation: marquee-scroll 25s linear infinite; }
@@ -317,13 +381,31 @@ h1, h2, h3 {
   .animate-badge-reveal      { animation: badge-reveal 0.55s cubic-bezier(0.22,1,0.36,1) forwards; }
   .animate-pixel-flash       { animation: pixel-flash 0.8s ease-out forwards; }
 
+  /* Universe backdrop primitives */
+  .animate-twinkle           { animation: twinkle var(--twk-dur, 3.2s) ease-in-out infinite; }
+  .animate-nebula-pulse      { animation: nebula-pulse 9s ease-in-out infinite; }
+  .animate-parallax-y        { animation: parallax-drift-y  var(--drift-dur, 7s) ease-in-out infinite; }
+  .animate-parallax-xy       { animation: parallax-drift-xy var(--drift-dur, 12s) ease-in-out infinite; }
+  .animate-shooting-star     { animation: shooting-star var(--shoot-dur, 2.2s) cubic-bezier(0.22, 1, 0.36, 1) var(--shoot-delay, 0s) infinite; }
+  /* SVG <g> wrappers: rotate around their own bounding-box center.
+     transform-box: fill-box is the magic that makes transform-origin: center
+     mean "center of this element's bounding box" inside an SVG. */
+  .universe-spin-cw,
+  .universe-spin-ccw {
+    transform-box: fill-box;
+    transform-origin: center;
+    will-change: transform;
+  }
+  .universe-spin-cw  { animation: universe-spin-cw  var(--spin-dur, 90s) linear infinite; }
+  .universe-spin-ccw { animation: universe-spin-ccw var(--spin-dur, 90s) linear infinite; }
+
   /* ─── Pixel border frame ─────────────────────────────────────────────────
      Usage: add class "pixel-frame" to section wrappers (not buttons).
      Renders a subtle dashed emerald border with corner square accents.
   ──────────────────────────────────────────────────────────────────────── */
   .pixel-frame {
     position: relative;
-    border: 1px dashed rgba(16,185,129,0.35);
+    border: 1px dashed rgba(0,230,118,0.35);
   }
   .pixel-frame::before,
   .pixel-frame::after {
@@ -331,18 +413,18 @@ h1, h2, h3 {
     position: absolute;
     width: 6px;
     height: 6px;
-    background: rgba(16,185,129,0.7);
+    background: rgba(0,230,118,0.7);
   }
   .pixel-frame::before { top: -4px; left: -4px; }
   .pixel-frame::after  { bottom: -4px; right: -4px; }
 
-  /* Badge card border — solid, clean */
+  /* Badge card border : solid, clean */
   .pixel-frame-full {
-    border: 1px solid rgba(16,185,129,0.35);
+    border: 1px solid rgba(0,230,118,0.35);
   }
 
   /* ─── Pixel filmstrip border (top + bottom green square strip) ─────────
-     Inspired by brand image posts — product/showcase sections.
+     Inspired by brand image posts : product/showcase sections.
      Parent must have position: relative. Works with overflow: hidden.
   ──────────────────────────────────────────────────────────────────────── */
   .pixel-filmstrip {
@@ -357,8 +439,8 @@ h1, h2, h3 {
     height: 13px;
     background-image: repeating-linear-gradient(
       90deg,
-      rgb(16,185,129) 0px,
-      rgb(16,185,129) 9px,
+      rgb(0,230,118) 0px,
+      rgb(0,230,118) 9px,
       transparent 9px,
       transparent 14px
     );
@@ -370,11 +452,11 @@ h1, h2, h3 {
 
   /* ─── Score hero number ──────────────────────────────────────────────── */
   .score-hero-num {
-    font-family: var(--font-acworth), system-ui, sans-serif;
+    font-family: var(--font-montserrat), system-ui, sans-serif;
     font-size: clamp(3.5rem, 9vw, 6.5rem);
     line-height: 0.9;
     font-weight: 700;
-    tabular-nums: true;
+    font-variant-numeric: tabular-nums;
   }
 
   /* ─── Segmented bar container ───────────────────────────────────────── */
@@ -389,7 +471,7 @@ h1, h2, h3 {
     transform-origin: bottom;
   }
   .segment-bar-wrap .seg.filled {
-    background: rgb(16,185,129);
+    background: rgb(0,230,118);
   }
   .segment-bar-wrap .seg.filled.animate-segment {
     animation: segment-in 0.25s ease-out forwards;
@@ -408,4 +490,219 @@ h1, h2, h3 {
 
   .in-view.animate-fade-in-up,
   .in-view.animate-fade-in { opacity: 1; }
+
+  /* ─── Liquid glass surfaces ─────────────────────────────────
+     Three tiers of frosted surface for the landing. Each layers:
+       · vertical tint gradient (top lighter than bottom), so the
+         surface has a hint of volume instead of reading flat
+       · backdrop blur + saturation boost for the "refraction" feel
+       · inset top specular highlight (bright 1 px line at the rim)
+       · inset bottom dark edge (soft inner shadow to ground it)
+       · outer cool-blue drop shadow to lift it off the grid canvas
+     Level 1 = content tiles / mocks. Level 2 = hero card / CTA.
+     Level 3 = stacked / elevated frames (device frame, chat panels).
+     Fallback to solid ink when backdrop-filter isn't supported.
+  ─────────────────────────────────────────────────────────── */
+  .glass-1 {
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.045) 0%,
+      rgba(255, 255, 255, 0.02)  50%,
+      rgba(255, 255, 255, 0.03)  100%
+    );
+    background-color: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(22px) saturate(1.5);
+    -webkit-backdrop-filter: blur(22px) saturate(1.5);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.09),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.22),
+      0 10px 28px -16px rgba(2, 8, 18, 0.55);
+  }
+  .glass-2 {
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.07)  0%,
+      rgba(255, 255, 255, 0.035) 50%,
+      rgba(255, 255, 255, 0.05)  100%
+    );
+    background-color: rgba(255, 255, 255, 0.015);
+    backdrop-filter: blur(30px) saturate(1.6);
+    -webkit-backdrop-filter: blur(30px) saturate(1.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.14),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.28),
+      0 18px 40px -18px rgba(2, 8, 18, 0.6);
+  }
+  .glass-3 {
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.095) 0%,
+      rgba(255, 255, 255, 0.055) 50%,
+      rgba(255, 255, 255, 0.075) 100%
+    );
+    background-color: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(40px) saturate(1.7);
+    -webkit-backdrop-filter: blur(40px) saturate(1.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.18),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.34),
+      0 26px 52px -22px rgba(2, 8, 18, 0.7);
+  }
+  .glass-hover {
+    transition:
+      transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .glass-hover:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 230, 118, 0.42);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.28),
+      inset 0 0 56px rgba(0, 230, 118, 0.09),
+      0 28px 64px -20px rgba(2, 8, 18, 0.7),
+      0 0 0 1px rgba(0, 230, 118, 0.08);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass-1, .glass-2, .glass-3 { background: rgb(var(--surface)); }
+  }
+
+  /* Flagship liquid glass — signature cards (SwipeStack top card, hero
+     widgets). Layers a bright top specular, a soft bottom shadow, a faint
+     accent-tinted inner wash, an outer lift, and a refracted accent rim.
+     Works with or without an inline `background` override on the element. */
+  .liquid-glass {
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.095) 0%,
+      rgba(255, 255, 255, 0.04)  55%,
+      rgba(255, 255, 255, 0.08)  100%
+    );
+    background-color: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(38px) saturate(1.75);
+    -webkit-backdrop-filter: blur(38px) saturate(1.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.32),
+      inset 0 0 48px rgba(0, 230, 118, 0.05),
+      0 32px 64px -26px rgba(2, 8, 18, 0.72),
+      0 0 0 1px rgba(0, 230, 118, 0.05);
+  }
+
+  /* Liquid pill — small-scale glass for chips, provider tags, league pills. */
+  .glass-chip {
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    background-color: rgba(255, 255, 255, 0.012);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+      0 2px 10px -4px rgba(2, 8, 18, 0.5);
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+  }
+  .glass-chip:hover {
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.14),
+      0 3px 14px -4px rgba(2, 8, 18, 0.6),
+      0 0 0 1px rgba(0, 230, 118, 0.08);
+  }
+
+  /* Grid canvas background (faint dot grid + soft radial vignette) */
+  .grid-canvas {
+    background-color: rgb(var(--background));
+    background-image:
+      radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: 0 0;
+  }
+
+  /* Accent corner-tick decoration on glass cards */
+  .pixel-tick {
+    position: relative;
+  }
+  .pixel-tick::before,
+  .pixel-tick::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgb(var(--accent));
+    pointer-events: none;
+    box-shadow: 0 0 6px rgba(0, 230, 118, 0.5);
+  }
+  .pixel-tick::before { top: -1px; left: -1px; }
+  .pixel-tick::after  { bottom: -1px; right: -1px; }
+
+  /* Chip-live: live-now pill with pinging dot */
+  .chip-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(0, 230, 118, 0.08);
+    border: 1px solid rgba(0, 230, 118, 0.28);
+    border-radius: 999px;
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgb(var(--accent));
+    line-height: 1;
+  }
+  .chip-live::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: rgb(var(--accent));
+    animation: live-ping 1.8s ease-out infinite;
+  }
+
+  /* Mono score numerals */
+  .score-mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  /* Edge mask for marquees (fade at start/end) */
+  .mask-edges-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  /* Hide scrollbars while allowing scroll */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Short text color helpers (new ink system alias) */
+  .text-accent { color: rgb(var(--accent)); }
+
+  /* Accent glow (radial, blurred). Use on aria-hidden absolute layers to
+     add brand-emerald halo behind hero visuals, CTA cards, and device frames.
+     Keeps the opacity scale centralized instead of inlining rgba(…). */
+  .accent-glow {
+    background: radial-gradient(ellipse, rgba(0, 230, 118, 0.20), transparent 60%);
+    filter: blur(40px);
+  }
+  .accent-glow-soft {
+    background: radial-gradient(ellipse, rgba(0, 230, 118, 0.12), transparent 60%);
+    filter: blur(40px);
+  }
+  .accent-glow-device {
+    background: radial-gradient(ellipse at top, rgba(0, 230, 118, 0.25), transparent 70%);
+    filter: blur(16px);
+  }
 }

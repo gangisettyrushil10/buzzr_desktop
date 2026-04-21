@@ -10,7 +10,7 @@ import {
 import { ScrollReveal } from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: `Delete Account — ${SITE_NAME}`,
+  title: `Delete Account · ${SITE_NAME}`,
   description:
     `How to delete your ${SITE_NAME} account and associated data, including what is deleted and what may be retained for safety and legal compliance.`,
   alternates: {

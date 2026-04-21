@@ -1,12 +1,12 @@
 /**
- * Pixel-art SVG icon set — matches the 8-bit sports icons in Buzzr brand assets.
+ * Pixel-art SVG icon set : matches the 8-bit sports icons in Buzzr brand assets.
  * Each icon is ~48x48 rendered via <rect> elements on a pixel grid.
  */
 
 interface PixelIconProps {
-  /** Size in px — the icon scales from its 16×16 grid to this size */
+  /** Size in px : the icon scales from its 16×16 grid to this size */
   size?: number;
-  /** Accent color (default: Buzzr emerald #10b981) */
+  /** Accent color (default: Buzzr emerald #00e676) */
   color?: string;
   /** Reduced opacity variant */
   dim?: boolean;
@@ -14,7 +14,7 @@ interface PixelIconProps {
   'aria-hidden'?: boolean | 'true' | 'false';
 }
 
-const DEFAULT_COLOR = 'rgb(16,185,129)';
+const DEFAULT_COLOR = 'rgb(0,230,118)';
 
 // ── Fire ──────────────────────────────────────────────────────────────────────
 export function PixelFire({ size = 48, color = DEFAULT_COLOR, dim, className, ...rest }: PixelIconProps) {

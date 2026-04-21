@@ -9,7 +9,7 @@ import {
 import { ScrollReveal } from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: `Privacy Policy — ${SITE_NAME}`,
+  title: `Privacy Policy · ${SITE_NAME}`,
   description:
     `Privacy policy for ${SITE_NAME}, operated by ${COMPANY_NAME}. Learn how we handle your data and your rights as a user.`
 };

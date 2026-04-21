@@ -1,0 +1,97 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#F5FAF8"/>
+      <stop offset="50%" stop-color="#ECF1EF"/>
+      <stop offset="100%" stop-color="#E2E9E6"/>
+    </linearGradient>
+    <linearGradient id="face" x1="0" y1="0" x2="0.15" y2="1">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="25%" stop-color="#2BC48E"/>
+      <stop offset="50%" stop-color="#1FB583"/>
+      <stop offset="75%" stop-color="#12A677"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="hi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.70"/>
+      <stop offset="30%" stop-color="#ECFDF5" stop-opacity="0.22"/>
+      <stop offset="50%" stop-color="#D1FAE5" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bevel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="50%" stop-color="#059669" stop-opacity="0"/>
+      <stop offset="85%" stop-color="#047857" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#065F46" stop-opacity="0.18"/>
+    </linearGradient>
+    <linearGradient id="depth" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.08"/>
+    </linearGradient>
+    <pattern id="field" x="0" y="0" width="512" height="22" patternUnits="userSpaceOnUse">
+      <rect width="512" height="11" fill="#10B981" opacity="0.08"/>
+      <rect y="11" width="512" height="11" fill="#10B981" opacity="0.04"/>
+    </pattern>
+    <radialGradient id="neon" cx="50%" cy="50%" r="38%">
+      <stop offset="0%" stop-color="#6EE7B7" stop-opacity="0.35"/>
+      <stop offset="35%" stop-color="#34D399" stop-opacity="0.16"/>
+      <stop offset="70%" stop-color="#10B981" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow1" cx="28%" cy="24%" r="40%">
+      <stop offset="0%" stop-color="#D1FAE5" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#A7F3D0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="72%" cy="76%" r="36%">
+      <stop offset="0%" stop-color="#ECFDF5" stop-opacity="0.40"/>
+      <stop offset="100%" stop-color="#D1FAE5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#ECF1EF" stop-opacity="0"/>
+      <stop offset="78%" stop-color="#ECF1EF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#DDE3E1" stop-opacity="0.78"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="112" fill="url(#field)"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow1)"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow2)"/>
+  <rect width="512" height="512" rx="112" fill="url(#neon)"/>
+  <rect width="512" height="512" rx="112" fill="url(#vig)"/>
+  <g transform="translate(256,256) skewX(-5) translate(-238,-224)">
+    <rect x="96" y="58" width="60" height="340" rx="8" fill="url(#depth)"/>
+    <rect x="172" y="58" width="174" height="54" rx="8" fill="url(#depth)"/>
+    <rect x="172" y="207" width="174" height="54" rx="8" fill="url(#depth)"/>
+    <rect x="172" y="348" width="174" height="54" rx="8" fill="url(#depth)"/>
+    <rect x="342" y="118" width="60" height="83" rx="8" fill="url(#depth)"/>
+    <rect x="342" y="267" width="60" height="83" rx="8" fill="url(#depth)"/>
+    <rect x="88" y="49" width="60" height="340" rx="8" fill="url(#face)"/>
+    <rect x="164" y="49" width="174" height="54" rx="8" fill="url(#face)"/>
+    <rect x="164" y="199" width="174" height="54" rx="8" fill="url(#face)"/>
+    <rect x="164" y="341" width="174" height="54" rx="8" fill="url(#face)"/>
+    <rect x="334" y="109" width="60" height="83" rx="8" fill="url(#face)"/>
+    <rect x="334" y="259" width="60" height="83" rx="8" fill="url(#face)"/>
+    <rect x="88" y="49" width="60" height="340" rx="8" fill="url(#bevel)"/>
+    <rect x="164" y="49" width="174" height="54" rx="8" fill="url(#bevel)"/>
+    <rect x="164" y="199" width="174" height="54" rx="8" fill="url(#bevel)"/>
+    <rect x="164" y="341" width="174" height="54" rx="8" fill="url(#bevel)"/>
+    <rect x="334" y="109" width="60" height="83" rx="8" fill="url(#bevel)"/>
+    <rect x="334" y="259" width="60" height="83" rx="8" fill="url(#bevel)"/>
+    <rect x="88" y="49" width="60" height="24" rx="8" fill="url(#hi)"/>
+    <rect x="164" y="49" width="174" height="14" rx="7" fill="url(#hi)"/>
+    <rect x="164" y="199" width="174" height="14" rx="7" fill="url(#hi)"/>
+    <rect x="164" y="341" width="174" height="14" rx="7" fill="url(#hi)"/>
+    <rect x="334" y="109" width="60" height="16" rx="8" fill="url(#hi)"/>
+    <rect x="334" y="259" width="60" height="16" rx="8" fill="url(#hi)"/>
+    <line x1="96" y1="49.5" x2="140" y2="49.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.45"/>
+    <line x1="172" y1="49.5" x2="330" y2="49.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.45"/>
+    <line x1="172" y1="199.5" x2="330" y2="199.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.45"/>
+    <line x1="172" y1="341.5" x2="330" y2="341.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.45"/>
+    <line x1="342" y1="109.5" x2="386" y2="109.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.45"/>
+    <line x1="342" y1="259.5" x2="386" y2="259.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.45"/>
+    <rect x="88" y="49" width="60" height="340" rx="8" fill="none" stroke="#10B981" stroke-width="1" opacity="0.18"/>
+    <rect x="164" y="49" width="174" height="54" rx="8" fill="none" stroke="#10B981" stroke-width="1" opacity="0.18"/>
+    <rect x="164" y="199" width="174" height="54" rx="8" fill="none" stroke="#10B981" stroke-width="1" opacity="0.18"/>
+    <rect x="164" y="341" width="174" height="54" rx="8" fill="none" stroke="#10B981" stroke-width="1" opacity="0.18"/>
+    <rect x="334" y="109" width="60" height="83" rx="8" fill="none" stroke="#10B981" stroke-width="1" opacity="0.18"/>
+    <rect x="334" y="259" width="60" height="83" rx="8" fill="none" stroke="#10B981" stroke-width="1" opacity="0.18"/>
+  </g>
+</svg>

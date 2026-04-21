@@ -37,10 +37,12 @@ export function ScrollReveal({
       ref={ref}
       className={cn(className)}
       style={{
+        containIntrinsicSize: inView ? undefined : '900px',
+        contentVisibility: inView ? 'visible' : 'auto',
         opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.985)',
+        transform: inView ? 'translateY(0)' : 'translateY(8px)',
         transition: inView
-          ? `opacity 0.85s cubic-bezier(0.16,1,0.3,1) ${delay * 90}ms, transform 0.85s cubic-bezier(0.16,1,0.3,1) ${delay * 90}ms`
+          ? `opacity 0.22s cubic-bezier(0.22,1,0.36,1) ${delay * 40}ms, transform 0.22s cubic-bezier(0.22,1,0.36,1) ${delay * 40}ms`
           : 'none',
         willChange: 'opacity, transform',
       }}

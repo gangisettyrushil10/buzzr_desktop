@@ -9,7 +9,7 @@ import {
 import { ScrollReveal } from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: `Terms of Use — ${SITE_NAME}`,
+  title: `Terms of Use · ${SITE_NAME}`,
   description:
     `Terms of Use for ${SITE_NAME}, operated by ${COMPANY_NAME}. Understand your rights and responsibilities when using the service.`
 };
