@@ -14,6 +14,7 @@ import {
   TWITTER_URL
 } from '@/src/lib/constants';
 import { montserrat, jetbrainsMono } from './fonts';
+import { Analytics } from '@vercel/analytics/next';
 import { BrandAura } from '@/components/BrandAura';
 import { BrandMark } from '@/components/BrandMark';
 import { CourtCanvas } from '@/components/CourtCanvas';
@@ -143,6 +144,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </div>
           </footer>
         </div>
+        <Analytics />
       </body>
     </html>
   );
