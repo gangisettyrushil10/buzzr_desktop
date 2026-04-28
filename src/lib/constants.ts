@@ -11,7 +11,7 @@ export const SITE_TAGLINE = 'Rate sports games by entertainment.';
 export const SITE_DESCRIPTION =
   'Buzzr is the Letterboxd for sports games. Track upcoming events, rate games by chaos, energy, and drama, not the final score. March Madness, FIFA World Cup 2026, NBA Playoffs.';
 
-export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buzzr.app';
+export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.getbuzzr.online';
 
 export const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL ?? 'support@humyn.studio';
 
@@ -30,6 +30,24 @@ export const DELETE_ACCOUNT_URL =
 export const APP_STORE_URL =
   process.env.NEXT_PUBLIC_APP_STORE_URL ??
   'https://apps.apple.com/us/app/buzzr-sports/id6760628256';
+
+export const BRANCH_LINK_BASE =
+  process.env.NEXT_PUBLIC_BRANCH_LINK_BASE ?? '';
+
+export const APPLE_APP_ID =
+  process.env.APPLE_APP_ID ?? 'Z4ZUZ884U3.com.buzzr.app';
+
+export const ANDROID_PACKAGE_NAME =
+  process.env.ANDROID_PACKAGE_NAME ?? 'com.buzzr.app';
+
+export const ANDROID_SHA256_CERT_FINGERPRINTS = (
+  process.env.ANDROID_SHA256_CERT_FINGERPRINTS ??
+  process.env.GOOGLE_PLAY_SHA256_CERT_FINGERPRINTS ??
+  'A2:18:92:57:95:12:D4:F9:8D:53:ED:3B:99:FB:76:DF:ED:29:76:C2:86:57:23:57:21:55:7C:27:83:CA:11:23'
+)
+  .split(',')
+  .map((fingerprint) => fingerprint.trim())
+  .filter(Boolean);
 
 export const DISCORD_URL =
   process.env.NEXT_PUBLIC_DISCORD_URL ?? 'https://discord.gg/NbgfYpQPRv';

@@ -12,40 +12,40 @@ import {
 } from '@/src/lib/shareLanding';
 
 type PageProps = {
-  params: { gameId: string };
+  params: { threadId: string };
   searchParams?: { ref?: SearchParamValue };
 };
 
 export function generateMetadata({ params, searchParams }: PageProps): Metadata {
   const ref = firstParam(searchParams?.ref);
-  const canonical = canonicalUrl(`/g/${encodeURIComponent(params.gameId)}`, ref);
+  const canonical = canonicalUrl(`/p/${encodeURIComponent(params.threadId)}`, ref);
   return shareMetadata({
     canonical,
-    title: 'Open this game on Buzzr',
-    description: 'Rate the game, see the Buzzr conversation, and share your take with friends.',
+    title: 'Open this Buzzr take',
+    description: 'Read the take, jump into the sports conversation, and share your own rating.',
   });
 }
 
-export default function GameLandingPage({ params, searchParams }: PageProps) {
+export default function PostLandingPage({ params, searchParams }: PageProps) {
   const ref = normalizeReferralCode(firstParam(searchParams?.ref));
-  const path = `/g/${encodeURIComponent(params.gameId)}`;
+  const path = `/p/${encodeURIComponent(params.threadId)}`;
   const canonical = canonicalUrl(path, ref);
   const installUrl = branchCtaUrl({
     canonical,
     ref,
-    shareId: params.gameId,
-    shareType: 'game',
+    shareId: params.threadId,
+    shareType: 'post',
     targetPath: path,
   });
 
   return (
     <ShareLanding
-      badge="Buzzr Game"
+      badge="Buzzr Take"
       canonical={canonical}
-      description="Open Buzzr to rate this matchup, see live reactions, and follow the conversation around the game."
+      description="Open Buzzr to read this take, reply in context, and follow what sports fans are saying."
       installUrl={installUrl}
       openUrl={appDeepLink(path)}
-      title="A game is waiting on Buzzr"
+      title="A take is live on Buzzr"
     />
   );
 }
