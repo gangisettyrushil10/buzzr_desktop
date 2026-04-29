@@ -1,21 +1,29 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { APP_STORE_URL, SITE_NAME, SITE_TAGLINE } from '@/src/lib/constants';
+import { ShareLanding } from '@/components/ShareLanding';
+import { SITE_NAME, SITE_TAGLINE } from '@/src/lib/constants';
 import {
-  SHARE_BASE_URL,
   appendParams,
   fetchThreadWithAuthor,
   isThreadPublic,
   pickAttribution,
+  SHARE_BASE_URL,
   truncate,
   type ShareSearchParams,
 } from '@/src/lib/share';
+import {
+  appDeepLink,
+  branchCtaUrl,
+  canonicalUrl,
+  firstParam,
+  normalizeReferralCode,
+  type SearchParamValue,
+} from '@/src/lib/shareLanding';
 
-type Props = {
-  params: Promise<{ threadId: string }>;
-  searchParams: Promise<ShareSearchParams>;
+type PageProps = {
+  params: { threadId: string };
+  searchParams?: { ref?: SearchParamValue; source?: SearchParamValue };
 };
 
 const THREAD_ID_PATTERN = /^[A-Za-z0-9-]{4,64}$/;
@@ -26,50 +34,36 @@ function normalizeThreadId(raw: string | undefined): string | null {
   return THREAD_ID_PATTERN.test(trimmed) ? trimmed : null;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { threadId: rawId } = await params;
-  const threadId = normalizeThreadId(rawId);
-  const url = `${SHARE_BASE_URL}/p/${rawId}`;
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
+  const ref = firstParam(searchParams?.ref);
+  const canonical = canonicalUrl(`/p/${encodeURIComponent(params.threadId)}`, ref);
+  const threadId = normalizeThreadId(params.threadId);
 
-  if (!threadId) {
-    return {
-      title: `Take · ${SITE_NAME}`,
-      description: SITE_TAGLINE,
-      metadataBase: new URL(SHARE_BASE_URL),
-      alternates: { canonical: url },
-    };
+  let title = 'Open this Buzzr take';
+  let description = 'Read the take, jump into the sports conversation, and share your own rating.';
+  let openGraphType: 'website' | 'article' = 'website';
+
+  if (threadId) {
+    const result = await fetchThreadWithAuthor(threadId);
+    if (result && isThreadPublic(result.thread)) {
+      const handle = result.author?.user_tag ?? result.author?.username ?? null;
+      title = handle ? `@${handle} on ${SITE_NAME}` : `A take on ${SITE_NAME}`;
+      if (result.thread.body) description = truncate(result.thread.body, 160);
+      openGraphType = 'article';
+    }
   }
-
-  const result = await fetchThreadWithAuthor(threadId);
-  if (!result || !isThreadPublic(result.thread)) {
-    return {
-      title: `Take · ${SITE_NAME}`,
-      description: SITE_TAGLINE,
-      metadataBase: new URL(SHARE_BASE_URL),
-      alternates: { canonical: url },
-    };
-  }
-
-  const { thread, author } = result;
-  const handle = author?.user_tag ?? author?.username ?? null;
-  const title = handle
-    ? `@${handle} on ${SITE_NAME}`
-    : `A take on ${SITE_NAME}`;
-  const description = thread.body
-    ? truncate(thread.body, 160)
-    : SITE_TAGLINE;
 
   return {
     title,
     description,
     metadataBase: new URL(SHARE_BASE_URL),
-    alternates: { canonical: url },
+    alternates: { canonical },
     openGraph: {
+      type: openGraphType,
+      url: canonical,
+      siteName: SITE_NAME,
       title,
       description,
-      url,
-      siteName: SITE_NAME,
-      type: 'article',
     },
     twitter: {
       card: 'summary_large_image',
@@ -79,9 +73,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ThreadLandingPage({ params, searchParams }: Props) {
-  const [{ threadId: rawId }, sp] = await Promise.all([params, searchParams]);
-  const threadId = normalizeThreadId(rawId);
+export default async function PostLandingPage({ params, searchParams }: PageProps) {
+  const threadId = normalizeThreadId(params.threadId);
   if (!threadId) notFound();
 
   const result = await fetchThreadWithAuthor(threadId);
@@ -90,43 +83,36 @@ export default async function ThreadLandingPage({ params, searchParams }: Props)
   const { thread, author } = result;
   const handle = author?.user_tag ?? author?.username ?? null;
 
-  const attribution = pickAttribution(sp);
-  const deepLink = appendParams(`buzzr://p/${threadId}`, attribution);
+  const ref = normalizeReferralCode(firstParam(searchParams?.ref));
+  const source = firstParam(searchParams?.source);
+  const path = `/p/${encodeURIComponent(params.threadId)}`;
+  const canonical = canonicalUrl(path, ref);
+
+  const installUrl = branchCtaUrl({
+    canonical,
+    ref,
+    source,
+    shareId: params.threadId,
+    shareType: 'post',
+    targetPath: path,
+  });
+
+  const attribution = pickAttribution(searchParams as ShareSearchParams | undefined);
+  const openUrl = appendParams(appDeepLink(path), attribution);
+
+  const title = handle ? `@${handle} on ${SITE_NAME}` : 'A take is live on Buzzr';
+  const description = thread.body
+    ? truncate(thread.body, 220)
+    : SITE_TAGLINE;
 
   return (
-    <main className="mx-auto flex min-h-[80vh] max-w-2xl flex-col items-center justify-center px-6 py-16 text-center">
-      <p className="text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/80">
-        Shared with you
-      </p>
-      <h1 className="mt-4 font-heading text-4xl text-foreground md:text-5xl">
-        {handle ? `@${handle}` : 'A take on Buzzr'}
-      </h1>
-      {thread.body ? (
-        <p className="mt-4 max-w-lg text-base leading-relaxed text-mutedForeground">
-          “{truncate(thread.body, 220)}”
-        </p>
-      ) : (
-        <p className="mt-4 max-w-lg text-base leading-relaxed text-mutedForeground">
-          {SITE_TAGLINE}
-        </p>
-      )}
-
-      <div className="mt-10 flex w-full max-w-sm flex-col gap-3">
-        <Link
-          href={deepLink}
-          className="inline-flex items-center justify-center rounded-xl bg-buzzr-accent px-6 py-4 text-base font-semibold text-black transition hover:bg-buzzr-accent/90">
-          Open in {SITE_NAME}
-        </Link>
-        <Link
-          href={APP_STORE_URL}
-          className="inline-flex items-center justify-center rounded-xl border border-border/70 bg-buzzr-surface/40 px-6 py-4 text-base font-medium text-foreground transition hover:bg-buzzr-surface/60">
-          Get the app
-        </Link>
-      </div>
-
-      <p className="mt-10 text-xs text-mutedForeground">
-        Tapping <span className="font-medium text-foreground">Open in {SITE_NAME}</span> on iPhone takes you straight to the take.
-      </p>
-    </main>
+    <ShareLanding
+      badge="Buzzr Take"
+      canonical={canonical}
+      description={description}
+      installUrl={installUrl}
+      openUrl={openUrl}
+      title={title}
+    />
   );
 }
