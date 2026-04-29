@@ -2,39 +2,56 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { APP_STORE_URL, BASE_URL, SITE_NAME, SITE_TAGLINE } from '@/src/lib/constants';
+import { APP_STORE_URL, SITE_NAME, SITE_TAGLINE } from '@/src/lib/constants';
+import {
+  SHARE_BASE_URL,
+  appendParams,
+  fetchGame,
+  gameDescription,
+  gameTitle,
+  pickAttribution,
+  type ShareSearchParams,
+} from '@/src/lib/share';
 
-type Props = { params: Promise<{ gameId: string }> };
+type Props = {
+  params: Promise<{ gameId: string }>;
+  searchParams: Promise<ShareSearchParams>;
+};
 
-// Accept UUIDs (Supabase game ids) and shorter slugs.
 const GAME_ID_PATTERN = /^[A-Za-z0-9-]{4,64}$/;
 
 function normalizeGameId(raw: string | undefined): string | null {
   if (!raw) return null;
   const trimmed = raw.trim();
-  if (!GAME_ID_PATTERN.test(trimmed)) return null;
-  return trimmed;
+  return GAME_ID_PATTERN.test(trimmed) ? trimmed : null;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { gameId: rawId } = await params;
   const gameId = normalizeGameId(rawId);
-  const url = `${BASE_URL}/g/${rawId}`;
+  const url = `${SHARE_BASE_URL}/g/${rawId}`;
 
   if (!gameId) {
     return {
       title: `Game · ${SITE_NAME}`,
       description: SITE_TAGLINE,
+      metadataBase: new URL(SHARE_BASE_URL),
       alternates: { canonical: url },
     };
   }
 
-  const title = `Rate this game on ${SITE_NAME}`;
-  const description = `Open this matchup in ${SITE_NAME} and rate it by entertainment, not the score.`;
+  const game = await fetchGame(gameId);
+  const title = game
+    ? gameTitle(game)
+    : `Rate this game on ${SITE_NAME}`;
+  const description = game
+    ? gameDescription(game)
+    : `Open this matchup in ${SITE_NAME} and rate it by entertainment, not the score.`;
 
   return {
     title,
     description,
+    metadataBase: new URL(SHARE_BASE_URL),
     alternates: { canonical: url },
     openGraph: {
       title,
@@ -51,13 +68,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function GameLandingPage({ params }: Props) {
-  const { gameId: rawId } = await params;
+export default async function GameLandingPage({ params, searchParams }: Props) {
+  const [{ gameId: rawId }, sp] = await Promise.all([params, searchParams]);
   const gameId = normalizeGameId(rawId);
-
   if (!gameId) notFound();
 
-  const deepLink = `buzzr://g/${gameId}`;
+  const attribution = pickAttribution(sp);
+  const deepLink = appendParams(`buzzr://g/${gameId}`, attribution);
+
+  const game = await fetchGame(gameId);
+  const headline = game ? gameTitle(game).replace(' · Buzzr', '') : 'Rate this game';
+  const sub = game ? gameDescription(game) : SITE_TAGLINE;
 
   return (
     <main className="mx-auto flex min-h-[80vh] max-w-2xl flex-col items-center justify-center px-6 py-16 text-center">
@@ -65,10 +86,10 @@ export default async function GameLandingPage({ params }: Props) {
         Shared with you
       </p>
       <h1 className="mt-4 font-heading text-4xl text-foreground md:text-5xl">
-        Rate this game
+        {headline}
       </h1>
       <p className="mt-4 max-w-lg text-base leading-relaxed text-mutedForeground">
-        {SITE_TAGLINE}
+        {sub}
       </p>
 
       <div className="mt-10 flex w-full max-w-sm flex-col gap-3">

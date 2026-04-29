@@ -4,8 +4,16 @@
       {
         "appIDs": ["Z4ZUZ884U3.com.buzzr.app"],
         "components": [
-          { "/": "/r/*", "comment": "Referral codes" },
-          { "/": "/g/*", "comment": "Game share landing" }
+          { "/": "/r/*" },
+          { "/": "/referral/*" },
+          { "/": "/g/*" },
+          { "/": "/game/*" },
+          { "/": "/p/*" },
+          { "/": "/thread/*" },
+          { "/": "/u/*" },
+          { "/": "/player/*" },
+          { "/": "/squad/*" },
+          { "/": "/chat/*" }
         ]
       }
     ]
