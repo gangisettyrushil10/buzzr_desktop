@@ -38,10 +38,10 @@ export const metadata: Metadata = {
     'live game ratings',
     'NBA game ratings',
     'NFL entertainment rating',
-    'March Madness ratings',
+    'NBA Finals 2026',
     'FIFA World Cup 2026',
-    'Watch Party sports',
-    'sports social app'
+    'sports social app',
+    'sports group chat'
   ],
   alternates: { canonical: '/' },
   openGraph: {
@@ -94,7 +94,7 @@ export default function HomePage() {
     name: `${SITE_NAME} ${ALTERNATE_NAME.split(' ')[1] ?? ''}`.trim(),
     alternateName: ALTERNATE_NAME,
     applicationCategory: 'SportsApplication',
-    operatingSystem: 'iOS',
+    operatingSystem: 'iOS, Android',
     description: PAGE_DESCRIPTION,
     url: BASE_URL,
     downloadUrl: APP_STORE_URL,

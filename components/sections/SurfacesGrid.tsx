@@ -14,7 +14,7 @@ type Tile = {
 };
 
 const TILES: readonly Tile[] = [
-  { title: 'News & takes in one feed.',   body: 'Outlets, takes, leaderboards.',          Mock: PulseFeedMock    },
+  { title: 'News & ratings in one feed.', body: 'News, ratings, leaderboards.',           Mock: PulseFeedMock    },
   { title: 'Your sports, your widgets.',  body: 'Drag-and-drop widgets per league.',       Mock: DashboardGrid    },
   { title: 'Every stat, one tap deep.',   body: 'Box score to odds, stacked.',             Mock: GameDrawerStack  },
   { title: 'Yell about it together.',     body: 'DMs, squads, live per-game threads.',     Mock: ChatThread       },

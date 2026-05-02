@@ -23,6 +23,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9
     },
+    {
+      url: `${base}/changelog`,
+      changeFrequency: 'weekly',
+      priority: 0.9
+    },
     ...posts,
     {
       url: `${base}/privacy`,

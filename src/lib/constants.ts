@@ -9,11 +9,11 @@ export const ALTERNATE_NAME = 'Buzzr Sports';
 export const SITE_TAGLINE = 'Rate sports games by entertainment.';
 
 export const SITE_DESCRIPTION =
-  'Buzzr is the Letterboxd for sports games. Track upcoming events, rate games by chaos, energy, and drama, not the final score. March Madness, FIFA World Cup 2026, NBA Playoffs.';
+  'Buzzr is the Letterboxd for sports games. Track upcoming events, rate games by chaos, energy, and drama, not the final score. NBA Finals 2026, FIFA World Cup 2026, every league you actually watch.';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.getbuzzr.online';
 
-export const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL ?? 'support@humyn.studio';
+export const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL ?? 'support@getbuzzr.online';
 
 export const PRIVACY_URL =
   process.env.PRIVACY_URL ?? `${BASE_URL}/privacy`;
@@ -61,22 +61,8 @@ export const FEEDBACK_TALLY_URL =
 export const BUZZR_TV_DISCLAIMER =
   'Buzzr is not affiliated with BUZZR TV (Fremantle).';
 
-/** Hero headline: split into segments for mixed-color rendering */
-export const HERO_LINE1 = 'THIS IS WHY';
-export const HERO_LINE2_PLAIN = 'WE';
-export const HERO_LINE2_ACCENT = 'WATCH.';
-
-export const HERO_SUBHEAD =
-  'Rate live games, drop hot takes, and watch with friends. Every game gets a Buzzr Score.';
-
-/** Legacy/compat */
-export const HERO_EMOTIONAL_LINE =
-  "For when the box score wasn't the best part.";
-
-export const HERO_STAT = "Live on the App Store.";
-
 export const TRUST_STRIP =
-  'NBA Playoffs · NFL · FIFA World Cup 2026 · March Madness · F1 · UCL · and every game that actually delivers.';
+  'NBA Finals · NFL · FIFA World Cup 2026 · UCL · F1 · MLB · and every game that actually delivers.';
 
 /** Leagues & competitions Buzzr covers with live scores + schedules.
  *  Grouped into sports for the landing page Leagues Wall; flat list drives

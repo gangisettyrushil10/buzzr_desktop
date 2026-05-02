@@ -21,11 +21,11 @@ export function SwipeSection() {
               id="swipe-title"
               className="max-w-[16ch] font-display text-[clamp(32px,5vw,56px)] font-light leading-[0.98] tracking-[-0.035em] text-foreground"
             >
-              Swipe the whole sports universe.
+              Scroll the whole sports universe.
             </h2>
 
             <p className="max-w-[34ch] text-base font-light leading-relaxed text-mutedForeground">
-              Games, news, takes. One card at a time.
+              Games, news, players. One card at a time.
             </p>
 
             <p className="max-w-[48ch] text-sm font-light leading-relaxed text-mutedForeground/80">

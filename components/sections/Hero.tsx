@@ -5,7 +5,7 @@ import { APP_STORE_URL, DISCORD_URL } from '@/src/lib/constants';
 import { AppStoreBadge } from '@/components/ui/AppStoreBadge';
 import { HeroStack, HeroStackMobile } from '@/components/ui/HeroStack';
 
-const HERO_WORDS = ['Swipe.', 'Rate.', 'Engage.'];
+const HERO_WORDS = ['Scroll.', 'Rate.', 'Engage.'];
 
 export function Hero() {
   return (

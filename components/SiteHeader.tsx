@@ -170,6 +170,12 @@ export function SiteHeader() {
           {/* Right cluster : CTA + mobile menu */}
           <div className="flex items-center gap-1">
             <Link
+              href="/changelog"
+              className="hidden md:inline-flex rounded-full px-3 py-1.5 text-xs text-mutedForeground transition-colors hover:bg-white/[0.04] hover:text-foreground"
+            >
+              Changelog
+            </Link>
+            <Link
               href="/blog"
               className="hidden md:inline-flex rounded-full px-3 py-1.5 text-xs text-mutedForeground transition-colors hover:bg-white/[0.04] hover:text-foreground"
             >
@@ -275,6 +281,14 @@ export function SiteHeader() {
                 >
                   Docs
                 </a>
+              </li>
+              <li>
+                <Link
+                  href="/changelog"
+                  className="block rounded-md px-3 py-3 text-sm text-mutedForeground transition-colors hover:bg-white/[0.03] hover:text-foreground"
+                >
+                  Changelog
+                </Link>
               </li>
               <li>
                 <Link
