@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useBuzzScene } from '@/src/hooks/useBuzzScene';
 
 /**
- * SwipeRing — web port of `SwipeStatsBar`. SVG daily-goal ring that fills
+ * SwipeRing, web port of `SwipeStatsBar`. SVG daily-goal ring that fills
  * toward 25 swipes. Pulses when the scene's `final` beat ticks up +1.
  */
 const DAILY_GOAL = 25;
@@ -23,12 +23,12 @@ export function SwipeRing() {
   const ringColor = isComplete ? '#00e676' : '#00e676';
 
   return (
-    <div className="flex h-full flex-col justify-between rounded-card p-6">
+    <div className="flex h-full flex-col justify-between rounded-none p-6">
       <div className="flex items-center justify-between">
-        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-mutedForeground">
-          Your swipes · today
+        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted">
+          Your scrolls · today
         </span>
-        <span className="inline-flex items-center gap-1 rounded-pill border border-buzzr-warning/30 bg-buzzr-warning/[0.12] px-2 py-0.5 font-mono text-[10px] font-bold tabular-nums text-buzzr-warning">
+        <span className="inline-flex items-center gap-1 rounded-full border border-white/25 bg-canvas px-2 py-0.5 font-mono text-[10px] font-bold tabular-nums text-foreground">
           🔥 {streakDays}-day
         </span>
       </div>
@@ -76,10 +76,10 @@ export function SwipeRing() {
           </div>
         </div>
         <div className="min-w-0 flex flex-col gap-1">
-          <span className="truncate font-display text-[18px] font-light leading-tight text-foreground">
+          <span className="truncate font-sans text-[18px] font-light leading-tight text-foreground">
             {isComplete ? 'Goal reached.' : 'Keep swiping.'}
           </span>
-          <span className="text-[11px] font-light text-mutedForeground">
+          <span className="text-[11px] font-light text-muted">
             {todayCount} / {DAILY_GOAL} today
           </span>
         </div>

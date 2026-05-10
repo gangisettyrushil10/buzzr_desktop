@@ -5,10 +5,10 @@ export function BracketHub() {
     <div aria-hidden className="flex flex-col gap-3">
       {/* Streak header */}
       <div className="flex items-center justify-between">
-        <div className="font-medium text-[8px] uppercase tracking-[0.22em] text-buzzr-accent">
+        <div className="font-medium text-[8px] uppercase tracking-[0.22em] text-foreground">
           March Madness · your bracket
         </div>
-        <div className="glass-chip inline-flex items-center gap-1 rounded-pill bg-buzzr-accent/[0.12] px-2 py-0.5 text-[9px] font-medium tabular-nums text-buzzr-accent">
+        <div className="bg-canvas border border-surface inline-flex items-center gap-1 rounded-full bg-foreground/[0.12] px-2 py-0.5 text-[9px] font-medium tabular-nums text-foreground">
           🔥 7 streak
         </div>
       </div>
@@ -33,9 +33,9 @@ export function BracketHub() {
       </div>
 
       {/* Footer stat */}
-      <div className="flex items-center justify-between text-[10px] font-light text-mutedForeground">
+      <div className="flex items-center justify-between text-[10px] font-light text-muted">
         <span>Picks 12 of 15 correct</span>
-        <span className="text-buzzr-accent">+240 pts</span>
+        <span className="text-foreground">+240 pts</span>
       </div>
     </div>
   );
@@ -44,15 +44,15 @@ export function BracketHub() {
 function SeedPill({ seed, label, picked = false, champion = false }: { seed: string; label: string; picked?: boolean; champion?: boolean }) {
   return (
     <div
-      className={`glass-chip inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[9px] font-medium tabular-nums ${
+      className={`bg-canvas border border-surface inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[9px] font-medium tabular-nums ${
         champion
-          ? 'border-buzzr-accent/50 bg-buzzr-accent/[0.12] text-foreground'
+          ? 'border-white/50 bg-foreground/[0.12] text-foreground'
           : picked
-          ? 'border-buzzr-accent/30 bg-buzzr-accent/[0.06] text-foreground'
-          : 'text-mutedForeground'
+          ? 'border-white/30 bg-foreground/[0.06] text-foreground'
+          : 'text-muted'
       }`}
     >
-      <span className={picked ? 'text-buzzr-accent' : 'text-mutedForeground'}>{seed}</span>
+      <span className={picked ? 'text-foreground' : 'text-muted'}>{seed}</span>
       <span>{label}</span>
     </div>
   );

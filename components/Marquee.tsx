@@ -23,9 +23,9 @@ function MarqueeRow({ items, speed }: { items: MarqueeItem[]; speed: number }) {
       {items.map((item, i) => (
         <span
           key={`${item.label}-${i}`}
-          className="flex items-center gap-3 font-medium text-[11px] uppercase tracking-[0.22em] text-buzzr-ink-80"
+          className="flex items-center gap-3 font-medium text-[11px] uppercase tracking-[0.22em] text-muted"
         >
-          <span aria-hidden className="h-[6px] w-[6px] bg-buzzr-accent/70" />
+          <span aria-hidden className="h-[6px] w-[6px] bg-foreground/70" />
           {item.label}
         </span>
       ))}

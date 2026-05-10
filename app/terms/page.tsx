@@ -1,53 +1,69 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
+  BASE_URL,
   COMPANY_NAME,
   SITE_NAME,
   SUPPORT_EMAIL,
   SUPPORT_URL
 } from '@/src/lib/constants';
-import { ScrollReveal } from '@/components/ScrollReveal';
+
+const PAGE_TITLE = `Terms of Use · ${SITE_NAME}`;
+const PAGE_DESCRIPTION = `Terms of Use for ${SITE_NAME}, operated by ${COMPANY_NAME}. Understand your rights and responsibilities when using the service.`;
 
 export const metadata: Metadata = {
-  title: `Terms of Use · ${SITE_NAME}`,
-  description:
-    `Terms of Use for ${SITE_NAME}, operated by ${COMPANY_NAME}. Understand your rights and responsibilities when using the service.`
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+  alternates: { canonical: '/terms' },
+  openGraph: {
+    type: 'article',
+    url: `${BASE_URL}/terms`,
+    siteName: SITE_NAME,
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION
+  },
+  twitter: {
+    card: 'summary',
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    site: '@the_real_buzzr'
+  }
 };
 
 export default function TermsPage() {
   return (
     <article
       aria-labelledby="terms-title"
-      className="mx-auto max-w-3xl px-6 pb-16 pt-10 text-sm leading-relaxed text-mutedForeground"
+      className="mx-auto max-w-3xl px-6 pb-16 pt-10 text-sm leading-relaxed text-muted"
     >
-      <ScrollReveal delay={0}>
-        <header className="mb-8 border-b border-border/70 pb-5">
-          <p className="text-[11px] uppercase tracking-[0.3em] text-buzzr-accent/80">
+      <>
+        <header className="mb-8 border-b border-surface/70 pb-5">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-foreground">
             Legal
           </p>
           <h1
             id="terms-title"
-            className="mt-2 font-heading text-3xl text-foreground md:text-4xl"
+            className="mt-2 font-sans text-3xl text-foreground md:text-4xl"
           >
             Terms of Use
           </h1>
-          <p className="mt-2 text-[12px] text-mutedForeground">
+          <p className="mt-2 text-[12px] text-muted">
             Last updated: February 27, 2026
           </p>
         </header>
-      </ScrollReveal>
+      </>
 
-      <div className="space-y-8 rounded-2xl border border-border/70 bg-buzzr-surface/60 p-6 shadow-soft backdrop-blur sm:p-8">
-        <ScrollReveal delay={0}>
+      <div className="space-y-8 rounded-2xl border border-surface/70 bg-surface p-6 backdrop-blur sm:p-8">
+        <>
           <p>
             These Terms of Use (&quot;Terms&quot;) govern your access to and use of
             Buzzr Sports (the &quot;Service&quot;), provided by {COMPANY_NAME}{' '}
             (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). By accessing or
             using the Service, you agree to be bound by these Terms.
           </p>
-        </ScrollReveal>
+        </>
 
-        <ScrollReveal delay={0}>
+        <>
           <section aria-labelledby="section-eligibility" className="space-y-2">
             <h2 id="section-eligibility" className="text-base font-semibold text-foreground">
               1. Eligibility
@@ -58,9 +74,9 @@ export default function TermsPage() {
               using the Service under applicable law.
             </p>
           </section>
-        </ScrollReveal>
+        </>
 
-        <ScrollReveal delay={0}>
+        <>
           <section aria-labelledby="section-license" className="space-y-2">
             <h2 id="section-license" className="text-base font-semibold text-foreground">
               2. License and acceptable use
@@ -86,9 +102,9 @@ export default function TermsPage() {
               </li>
             </ul>
           </section>
-        </ScrollReveal>
+        </>
 
-        <ScrollReveal delay={0}>
+        <>
           <section aria-labelledby="section-content" className="space-y-2">
             <h2 id="section-content" className="text-base font-semibold text-foreground">
               3. User content
@@ -107,9 +123,9 @@ export default function TermsPage() {
               <li>Does not contain spam or unsolicited promotions.</li>
             </ul>
           </section>
-        </ScrollReveal>
+        </>
 
-        <ScrollReveal delay={0}>
+        <>
           <section aria-labelledby="section-disclaimers" className="space-y-2">
             <h2 id="section-disclaimers" className="text-base font-semibold text-foreground">
               4. Disclaimers
@@ -122,9 +138,9 @@ export default function TermsPage() {
               non-infringement.
             </p>
           </section>
-        </ScrollReveal>
+        </>
 
-        <ScrollReveal delay={0}>
+        <>
           <section aria-labelledby="section-liability" className="space-y-2">
             <h2 id="section-liability" className="text-base font-semibold text-foreground">
               5. Limitation of liability
@@ -136,9 +152,9 @@ export default function TermsPage() {
               use of the Service.
             </p>
           </section>
-        </ScrollReveal>
+        </>
 
-        <ScrollReveal delay={0}>
+        <>
           <section aria-labelledby="section-termination" className="space-y-2">
             <h2 id="section-termination" className="text-base font-semibold text-foreground">
               6. Termination
@@ -149,9 +165,9 @@ export default function TermsPage() {
               the Service in a way that could harm us or other users.
             </p>
           </section>
-        </ScrollReveal>
+        </>
 
-        <ScrollReveal delay={0}>
+        <>
           <section aria-labelledby="section-changes-terms" className="space-y-2">
             <h2 id="section-changes-terms" className="text-base font-semibold text-foreground">
               7. Changes to these Terms
@@ -163,9 +179,9 @@ export default function TermsPage() {
               constitutes your acceptance of the revised Terms.
             </p>
           </section>
-        </ScrollReveal>
+        </>
 
-        <ScrollReveal delay={0}>
+        <>
           <section aria-labelledby="section-contact-terms" className="space-y-2">
             <h2 id="section-contact-terms" className="text-base font-semibold text-foreground">
               8. Contact us
@@ -178,19 +194,19 @@ export default function TermsPage() {
               {COMPANY_NAME}
               <br />
               Email:{' '}
-              <a className="text-buzzr-accent underline underline-offset-3 transition-colors hover:text-buzzr-accent2" href={`mailto:${SUPPORT_EMAIL}`}>
+              <a className="text-foreground underline underline-offset-3 transition-colors hover:text-muted" href={`mailto:${SUPPORT_EMAIL}`}>
                 {SUPPORT_EMAIL}
               </a>
             </address>
             <p>
               You can also contact us via our{' '}
-              <Link className="text-buzzr-accent underline underline-offset-3 transition-colors hover:text-buzzr-accent2" href={SUPPORT_URL}>
+              <Link className="text-foreground underline underline-offset-3 transition-colors hover:text-muted" href={SUPPORT_URL}>
                 support page
               </Link>
               .
             </p>
           </section>
-        </ScrollReveal>
+        </>
       </div>
     </article>
   );

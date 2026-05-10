@@ -3,7 +3,7 @@
 import { useBuzzScene, type FeatureKey } from '@/src/hooks/useBuzzScene';
 
 /**
- * FeatureBars — renders the six model inputs that feed buzz(t). Each bar
+ * FeatureBars, renders the six model inputs that feed buzz(t). Each bar
  * fills in sync with the scene so the viewer sees the algorithm reacting
  * to a real play, not abstract mock data.
  */
@@ -28,12 +28,12 @@ export function FeatureBars() {
   const s = useBuzzScene();
 
   return (
-    <div className="flex h-full flex-col justify-between rounded-card p-6">
+    <div className="flex h-full flex-col justify-between rounded-none p-6">
       <div className="flex items-center justify-between">
-        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-mutedForeground">
+        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted">
           Features · fᵢ(t)
         </span>
-        <span className="font-mono text-[10px] tabular-nums text-buzzr-ink-60">
+        <span className="font-mono text-[10px] tabular-nums text-muted">
           Σ βᵢ = 1.00
         </span>
       </div>
@@ -49,9 +49,9 @@ export function FeatureBars() {
               <span className="truncate font-light text-[12px] text-foreground">
                 {f.label}
               </span>
-              <span className="relative h-[5px] overflow-hidden rounded-pill bg-white/[0.05]">
+              <span className="relative h-[5px] overflow-hidden rounded-full bg-white/[0.05]">
                 <span
-                  className="absolute inset-y-0 left-0 rounded-pill"
+                  className="absolute inset-y-0 left-0 rounded-full"
                   style={{
                     width: `${Math.round(v * 100)}%`,
                     background: 'linear-gradient(90deg, rgba(0,230,118,0.6) 0%, rgb(0,230,118) 100%)',
@@ -60,10 +60,10 @@ export function FeatureBars() {
                   }}
                 />
               </span>
-              <span className="text-right font-mono text-[10px] tabular-nums text-mutedForeground">
+              <span className="text-right font-mono text-[10px] tabular-nums text-muted">
                 β {f.weight.toFixed(2)}
               </span>
-              <span className="text-right font-mono text-[10px] tabular-nums text-buzzr-accent">
+              <span className="text-right font-mono text-[10px] tabular-nums text-foreground">
                 {v.toFixed(2)}
               </span>
             </div>
@@ -73,8 +73,8 @@ export function FeatureBars() {
 
       <div className="mt-4 rounded-md border border-white/[0.06] bg-black/40 p-3">
         <p className="whitespace-nowrap font-mono text-[11px] leading-relaxed text-foreground/90">
-          <span className="text-buzzr-accent">buzz</span>(t) = σ( Σᵢ{' '}
-          <span className="text-buzzr-accent">βᵢ</span> · fᵢ(t) + γ · community + ε )
+          <span className="text-foreground">buzz</span>(t) = σ( Σᵢ{' '}
+          <span className="text-foreground">βᵢ</span> · fᵢ(t) + γ · community + ε )
         </p>
       </div>
     </div>

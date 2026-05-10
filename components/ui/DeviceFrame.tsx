@@ -22,11 +22,11 @@ export function DeviceFrame({ src, alt, eyebrow, caption, className, priority }:
         {/* Outer bevel glow */}
         <div
           aria-hidden
-          className="accent-glow-device absolute -inset-[6px] rounded-[18px] opacity-40"
+          className="absolute -inset-[6px] rounded-[18px] opacity-40"
         />
         {/* Frame */}
-        <div className="glass-3 relative h-full w-full overflow-hidden rounded-[14px] p-[3px] shadow-lift">
-          <div className="relative h-full w-full overflow-hidden rounded-[13px] bg-buzzr-ink-5">
+        <div className="bg-canvas border border-surface relative h-full w-full overflow-hidden rounded-[14px] p-[3px]">
+          <div className="relative h-full w-full overflow-hidden rounded-[13px] bg-canvas">
             <Image
               src={src}
               alt={alt}
@@ -43,20 +43,17 @@ export function DeviceFrame({ src, alt, eyebrow, caption, className, priority }:
             />
           </div>
         </div>
-        {/* Pixel corner tick marks */}
-        <span aria-hidden className="absolute -left-1 -top-1 h-[6px] w-[6px] bg-buzzr-accent shadow-[0_0_6px_rgba(0,230,118,0.6)]" />
-        <span aria-hidden className="absolute -right-1 -bottom-1 h-[6px] w-[6px] bg-buzzr-accent shadow-[0_0_6px_rgba(0,230,118,0.6)]" />
       </div>
 
       {(eyebrow || caption) && (
         <figcaption className="flex flex-col items-center gap-1 text-center">
           {eyebrow && (
-            <span className="font-medium text-[9px] uppercase tracking-[0.24em] text-buzzr-accent">
+            <span className="font-medium text-[9px] uppercase tracking-[0.24em] text-foreground">
               {eyebrow}
             </span>
           )}
           {caption && (
-            <span className="text-xs text-mutedForeground">
+            <span className="text-xs text-muted">
               {caption}
             </span>
           )}

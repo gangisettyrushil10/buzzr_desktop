@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useBuzzScene } from '@/src/hooks/useBuzzScene';
 
 /**
- * EventTicker — rows fly in from the right as the scene progresses. Shows
+ * EventTicker, rows fly in from the right as the scene progresses. Shows
  * the provider firing each event (ESPN, Google News, YouTube, Supabase,
  * Claude), so "wired to the whole sports internet" is literal.
  */
@@ -14,15 +14,15 @@ export function EventTicker() {
   const rows = [...s.events].reverse().slice(0, 5);
 
   return (
-    <div className="flex h-full flex-col rounded-card p-6">
+    <div className="flex h-full flex-col rounded-none p-6">
       <div className="mb-4 flex items-center justify-between">
-        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-mutedForeground">
+        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted">
           Provider feed · live
         </span>
-        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-buzzr-accent">
+        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground">
           <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-buzzr-accent/60" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-buzzr-accent" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground/60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-foreground" />
           </span>
           listening
         </span>
@@ -40,7 +40,7 @@ export function EventTicker() {
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
               className="grid grid-cols-[54px_auto_1fr] items-center gap-3 border-b border-white/[0.04] py-2.5 last:border-b-0"
             >
-              <span className="font-mono text-[10px] tabular-nums text-buzzr-ink-60">
+              <span className="font-mono text-[10px] tabular-nums text-muted">
                 {e.ts}
               </span>
               <span
@@ -61,7 +61,7 @@ export function EventTicker() {
           ))}
         </AnimatePresence>
         {rows.length === 0 && (
-          <li className="flex h-full items-center justify-center text-[11px] font-light text-buzzr-ink-60">
+          <li className="flex h-full items-center justify-center text-[11px] font-light text-muted">
             Waiting on the first tick…
           </li>
         )}

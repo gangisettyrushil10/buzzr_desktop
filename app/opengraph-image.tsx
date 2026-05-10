@@ -7,7 +7,7 @@ import { join } from 'node:path';
  * Uses the stored transparent brand mark so social previews match the app.
  */
 
-export const alt = 'Buzzr — Rate sports games by entertainment.';
+export const alt = 'Buzzr, Rate sports games by entertainment.';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -67,7 +67,7 @@ export default async function OpengraphImage() {
               color: '#ffffff'
             }}
           >
-            Swipe<span style={{ color: '#00e676' }}>.</span> Rate<span style={{ color: '#00e676' }}>.</span> Engage<span style={{ color: '#00e676' }}>.</span>
+            Scroll<span style={{ color: '#00e676' }}>.</span> Rate<span style={{ color: '#00e676' }}>.</span> Engage<span style={{ color: '#00e676' }}>.</span>
           </div>
           <div
             style={{
@@ -94,7 +94,7 @@ export default async function OpengraphImage() {
           }}
         >
           <div style={{ display: 'flex', letterSpacing: '0.08em' }}>
-            NBA · NFL · EPL · NCAAB · F1 · MLS · ESPORTS
+            NBA · NFL · EPL · NCAAM · F1 · MLS · ESPORTS
           </div>
           <div
             style={{

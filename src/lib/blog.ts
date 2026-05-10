@@ -99,3 +99,41 @@ export function formatPublishedDate(iso: string): string {
     day: 'numeric'
   });
 }
+
+/** Slugify a tag for the URL: "Engineering" → "engineering", "Product Management" → "product-management". */
+export function tagSlug(tag: string): string {
+  return tag.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+/** All distinct tag slugs, sorted alphabetically. */
+export function getAllTagSlugs(): string[] {
+  const set = new Set<string>();
+  for (const post of getAllPosts()) {
+    for (const tag of post.tags) set.add(tagSlug(tag));
+  }
+  return Array.from(set).sort();
+}
+
+/** Posts filtered by tag slug. */
+export function getPostsByTagSlug(slug: string): Post[] {
+  return getAllPosts().filter((p) => p.tags.some((t) => tagSlug(t) === slug));
+}
+
+/** Best-effort label resolution from a tag slug ("engineering" → "Engineering"). Falls back to slug. */
+export function tagLabelFromSlug(slug: string): string {
+  for (const post of getAllPosts()) {
+    for (const tag of post.tags) {
+      if (tagSlug(tag) === slug) return tag;
+    }
+  }
+  return slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+/** Approximate word count of an MDX body (strips MDX/Markdown punctuation). */
+export function wordCount(body: string): number {
+  return body
+    .replace(/```[\s\S]*?```/g, ' ')        // strip code fences
+    .replace(/[#*_`>~\[\]()!|-]/g, ' ')      // strip md punctuation
+    .split(/\s+/)
+    .filter(Boolean).length;
+}

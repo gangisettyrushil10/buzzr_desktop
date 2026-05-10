@@ -3,7 +3,7 @@
 import { useBuzzScene } from '@/src/hooks/useBuzzScene';
 
 /**
- * AuraBadge — web port of the mobile app's `AuraRing` (Skia sweep-gradient).
+ * AuraBadge, web port of the mobile app's `AuraRing` (Skia sweep-gradient).
  * On web we fake the conic sweep with a CSS `conic-gradient` rotated via the
  * `border-conic` keyframes that already live in globals.css.
  */
@@ -15,8 +15,8 @@ export function AuraBadge() {
   const dotColor = s.periodLabel === 'FINAL' ? 'rgb(0 230 118)' : 'rgb(239 68 68)';
 
   return (
-    <div className="relative flex h-full w-full flex-col rounded-card p-6">
-      <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-mutedForeground">
+    <div className="relative flex h-full w-full flex-col rounded-none p-6">
+      <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted">
         Live badge
       </span>
 
@@ -27,8 +27,8 @@ export function AuraBadge() {
             ['--aura-period' as string]: `${period}ms`
           }}
         >
-          <span aria-hidden className="aura-ring absolute inset-0 rounded-pill" />
-          <span className="relative z-10 inline-flex items-center gap-2 rounded-pill bg-black/55 px-4 py-2 font-mono text-xs font-bold uppercase tracking-[0.28em] text-foreground backdrop-blur-sm">
+          <span aria-hidden className="aura-ring absolute inset-0 rounded-full" />
+          <span className="relative z-10 inline-flex items-center gap-2 rounded-full bg-black/55 px-4 py-2 font-mono text-xs font-bold uppercase tracking-[0.28em] text-foreground backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
               {label === 'LIVE' && (
                 <span

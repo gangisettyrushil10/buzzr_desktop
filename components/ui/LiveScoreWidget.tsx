@@ -185,7 +185,7 @@ export function LiveScoreWidget() {
   return (
     <div
       ref={ref}
-      className="liquid-glass relative w-full max-w-[380px] overflow-hidden rounded-2xl"
+      className="bg-canvas border border-surface relative w-full max-w-[380px] overflow-hidden rounded-2xl"
     >
       {/* Team-color gradient wash , away → home */}
       <AnimatePresence mode="wait">
@@ -246,7 +246,7 @@ export function LiveScoreWidget() {
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
             </span>
             <span className="font-mono tabular-nums text-red-400">LIVE</span>
-            <span className="font-mono tabular-nums text-mutedForeground">{game.clock}</span>
+            <span className="font-mono tabular-nums text-muted">{game.clock}</span>
           </div>
         </div>
 
@@ -261,7 +261,7 @@ export function LiveScoreWidget() {
             className="mb-5 flex items-center justify-between gap-3"
           >
             <TeamBlock team={game.away} leading={awayLeads} />
-            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-mutedForeground">@</span>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-muted">@</span>
             <TeamBlock team={game.home} leading={!awayLeads} align="right" />
           </motion.div>
         </AnimatePresence>
@@ -269,11 +269,11 @@ export function LiveScoreWidget() {
         {/* Rate action: giant score + live slider filling up */}
         <div className="mb-4">
           <div className="mb-1 flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-mutedForeground">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
               Rate this game
             </span>
             <span
-              className="rounded-pill px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.18em]"
+              className="rounded-full px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.18em]"
               style={{ background: `${band.color}22`, color: band.color }}
             >
               {band.label}
@@ -283,30 +283,30 @@ export function LiveScoreWidget() {
           <div className="mb-3 flex items-baseline justify-between">
             <div className="flex items-baseline leading-none tabular-nums">
               <span
-                className="font-display text-[72px] font-light leading-none tracking-[-0.045em] transition-colors"
+                className="font-sans text-[72px] font-light leading-none tracking-[-0.045em] transition-colors"
                 style={{ color: band.color, textShadow: `0 0 24px ${band.color}66` }}
               >
                 {intPart}
               </span>
               <span className="text-[40px] font-light leading-none" style={{ color: band.color }}>.</span>
               <span
-                className="font-display text-[72px] font-light leading-none tracking-[-0.045em] transition-colors"
+                className="font-sans text-[72px] font-light leading-none tracking-[-0.045em] transition-colors"
                 style={{ color: band.color, textShadow: `0 0 24px ${band.color}66` }}
               >
                 {decPart}
               </span>
             </div>
-            <span className="font-mono text-[11px] tabular-nums text-mutedForeground">/ 10</span>
+            <span className="font-mono text-[11px] tabular-nums text-muted">/ 10</span>
           </div>
 
-          {/* Auto-animating rate slider — fills from 0 to game.buzz */}
-          <div className="relative mb-3 h-1.5 overflow-hidden rounded-pill bg-white/[0.06]">
+          {/* Auto-animating rate slider, fills from 0 to game.buzz */}
+          <div className="relative mb-3 h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
             <motion.div
               key={`fill-${idx}`}
               initial={{ width: '0%' }}
               animate={{ width: `${((buzz - 1) / 9) * 100}%` }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-y-0 left-0 rounded-pill"
+              className="absolute inset-y-0 left-0 rounded-full"
               style={{
                 background: band.color,
                 boxShadow: `0 0 12px ${band.color}88`
@@ -318,12 +318,12 @@ export function LiveScoreWidget() {
               initial={{ left: '0%' }}
               animate={{ left: `${((buzz - 1) / 9) * 100}%` }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="pointer-events-none absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-cool-md"
+              className="pointer-events-none absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white"
               style={{ background: band.color }}
             />
           </div>
 
-          <div className="flex items-center justify-between text-[9px] font-mono uppercase tracking-wider text-mutedForeground">
+          <div className="flex items-center justify-between text-[9px] font-mono uppercase tracking-wider text-muted">
             <span>1</span>
             <span>drag to rate</span>
             <span>10</span>
@@ -335,7 +335,7 @@ export function LiveScoreWidget() {
           <ReactionCount emoji="🔥" value={fire} />
           <ReactionCount emoji="💯" value={hundred} />
           <ReactionCount emoji="❄️" value={game.ice} />
-          <span className="text-mutedForeground">{game.fans} fans</span>
+          <span className="text-muted">{game.fans} fans</span>
         </div>
       </div>
 
@@ -382,11 +382,11 @@ function TeamBlock({
         {team.code}
       </span>
       <div className={`flex min-w-0 flex-col ${align === 'right' ? 'items-end' : 'items-start'}`}>
-        <span className={`truncate text-[10px] font-medium uppercase tracking-wider ${leading ? 'text-foreground' : 'text-mutedForeground'}`}>
+        <span className={`truncate text-[10px] font-medium uppercase tracking-wider ${leading ? 'text-foreground' : 'text-muted'}`}>
           {team.name}
         </span>
         <span
-          className={`font-display text-[36px] font-light leading-none tabular-nums ${leading ? 'text-foreground' : 'text-mutedForeground'}`}
+          className={`font-sans text-[36px] font-light leading-none tabular-nums ${leading ? 'text-foreground' : 'text-muted'}`}
         >
           {team.score}
         </span>

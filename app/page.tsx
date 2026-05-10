@@ -3,28 +3,30 @@ import {
   ALTERNATE_NAME,
   APP_STORE_URL,
   BASE_URL,
+  COMPANY_NAME,
   INSTAGRAM_URL,
   SITE_NAME,
   SITE_TAGLINE,
   TWITTER_URL
 } from '@/src/lib/constants';
+import { BrandAura } from '@/components/BrandAura';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { Hero } from '@/components/sections/Hero';
-import { SwipeSection } from '@/components/sections/SwipeSection';
+import { ScrollSection } from '@/components/sections/ScrollSection';
 import { SurfacesGrid } from '@/components/sections/SurfacesGrid';
 import { Highlights } from '@/components/sections/Highlights';
 import { DataBento } from '@/components/sections/DataBento';
 import { RateMission } from '@/components/sections/RateMission';
 import { LeaguesWall } from '@/components/sections/LeaguesWall';
 import { Faq } from '@/components/sections/Faq';
-import { Reviews } from '@/components/sections/Reviews';
+import { Reviews, REVIEWS_SUMMARY } from '@/components/sections/Reviews';
 import { LatestPosts } from '@/components/sections/LatestPosts';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 import { BRAND_ASSETS } from '@/src/lib/brandAssets';
 
 const PAGE_TITLE = `${SITE_NAME} · Rate sports games by entertainment`;
 const PAGE_DESCRIPTION =
-  'Rate live sports games by entertainment, not the final score. Chaos, energy, drama across NBA, NFL, EPL, NCAAB, F1, MLS, esports and more. Free iOS app.';
+  'Rate live sports games by entertainment, not the final score. 47 leagues across 12 sports, NBA, NFL, EPL, NCAAM, F1, ATP, WTA, MLS, esports, cricket, and more. Free on iOS and Android.';
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
@@ -36,20 +38,28 @@ export const metadata: Metadata = {
     'entertainment score',
     'Buzzr Score',
     'live game ratings',
-    'NBA game ratings',
+    'NBA Finals ratings',
     'NFL entertainment rating',
-    'NBA Finals 2026',
     'FIFA World Cup 2026',
+    'NBA Playoffs brackets',
+    'DFS bet tracker',
+    'PrizePicks tracker',
+    'Underdog tracker',
     'sports social app',
     'sports group chat'
   ],
-  alternates: { canonical: '/' },
+  alternates: {
+    canonical: '/',
+    languages: { 'en-US': BASE_URL, 'x-default': BASE_URL },
+    types: { 'application/rss+xml': `${BASE_URL}/blog/rss.xml` }
+  },
   openGraph: {
     type: 'website',
     url: BASE_URL,
     siteName: SITE_NAME,
     title: PAGE_TITLE,
-    description: PAGE_DESCRIPTION
+    description: PAGE_DESCRIPTION,
+    locale: 'en_US'
   },
   twitter: {
     card: 'summary_large_image',
@@ -77,15 +87,7 @@ export default function HomePage() {
     name: SITE_NAME,
     alternateName: ALTERNATE_NAME,
     url: BASE_URL,
-    description: PAGE_DESCRIPTION,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${BASE_URL}/blog?q={search_term_string}`
-      },
-      'query-input': 'required name=search_term_string'
-    }
+    description: PAGE_DESCRIPTION
   };
 
   const softwareLd = {
@@ -94,11 +96,25 @@ export default function HomePage() {
     name: `${SITE_NAME} ${ALTERNATE_NAME.split(' ')[1] ?? ''}`.trim(),
     alternateName: ALTERNATE_NAME,
     applicationCategory: 'SportsApplication',
-    operatingSystem: 'iOS, Android',
+    operatingSystem: ['iOS', 'Android'],
     description: PAGE_DESCRIPTION,
     url: BASE_URL,
     downloadUrl: APP_STORE_URL,
     installUrl: APP_STORE_URL,
+    image: `${BASE_URL}/opengraph-image`,
+    screenshot: [`${BASE_URL}/opengraph-image`],
+    author: {
+      '@type': 'Organization',
+      name: COMPANY_NAME,
+      url: BASE_URL
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: REVIEWS_SUMMARY.rating.toFixed(1),
+      reviewCount: String(REVIEWS_SUMMARY.count),
+      bestRating: '5',
+      worstRating: '1'
+    },
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -126,12 +142,13 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }}
       />
 
+      <BrandAura />
       <Hero />
       <ScrollReveal>
         <RateMission />
       </ScrollReveal>
       <ScrollReveal>
-        <SwipeSection />
+        <ScrollSection />
       </ScrollReveal>
       <ScrollReveal>
         <SurfacesGrid />

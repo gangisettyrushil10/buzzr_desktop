@@ -134,7 +134,7 @@ export function SwipeStack() {
   const rotate         = useTransform(x, [-200, 0, 200], [-12, 0, 12]);
   const savedOpacity   = useTransform(x, [0, 100], [0, 1]);
   const skippedOpacity = useTransform(x, [-100, 0], [1, 0]);
-  // Emerald / red edge-glow intensity while dragging — cleaner than rubber stamps.
+  // Emerald / red edge-glow intensity while dragging, cleaner than rubber stamps.
   const savedGlow   = useTransform(x, [0, 120], [0, 0.7]);
   const skippedGlow = useTransform(x, [-120, 0], [0.7, 0]);
 
@@ -217,7 +217,7 @@ export function SwipeStack() {
             whileTap={isTop ? { cursor: 'grabbing' } : undefined}
           >
             <div
-              className="liquid-glass relative h-full overflow-hidden rounded-2xl"
+              className="bg-canvas border border-surface relative h-full overflow-hidden rounded-2xl"
               style={{
                 background: cardBackground(card)
               }}
@@ -244,7 +244,7 @@ export function SwipeStack() {
                   <motion.span
                     style={{ opacity: savedOpacity }}
                     aria-hidden
-                    className="pointer-events-none absolute right-5 top-5 z-30 font-mono text-[11px] font-black uppercase tracking-[0.32em] text-buzzr-accent"
+                    className="pointer-events-none absolute right-5 top-5 z-30 font-mono text-[11px] font-black uppercase tracking-[0.32em] text-foreground"
                   >
                     Save
                   </motion.span>
@@ -374,7 +374,7 @@ function GameBody({ card }: { card: GameCard }) {
           logo={awayLogo}
           leading={awayLead}
         />
-        <span className="font-mono text-[10px] font-medium uppercase tracking-wider text-mutedForeground">@</span>
+        <span className="font-mono text-[10px] font-medium uppercase tracking-wider text-muted">@</span>
         <TeamColumn
           code={card.home.code}
           name={card.home.name}
@@ -391,11 +391,11 @@ function GameBody({ card }: { card: GameCard }) {
       {/* Buzz row: band-colored giant score + pill label + reactions */}
       <div className="relative">
         <div className="mb-1 flex items-center justify-between">
-          <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-mutedForeground">
+          <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted">
             Buzzr Score
           </div>
           <span
-            className="rounded-pill px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.18em]"
+            className="rounded-full px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.18em]"
             style={{ background: `${bColor}28`, color: bColor }}
           >
             {bLabel}
@@ -403,14 +403,14 @@ function GameBody({ card }: { card: GameCard }) {
         </div>
         <div className="flex items-end justify-between">
           <div
-            className="font-display text-[56px] font-light leading-none tabular-nums"
+            className="font-sans text-[56px] font-light leading-none tabular-nums"
             style={{ color: bColor, textShadow: `0 0 18px ${bColor}55` }}
           >
             {card.buzz.toFixed(1)}
           </div>
           <div className="flex items-center gap-2.5 pb-1.5 font-mono text-[10px] tabular-nums">
             <span className="inline-flex items-center gap-0.5 text-[#f97316]">🔥 {card.fire}</span>
-            <span className="text-mutedForeground">· {card.hint.split('·')[0].trim()}</span>
+            <span className="text-muted">· {card.hint.split('·')[0].trim()}</span>
           </div>
         </div>
       </div>
@@ -465,14 +465,14 @@ function TeamColumn({
         )}
       </span>
       <div className={`flex items-baseline gap-2 ${align === 'right' ? 'flex-row-reverse' : ''}`}>
-        <span className={`font-display text-[22px] font-light leading-none tabular-nums ${leading ? 'text-foreground' : 'text-mutedForeground'}`}>
+        <span className={`font-sans text-[22px] font-light leading-none tabular-nums ${leading ? 'text-foreground' : 'text-muted'}`}>
           {code}
         </span>
-        <span className={`font-display text-[32px] font-light leading-none tabular-nums ${leading ? 'text-foreground' : 'text-mutedForeground/70'}`}>
+        <span className={`font-sans text-[32px] font-light leading-none tabular-nums ${leading ? 'text-foreground' : 'text-muted'}`}>
           {score}
         </span>
       </div>
-      <span className="truncate text-[10px] font-light leading-tight text-mutedForeground">
+      <span className="truncate text-[10px] font-light leading-tight text-muted">
         {name} · {record}
       </span>
       {/* Form dots */}
@@ -506,29 +506,29 @@ function NewsBody({ card }: { card: NewsCard }) {
     <div className="relative flex h-full flex-col gap-4 p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-white/92 px-1 font-mono text-[8px] font-bold uppercase tracking-[0.08em] text-buzzr-ink-10 ring-1 ring-white/20">
+          <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-white/92 px-1 font-mono text-[8px] font-bold uppercase tracking-[0.08em] text-canvas ring-1 ring-white/20">
             {initials}
           </span>
           <span className="font-medium text-[10px] uppercase tracking-[0.22em] text-foreground">
             {card.outlet} · {card.timeAgo}
           </span>
         </div>
-        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-buzzr-accent">
+        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-foreground">
           News
         </span>
       </div>
 
-      <div className="font-display text-[24px] font-medium leading-[1.12] tracking-[-0.025em] text-foreground">
+      <div className="font-sans text-[24px] font-medium leading-[1.12] tracking-[-0.025em] text-foreground">
         {card.headline}
       </div>
 
-      <div className="mt-auto text-[12px] font-light leading-relaxed text-mutedForeground">
+      <div className="mt-auto text-[12px] font-light leading-relaxed text-muted">
         {card.summary}
       </div>
 
-      <div className="flex items-center justify-between pt-2 text-[10px] font-light text-mutedForeground">
+      <div className="flex items-center justify-between pt-2 text-[10px] font-light text-muted">
         <span className="inline-flex items-center gap-1.5">
-          <span className="h-1 w-1 rounded-full bg-buzzr-accent" />
+          <span className="h-1 w-1 rounded-full bg-foreground" />
           AI-summarized · 3 s read
         </span>
         <span className="font-mono">read ↗</span>
@@ -547,26 +547,26 @@ function TakeBody({ card }: { card: TakeCard }) {
           Hot take · {card.timeAgo}
         </span>
         <div className="flex items-center gap-3 font-mono text-[10px] tabular-nums">
-          <span className="text-buzzr-accent">🔥 {card.fire}</span>
-          <span className="text-mutedForeground">🧊 {card.cold}</span>
+          <span className="text-foreground">🔥 {card.fire}</span>
+          <span className="text-muted">🧊 {card.cold}</span>
         </div>
       </div>
 
       <div className="flex items-center gap-2">
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-buzzr-accent/85 text-[11px] font-medium text-buzzr-onAccent">
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-foreground/85 text-[11px] font-medium text-canvas">
           {card.user.slice(0, 2).toUpperCase()}
         </span>
         <div className="flex flex-col">
           <span className="text-[12px] font-medium text-foreground">@{card.user}</span>
-          <span className="text-[10px] font-light text-mutedForeground">Pulse · community</span>
+          <span className="text-[10px] font-light text-muted">Swarm · community</span>
         </div>
       </div>
 
-      <div className="font-display text-[24px] font-medium leading-[1.15] tracking-[-0.02em] text-foreground">
+      <div className="font-sans text-[24px] font-medium leading-[1.15] tracking-[-0.02em] text-foreground">
         “{card.body}”
       </div>
 
-      <div className="mt-auto flex items-center justify-between text-[10px] font-light text-mutedForeground">
+      <div className="mt-auto flex items-center justify-between text-[10px] font-light text-muted">
         <span>Reply to argue ↗</span>
         <span className="font-mono">{card.fire - card.cold > 0 ? `+${card.fire - card.cold}` : card.fire - card.cold}</span>
       </div>

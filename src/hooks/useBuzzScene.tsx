@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * useBuzzScene — one master clock that drives every widget in the DataBento
+ * useBuzzScene, one master clock that drives every widget in the DataBento
  * section. All cards subscribe to the same timeline so they tell *one*
  * 8-second story of a single basketball moment (OKC @ DEN, 4Q → OT → FINAL)
  * in lockstep.
@@ -299,7 +299,7 @@ function ratingBand(score: number) {
   return BANDS.find((b) => score >= b.min) ?? BANDS[BANDS.length - 1];
 }
 
-/** Pollen level thresholds: simple sqrt scale — 100 XP to Lv2, then quadratic. */
+/** Pollen level thresholds: simple sqrt scale, 100 XP to Lv2, then quadratic. */
 function pollenLevel(total: number): { level: number; floor: number; ceiling: number } {
   // Thresholds: 0, 100, 260, 480, 760, 1100, 1500, 1960, 2480, 3060
   const thresholds = [0, 100, 260, 480, 760, 1100, 1500, 1960, 2480, 3060, 3700];
@@ -357,7 +357,7 @@ function computeScene(tMs: number, reduceMotion: boolean, running: boolean): Sce
   const span = Math.max(1, b.t - a.t);
   const x = clamp01((t - a.t) / span);
 
-  // Scores step at keyframe boundaries — no mid-play counts.
+  // Scores step at keyframe boundaries, no mid-play counts.
   const awayScore = a.awayScore;
   const homeScore = a.homeScore;
 

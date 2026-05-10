@@ -1,0 +1,128 @@
+---
+title: "Shipping Buzzr Bets: how we OCR'd every PrizePicks and Underdog slip"
+description: "A deep dive into the engineering behind Buzzr's DFS tracker, Claude Vision OCR, linkage v2, scoreboard-direct settlement, and the auto-grading pipeline shipping across NBA, NFL, MLB, NHL."
+publishedAt: "2026-05-09"
+readingTime: 14
+author: "Buzzr Editorial"
+tags: ["Engineering", "Product"]
+cover:
+  src: "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=1600&auto=format&fit=crop&q=80"
+  alt: "Close-up of a smartphone screen showing a stats dashboard, lit warmly from below."
+  credit: "Maxim Hopman on Unsplash"
+  creditUrl: "https://unsplash.com/@nampoh"
+---
+
+Sports fans were already doing this without us: take a screenshot of a PrizePicks or Underdog slip, drop it in the group chat, and argue. **Buzzr Bets** is the version where the screenshot becomes structured data, every leg parsed, every leg linked to a real game, every bet auto-graded as scores come in.
+
+This post walks through the engineering: the OCR pipeline, the linkage problem, the settlement watcher, and the calls that turned out to matter. By the end, you'll understand how a $0-cost-to-the-user feature settles thousands of legs a night across NBA, NFL, MLB, and NHL.
+
+## The product, in one paragraph
+
+You snap a betslip from PrizePicks or Underdog. Buzzr OCRs the image into structured legs (`player`, `prop`, `over/under`, `line`, `boost`, `odds`). Each leg gets matched to a real `gameId` in our database via a same-teams + same-date + closest-time matcher (Linkage v2). Once linkage lands, the settlement watcher polls the scoreboard and grades each leg as `pending → won/lost/void` the moment the game ends or the prop resolves. Manual entry is available too. Crew bet pools and public leaderboards hang off the same data layer.
+
+What it is **not**: a sportsbook integration. Buzzr places no bets, takes no rake, has no affiliate links. It's a tracker for what users do elsewhere. That distinction matters in code (clean separation of concerns), in product (different positioning than DraftKings clones), and in App Store review (different category, different compliance bar).
+
+## The OCR pipeline
+
+The hardest part of bet tracking is reliably reading a screenshot of a slip. PrizePicks and Underdog have different layouts, both update them every few months, and users send screenshots in every conceivable orientation, crop, and resolution.
+
+We tried two providers before landing on the third:
+
+1. **Apple Vision** (iOS native, free), fast, works offline, but loses structure. Returns a flat array of strings; reconstructing the relationship between a player name and a prop on the same row is brittle. Worked for ~70% of slips. Kept as a fallback in Expo Go.
+2. **Custom OCR + heuristic parser**, we tried regexes over Apple Vision output. Adequate for clean PrizePicks slips, broke instantly on Underdog and on any boost row. Time invested: 4 days. Output: deleted.
+3. **Claude Vision via OpenRouter**, ships structured JSON in one shot. Reads layout. Knows what a "boost" pill means. ~99% parse accuracy on a 200-slip benchmark.
+
+The pipeline is server-side. The image hits a `betslips` Supabase Storage bucket, an Edge Function picks it up, sends it to Claude with a system prompt and a `zod` schema as the response shape, and writes the parsed legs back to a `betslip_parse_cache` table keyed by image hash. Subsequent uploads of the same image short-circuit to the cache.
+
+A few non-obvious calls:
+
+- **Constrain `bookClassification` strictly to PrizePicks or Underdog.** Early on the model would sometimes output `"FanDuel"` from a Underdog slip with FanDuel-shaped text in a footer. Adding `bookClassification: z.enum(['PrizePicks', 'Underdog'])` to the schema force-filtered hallucinations.
+- **`zod.parse` is cheap; trusting the model is expensive.** Every parsed slip runs through full schema validation. If validation fails, the slip lands in a `pending_review` table for the team to inspect. We've manually reviewed about 0.4% of slips since launch, every one of them taught us a tighter schema rule.
+- **Stamp `gameDate`, `gameStartTime`, `dayOfWeek`, `stateCode` extracted from the slip.** Underdog slips show local times; PrizePicks shows the player and team logos. We extract every signal the slip surfaces and use them later for linkage.
+
+## Linkage v2: matching legs to real games
+
+This was the part that almost killed the feature.
+
+A parsed leg looks like:
+
+```
+{ player: "Stephen Curry", prop: "Points", overUnder: "over", line: 27.5, gameStartTime: "20:00", stateCode: "CA" }
+```
+
+We need to find the row in `games` that this leg belongs to so we can grade it. The naïve approach, match by player name and date, fails the moment a player has two games on different days that week, or two players share a name across leagues. The next attempt, match by `(playerName, gameDate, league)`, fails because slips don't always include the league.
+
+**Linkage v2** runs a four-stage match:
+
+1. Resolve the player's team(s) for that date via our roster snapshot.
+2. Find every game on that date involving any of those teams.
+3. Filter to games where `Math.abs(slipStartTime - actualStartTime) < 90` minutes.
+4. Pick the closest match. If multiple candidates remain, prefer the one whose `stateCode` matches the slip's extracted state code.
+
+The closest-time fallback turned out to be load-bearing. Saturday-night betting often has multiple players on multiple teams playing the same evening; the start-time tiebreak resolved 100% of the previously-ambiguous cases in our dev data set.
+
+We also kept a manual override. If linkage can't find a confident match (no game in the candidate window, or two equally-good matches), the leg lands in a `pending_linkage` state and the user picks the right game in the UI. The picker is server-driven so we can update the candidate list without shipping a new client.
+
+## Settlement: the scoreboard watcher
+
+Once a leg has a `gameId`, settlement is mostly mechanical. We poll the scoreboard for that game; when the game's `status === 'final'` (or, for player props, when the player's stat line is locked), we grade the leg.
+
+The watcher anchors its grading window on `linkage.gameStartsAt` rather than the current wall-clock time. This sounds tiny; it matters a lot. Without anchoring, a watcher that booted up 3 hours late (because the user opened the app late) would think the game was "live" and start polling forever. With anchoring, the watcher knows: this game starts at 8:00 PM PT on May 4, and I should poll between 8:00 PM and 4:00 AM the next day, no longer.
+
+A few more details that matter at scale:
+
+- **Parlay grading + fuzzy team match.** Underdog parlays grade as one bet; we evaluate every leg first, then collapse to a parlay outcome (`won` only if all legs win, `void` if any leg voids and removes from the parlay according to book rules).
+- **Fuzzy team match.** Slips occasionally show team abbreviations the OCR misreads (`MIN` → `M1N` once, no joke). We accept any abbreviation within edit distance 1 of a known team, double-checked against the player's actual team for the date.
+- **Pre-warm sportsbooks reference.** A cron pre-warms our `sportsbooks` reference table at 4 AM ET so the morning of NBA games we have fresh logos and metadata cached.
+- **`cleanup-betslips` cron.** A separate cron evicts the parse cache for slips older than 30 days and clears the storage bucket. Saves cost and avoids stale parses surviving across model upgrades.
+
+The watcher runs as a Supabase Edge Function on a 60-second tick during game windows, dropping to a 5-minute tick outside windows. End-to-end, a leg goes from "scoreboard says final" to "graded in the user's bet detail screen" in under 90 seconds in the median case.
+
+## Manual entry, when OCR fails
+
+Some users prefer to type. Some users have books that aren't PrizePicks or Underdog. Manual entry is a first-class path.
+
+We built two pickers: a **player picker** (typeahead over a 100k+ player roster, pg_trgm-indexed for sub-100ms lookups) and a **game picker** (today's slate, filterable by league). Both are server-driven and reused across the OCR-but-needs-confirmation path. So a user who snaps a slip with one ambiguous leg gets the same picker UI to resolve it that a user typing from scratch gets.
+
+The verify card surfaces every parsed field and a `missing-game-time` row when linkage failed. In v1.5 the watcher anchors on `linkage.gameStartsAt` even when the game time was OCR'd from the slip rather than our DB, so manual-entry bets and OCR'd bets follow the exact same code path through settlement. One pipeline, no special cases.
+
+## Crew bet pools + public leaderboards
+
+The data layer underneath all this powers two social features:
+
+- **Crew bet pool dashboard.** A squad's bets aggregate into a pool view: total wagered, ROI, hit rate, top legs, and a leaderboard. We back it with a per-user materialized view that refreshes on settlement events, no on-the-fly aggregation in the bet list query path.
+- **Public leaderboards + tail/fade.** Opt-in. Users with public profiles surface their settled bets; the leaderboard ranks by ROI over a rolling window. Tap any user to see their last 30 days of grades. Tail/fade is a stub for v1.5+ (we have the data; we don't have the UX yet).
+
+Both features ship the moment auto-grading is live for a league, because they're functions of the underlying `bets` table and the `settlement` events.
+
+## What we deliberately didn't build
+
+Some calls in DFS feel obvious in retrospect because of what we didn't ship:
+
+1. **No book integration.** No login flows, no API keys, no OAuth. Book integration is the gateway to a different product (a sportsbook tracker) with a different compliance bar.
+2. **No money UX.** No deposit, withdraw, "would have won" projections in dollars. Wager amounts are user-entered; payouts are leg-graded. Anything that simulates a bookkeeping product would invite a different kind of regulatory review.
+3. **No "should I bet this?" prompts.** Buzzr does fair-line and edge calculations, surfaces them on the bet detail screen, and stops there. We don't *recommend* picks. The product is a tracker, not a tout.
+
+These are positioning calls, not capacity calls. The team could build any of them in two weeks. We're choosing not to.
+
+## What's next for v1.5+
+
+- **More leagues.** Auto-grading is live for the four major US leagues; soccer (EPL + UCL props) is queued for v1.5.
+- **Tail/fade UX.** The data is there; the social loop isn't yet.
+- **DFS insights v2.** Per-prop ROI, per-book hit rate, week-over-week deltas. Some of this is already on `/bets/insights`.
+- **Web parity.** The empty-state web entry point is live; full bet flows on web are queued.
+
+Every commit that landed this is in the [changelog](/changelog) under v1.4.0 and v1.4.1 RC. The `git log` for the four-day push that built the OCR pipeline is exactly the kind of thing we wanted to preserve when we built the two-tier changelog.
+
+## Some honest reflections
+
+If you're building anything that OCRs user-uploaded images:
+
+- **Use the best model.** Claude Vision was 4x more accurate than our heuristic parser and 2x more reliable than Apple Vision on this task. The cost per slip is a few cents. The cost of a wrong parse is a wrong grade and a furious user. Use the best model.
+- **Validate with `zod` (or your stack's equivalent) every single time.** If the model returns a field outside the schema, you want a typed error, not a runtime crash three steps downstream. The schema is your contract with the model.
+- **Anchor time-windowed cron work.** Boot-up time is not the same as event time. The watcher cares when the game starts, not when the watcher started.
+- **Decide what you're not building before you start.** Knowing we'd never integrate a book made every interface decision easier, auth shape, schema design, server boundaries.
+
+Buzzr Bets is the most engineering-heavy thing we've shipped to date and the most frequently opened feature on game day. Every part of it boils down to: read the slip well, link it correctly, grade it cleanly, and stay out of the user's way.
+
+If you want to see it in action, [download the app](https://apps.apple.com/us/app/buzzr-sports/id6760628256) and snap a slip. The full team writeup is in [Building Buzzr](/blog/building-buzzr).

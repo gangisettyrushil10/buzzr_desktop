@@ -7,7 +7,7 @@ import { useBuzzScene } from '@/src/hooks/useBuzzScene';
 import { readableTextColor } from '@/components/utils';
 
 /**
- * SceneScoreboard — the bento's hero card. One live NBA scoreboard driven
+ * SceneScoreboard, the bento's hero card. One live NBA scoreboard driven
  * entirely by the shared buzz-scene clock.
  */
 export function SceneScoreboard() {
@@ -18,7 +18,7 @@ export function SceneScoreboard() {
   const leagueBadgeText = readableTextColor('#F88D24');
 
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-card">
+    <div className="relative h-full w-full overflow-hidden rounded-none">
       {/* Team-color gradient wash */}
       <div
         aria-hidden
@@ -56,10 +56,10 @@ export function SceneScoreboard() {
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
               </span>
             )}
-            <span className={isFinal ? 'text-buzzr-accent' : 'text-red-400'}>
+            <span className={isFinal ? 'text-foreground' : 'text-red-400'}>
               {isFinal ? 'FINAL' : 'LIVE'}
             </span>
-            <span className="text-mutedForeground">{s.clock}</span>
+            <span className="text-muted">{s.clock}</span>
           </div>
         </div>
 
@@ -72,7 +72,7 @@ export function SceneScoreboard() {
             score={s.away.score}
             leading={awayLeads || tied}
           />
-          <span className="shrink-0 font-mono text-[10px] font-bold uppercase tracking-wider text-mutedForeground">
+          <span className="shrink-0 font-mono text-[10px] font-bold uppercase tracking-wider text-muted">
             @
           </span>
           <TeamBlock
@@ -94,13 +94,13 @@ export function SceneScoreboard() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="font-mono text-[10px] uppercase tracking-[0.22em] text-mutedForeground"
+              className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted"
             >
               {phaseLabel(s.phase)}
             </motion.span>
           </AnimatePresence>
           <span
-            className="rounded-pill px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.18em]"
+            className="rounded-full px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.18em]"
             style={{ background: `${s.bandColor}22`, color: s.bandColor }}
           >
             {s.bandLabel}
@@ -141,7 +141,7 @@ function TeamBlock({
         style={{ opacity: leading ? 1 : 0.55 }}
       >
         {logoBroken ? (
-          <span className="font-mono text-[10px] font-bold uppercase tracking-wide text-buzzr-ink-10">
+          <span className="font-mono text-[10px] font-bold uppercase tracking-wide text-canvas">
             {code}
           </span>
         ) : (
@@ -172,7 +172,7 @@ function TeamBlock({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 6, opacity: 0 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display text-[40px] font-light leading-none tabular-nums"
+            className="font-sans text-[40px] font-light leading-none tabular-nums"
             style={{ color: leading ? '#ffffff' : 'rgb(var(--muted-foreground))' }}
           >
             {score}

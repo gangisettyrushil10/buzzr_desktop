@@ -2,7 +2,7 @@
  *  avatar stack, member count, and a bracket rank stat line. */
 
 const MEMBERS = [
-  { name: 'sarveshjax', role: 'Host',   hue: 'rgb(var(--accent))' },
+  { name: 'sarveshjax', role: 'Host',   hue: 'var(--color-accent)' },
   { name: 'tori',       role: 'Member', hue: '#f59e0b' },
   { name: 'mk',         role: 'Member', hue: '#3b82f6' },
   { name: 'dev',        role: 'Member', hue: '#a855f7' }
@@ -14,14 +14,14 @@ export function SwarmRoster() {
       {/* Squad identity */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="mb-0.5 font-medium text-[8px] uppercase tracking-[0.22em] text-buzzr-accent">
+          <div className="mb-0.5 font-medium text-[8px] uppercase tracking-[0.22em] text-foreground">
             Squad · invite only
           </div>
-          <div className="font-display text-[18px] font-light leading-tight text-foreground">
+          <div className="font-sans text-[18px] font-light leading-tight text-foreground">
             Nine Below Zero
           </div>
         </div>
-        <div className="glass-chip rounded-pill px-2 py-0.5 text-[9px] font-medium tabular-nums text-mutedForeground">
+        <div className="bg-canvas border border-surface rounded-full px-2 py-0.5 text-[9px] font-medium tabular-nums text-muted">
           12 members
         </div>
       </div>
@@ -31,26 +31,26 @@ export function SwarmRoster() {
         {MEMBERS.map((m) => (
           <span
             key={m.name}
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-buzzr-background text-[9px] font-medium text-buzzr-onAccent"
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-canvas text-[9px] font-medium text-canvas"
             style={{ background: m.hue }}
             title={m.name}
           >
             {m.name.slice(0, 2).toUpperCase()}
           </span>
         ))}
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-buzzr-background bg-white/[0.06] text-[9px] font-medium text-mutedForeground">
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-canvas bg-white/[0.06] text-[9px] font-medium text-muted">
           +8
         </span>
       </div>
 
       {/* Bracket rank stat */}
-      <div className="glass-1 rounded-md p-3">
-        <div className="mb-1 font-medium text-[8px] uppercase tracking-[0.22em] text-mutedForeground">
+      <div className="bg-canvas border border-surface rounded-md p-3">
+        <div className="mb-1 font-medium text-[8px] uppercase tracking-[0.22em] text-muted">
           Bracket rank
         </div>
         <div className="flex items-baseline gap-2">
-          <span className="font-display text-[24px] font-light leading-none tabular-nums text-foreground">#3</span>
-          <span className="text-[10px] text-mutedForeground">of 12 · +180 pts</span>
+          <span className="font-sans text-[24px] font-light leading-none tabular-nums text-foreground">#3</span>
+          <span className="text-[10px] text-muted">of 12 · +180 pts</span>
         </div>
       </div>
     </div>

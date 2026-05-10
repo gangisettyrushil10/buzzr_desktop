@@ -78,7 +78,7 @@ export function SupportForm() {
     >
       <p
         id="support-form-description"
-        className="text-sm text-mutedForeground"
+        className="text-sm text-muted"
       >
         Fill out this form and we&apos;ll get back to you at{' '}
         <a className="underline" href={`mailto:${SUPPORT_EMAIL}`}>
@@ -126,7 +126,9 @@ export function SupportForm() {
 
       <Button
         type="submit"
+        variant="filled"
         disabled={status.type === 'submitting'}
+        className="self-start"
       >
         {status.type === 'submitting' ? 'Sending…' : 'Send message'}
       </Button>
@@ -137,10 +139,10 @@ export function SupportForm() {
         className="min-h-[1.25rem] text-sm"
       >
         {status.type === 'error' && (
-          <span className="text-red-300">{status.message}</span>
+          <span className="text-live">{status.message}</span>
         )}
         {status.type === 'success' && (
-          <span className="text-emerald-300">{status.message}</span>
+          <span className="text-foreground">{status.message}</span>
         )}
       </div>
     </form>

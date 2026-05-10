@@ -74,11 +74,19 @@ export function shareMetadata({
   canonical,
   description,
   title,
+  image,
 }: {
   canonical: string;
   description: string;
   title: string;
+  image?: { url: string; alt?: string; width?: number; height?: number };
 }): Metadata {
+  const ogImage = image ?? {
+    url: `${BASE_URL}/opengraph-image`,
+    alt: title,
+    width: 1200,
+    height: 630,
+  };
   return {
     title,
     description,
@@ -89,11 +97,13 @@ export function shareMetadata({
       siteName: SITE_NAME,
       title,
       description,
+      images: [ogImage],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [ogImage.url],
     },
   };
 }
